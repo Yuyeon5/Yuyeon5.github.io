@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      div.container {
+        width: 100%;
+      }
+      nav {
+        float: left;
+        max-width: 200px;
+        margin: 0;
+        padding: 1em;
+      }
+      nav ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      nav ul a {
+        text-decoration: none;
+      }
+      article {
+        margin-left: 200;
+        border-left: 1px solid gray;
+        padding: 1em;
+        overflow: hidden;
+      }
+      #canvas {
+        background-color: #000;
+        margin-left: 200;
+        border-left: 1px solid gray;
+        padding: 1em;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <nav>
+      <ul>
+        <div id="category_Table_type">
+          <table class="category_table">
+            <tbody>
+              <tr>
+                <th>폭(W)</th>
+                <td>
+                  <select id="selectWidth" onchange="myFunction()">
+                    <option value="700">선택</option>
+                    <option value="700">W700</option>
+                    <option value="1000">W1000</option>
+                    <option value="1200">W1200</option>
+                    <option value="1400">W1400</option>
+                    <option value="1600">W1600</option>
+                    <option value="1800">W1800</option>
+                    <option value="2000">W2000</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>깊이(D)</th>
+                <td>
+                  <select id="selectDepth" onchange="myFunction()">
+                    <option value="500">선택</option>
+                    <option value="500">D500</option>
+                    <option value="600">D600</option>
+                    <option value="700">D700</option>
+                    <option value="800">D800</option>
+                    <option value="900">D900</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>상판색상</th>
+              </tr>
+              <tr>
+                <th>프레임색상</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ul>
+    </nav>
+    <div id="canvas">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.js"></script>
+    <script>
+      var camera, scene, renderer, mesh;
+      
+      container = document.getElementById( 'canvas' );
+      document.body.appendChild( container );
+         
+      camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+      camera.position.z = 400;
+         
+      renderer = new THREE.WebGLRenderer();
+      renderer.setPixelRatio( window.devicePixelRatio );
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      
+      container.appendChild( renderer.domElement );
+      
+      function myFunction() {
+        var width = document.getElementById( 'selectWidth' ).value / 10;
+        var depth = document.getElementById( 'selectDepth' ).value / 10;
+             
+        scene = new THREE.Scene();
+
+        var geometry = new THREE.BoxBufferGeometry( width, depth, 1 );
+        var material = new THREE.MeshBasicMaterial( );
+
+        mesh = new THREE.Mesh( geometry, material );
+        scene.add( mesh );
+
+        renderer.render( scene, camera );
+      }        
+         
+    </script>
+  </body>
+</html>
