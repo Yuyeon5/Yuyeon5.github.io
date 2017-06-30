@@ -89,31 +89,20 @@
     </nav>
     <div id="canvas">
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.js"></script>
     <script src="./TrackballControls.js"></script>
 
     <script>
       var container;
       var camera, controls, scene, renderer;
       var cross;
+
       init();
       animate();
 
       function init() {
         camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.z = 500;
-
-        controls = new THREE.TrackballControls( camera );
-
-        controls.rotateSpeed = 10.0;
-				controls.zoomSpeed = 1.2;
-				controls.panSpeed = 0.8;
-				controls.noZoom = false;
-				controls.noPan = false;
-				controls.staticMoving = true;
-				controls.dynamicDampingFactor = 0.3;
-
-        controls.addEventListener( 'change', render );
 
         // world
         scene = new THREE.Scene();
@@ -148,12 +137,47 @@
 
         container = document.getElementById('canvas');
         container.appendChild(renderer.domElement);
+
+        controls = new THREE.TrackballControls( camera , renderer.domElement);
+        controls.rotateSpeed = 30.0;
+				controls.zoomSpeed = 1.2;
+				controls.panSpeed = 0.8;
+				controls.noZoom = false;
+				controls.noPan = false;
+				controls.staticMoving = true;
+				controls.dynamicDampingFactor = 0.3;
+
+        controls.addEventListener( 'change', render );
+
         window.addEventListener('resize', onWindowResize, false);
 
         render();
       }
       function updateScene() {
-       
+       // world
+        scene = new THREE.Scene();
+
+        var width = document.getElementById('selectWidth').value;
+        var depth = document.getElementById('selectDepth').value;
+
+        var geometry = new THREE.BoxBufferGeometry(width, depth, 10);
+        var material = new THREE.MeshBasicMaterial();
+
+        board = new THREE.Mesh(geometry, material);
+        board.updateMatrix();
+        board.matrixAutoUpdate = false;
+
+        scene.add(board);
+
+        // lights
+        light = new THREE.DirectionalLight(0xffffff);
+        light.position.set(1, 1, 1);
+        scene.add(light);
+        light = new THREE.DirectionalLight(0x002288);
+        light.position.set(-1, -1, -1);
+        scene.add(light);
+        light = new THREE.AmbientLight(0x222222);
+        scene.add(light);
 
         render();
       }
