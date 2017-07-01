@@ -4,69 +4,94 @@
 <head>
   <meta charset="utf-8">
   <style>
-    div.container {
+    container {
       width: 100%;
     }
 
-    nav {
+    sidebar {
       float: left;
-      max-width: 200px;
+      width: 300px;
       margin: 0;
       padding: 1em;
     }
 
-    nav ul {
-      list-style-type: none;
+    #canvas {
+      background-color: #000;
+      margin-left: 300;
+      border-left: 1px solid gray;
+      padding: 1em;
+      overflow: hidden;
+    }
+
+    * {
+      border-style: none;
+      border-width: 0;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      font-family: Helvetica, Arial, sans-serif;
+      margin: 0;
+      outline: 0;
+      overflow: visible;
       padding: 0;
     }
 
-    nav ul a {
-      text-decoration: none;
+    .flat-radio .flat-radio-btn {
+      -webkit-background-clip: content-box;
+      background-clip: content-box;
+      background-color: #fff;
+      border-bottom: 1px solid #c4c4c4;
+      border-right: 1px solid #c4c4c4;
+      border-top: 1px solid #c4c4c4;
+      color: #aaa;
+      cursor: pointer;
+      float: left;
+      font-size: 12px;
+      line-height: 23px;
+      padding-left: 1px;
+      padding-top: 1px;
+      text-align: center;
     }
 
-    article {
-      margin-left: 200;
-      border-left: 1px solid gray;
-      padding: 1em;
-      overflow: hidden;
-    }
-
-    #canvas {
-      background-color: #000;
-      margin-left: 200;
-      border-left: 1px solid gray;
-      padding: 1em;
-      overflow: hidden;
+    .flat-radio .flat-radio-btn.first {
+      border-left: 1px solid #c4c4c4;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <nav>
-      <ul>
-        <div id="category_Table_type">
-          <table class="category_table">
-            <tbody>
-              <tr>
-                <th>폭(W)</th>
-                <td>
-                  <select id="selectWidth" onchange="updateScene()">
-                    <option value="700">선택</option>
-                    <option value="700">W700</option>
-                    <option value="1000">W1000</option>
-                    <option value="1200">W1200</option>
-                    <option value="1400">W1400</option>
-                    <option value="1600">W1600</option>
-                    <option value="1800">W1800</option>
-                    <option value="2000">W2000</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <th>깊이(D)</th>
-                <td>
-                  <select id="selectDepth" onchange="updateScene()">
+    <sidebar>
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" options="dimensionProperties.width" callback="setWidth"
+        model="dimensions.width">
+        <!-- ngIf: label -->
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">폭(W)</div>
+        <!-- end ngIf: label -->
+        <div class="flat-radio-buttons">
+          <!-- ngRepeat: entry in options -->
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setWidth(700)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">700</div>
+          <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setWidth(1000)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1000</div>
+          <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setWidth(1200)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1200</div>
+          <div id="Width_1400" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setWidth(1400)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1400</div>
+          <div id="Width_1600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setWidth(1600)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1600</div>
+          <div id="Width_1800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setWidth(1800)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1800</div>
+          <div id="Width_2000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setWidth(2000)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">2000</div>
+        </div>
+      </div>
+      <div id="category_Table_type">
+        <table class="category_table">
+          <tbody>
+            <tr>
+              <th>깊이(D)</th>
+              <td>
+                <select id="selectDepth" onchange="updateScene()">
                     <option value="500">선택</option>
                     <option value="500">D500</option>
                     <option value="600">D600</option>
@@ -74,22 +99,24 @@
                     <option value="800">D800</option>
                     <option value="900">D900</option>
                   </select>
-                </td>
-              </tr>
-              <tr>
-                <th>상판색상</th>
-              </tr>
-              <tr>
-                <th>프레임색상</th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </ul>
-    </nav>
+              </td>
+            </tr>
+            <tr>
+              <th>상판색상</th>
+            </tr>
+            <tr>
+              <th>프레임색상</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </sidebar>
+
     <div id="canvas">
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="./TrackballControls.js"></script>
 
     <script>
@@ -103,6 +130,8 @@
       var frame_thickness = 20;
       var frame_length = 720;
 
+      var board_width = 1200;
+
       init();
       animate();
 
@@ -112,7 +141,7 @@
         camera.position.y = 500;
         camera.position.z = 3000;
 
-        updateScene();
+        updateScene(1000);
 
         // renderer
         renderer = new THREE.WebGLRenderer({ antialias: false });
@@ -138,15 +167,21 @@
 
         render();
       }
+
+      function setWidth(w) {
+        board_width = w;
+        updateScene();
+        render();
+      }
+
       function updateScene() {
         // world
         scene = new THREE.Scene();
 
         // board
-        var width = document.getElementById('selectWidth').value;
         var depth = document.getElementById('selectDepth').value;
 
-        geometry = new THREE.BoxBufferGeometry(width, board_thickness, depth);
+        geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, depth);
         material = new THREE.MeshBasicMaterial();
         board = new THREE.Mesh(geometry, material);
         board.updateMatrix();
@@ -155,25 +190,25 @@
         // frame
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
         frame = new THREE.Mesh(geometry, material);
-        frame.position.x = - (width - frame_thickness) / 2;
+        frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - frame_length / 2;
         frame.position.z = - (depth - frame_thickness) / 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
-        frame.position.x = (width - frame_thickness) / 2;
+        frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - frame_length / 2;
         frame.position.z = - (depth - frame_thickness) / 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
-        frame.position.x = - (width - frame_thickness) / 2;
+        frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - frame_length / 2;
         frame.position.z = (depth - frame_thickness) / 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
-        frame.position.x = (width - frame_thickness) / 2;
+        frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - frame_length / 2;
         frame.position.z = (depth - frame_thickness) / 2;
         board.add(frame);
