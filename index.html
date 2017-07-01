@@ -85,6 +85,27 @@
             ng-style="{'width': buttonWidth};" onclick="setWidth(2000)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">2000</div>
         </div>
       </div>
+
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="depth" options="dimensionProperties.depth" callback="setDepth"
+        model="dimensions.depth">
+        <!-- ngIf: label -->
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">깊이(D)</div>
+        <!-- end ngIf: label -->
+        <div class="flat-radio-buttons">
+          <!-- ngRepeat: entry in options -->
+          <div id="Depth_500" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setDepth(500)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">500</div>
+          <div id="Depth_600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setDepth(600)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">600</div>
+          <div id="Depth_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setDepth(700)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">700</div>
+          <div id="Depth_800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setDepth(800)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">800</div>
+          <div id="Depth_900" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setDepth(900)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">900</div>
+        </div>
+      </div>
+
       <div id="category_Table_type">
         <table class="category_table">
           <tbody>
@@ -131,6 +152,7 @@
       var frame_length = 720;
 
       var board_width = 1200;
+      var board_depth = 700;
 
       init();
       animate();
@@ -174,14 +196,17 @@
         render();
       }
 
+      function setDepth(d) {
+        board_depth = d;
+        updateScene();
+        render();
+      }
+
       function updateScene() {
         // world
         scene = new THREE.Scene();
 
-        // board
-        var depth = document.getElementById('selectDepth').value;
-
-        geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, depth);
+        geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
         material = new THREE.MeshBasicMaterial();
         board = new THREE.Mesh(geometry, material);
         board.updateMatrix();
@@ -192,25 +217,25 @@
         frame = new THREE.Mesh(geometry, material);
         frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - frame_length / 2;
-        frame.position.z = - (depth - frame_thickness) / 2;
+        frame.position.z = - (board_depth - frame_thickness) / 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - frame_length / 2;
-        frame.position.z = - (depth - frame_thickness) / 2;
+        frame.position.z = - (board_depth - frame_thickness) / 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
         frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - frame_length / 2;
-        frame.position.z = (depth - frame_thickness) / 2;
+        frame.position.z = (board_depth - frame_thickness) / 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - frame_length / 2;
-        frame.position.z = (depth - frame_thickness) / 2;
+        frame.position.z = (board_depth - frame_thickness) / 2;
         board.add(frame);
 
         scene.add(board);
