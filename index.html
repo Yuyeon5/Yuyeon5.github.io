@@ -10,7 +10,7 @@
 
     sidebar {
       float: left;
-      width: 300px;
+      width: 350px;
       margin: 0;
       padding: 1em;
     }
@@ -62,8 +62,8 @@
 <body>
   <div class="container">
     <sidebar>
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" options="dimensionProperties.width" callback="setWidth"
-        model="dimensions.width">
+
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
         <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">폭(W)</div>
         <!-- end ngIf: label -->
@@ -86,8 +86,7 @@
         </div>
       </div>
 
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="depth" options="dimensionProperties.depth" callback="setDepth"
-        model="dimensions.depth">
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="depth" model="dimensions.depth">
         <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">깊이(D)</div>
         <!-- end ngIf: label -->
@@ -106,22 +105,32 @@
         </div>
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <!-- ngIf: label -->
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">상판색상</div>
+        <!-- end ngIf: label -->
+        <div class="flat-radio-buttons">
+          <!-- ngRepeat: entry in options -->
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xFFFFFF})" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">화이트</div>
+          <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0x101010})" ng-init="buttonWidth = setButtonWidth()" style="width: 12%;">블랙</div>
+          <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0x202020})" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">그레이</div>
+          <div id="Width_1400" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xEDE0D0})" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">내추럴</div>
+          <div id="Width_1600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xB49679})" ng-init="buttonWidth = setButtonWidth()" style="width: 12%;">파인</div>
+          <div id="Width_1800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xFFFFFF})" ng-init="buttonWidth = setButtonWidth()" style="width: 16%;">콘크리트</div>
+          <div id="Width_2000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xFFFFFF})" ng-init="buttonWidth = setButtonWidth()" style="width: 16%;">레드파인</div>
+        </div>
+      </div>
+
       <div id="category_Table_type">
         <table class="category_table">
           <tbody>
-            <tr>
-              <th>깊이(D)</th>
-              <td>
-                <select id="selectDepth" onchange="updateScene()">
-                    <option value="500">선택</option>
-                    <option value="500">D500</option>
-                    <option value="600">D600</option>
-                    <option value="700">D700</option>
-                    <option value="800">D800</option>
-                    <option value="900">D900</option>
-                  </select>
-              </td>
-            </tr>
             <tr>
               <th>상판색상</th>
             </tr>
@@ -144,15 +153,16 @@
       var container;
       var camera, controls, scene, renderer;
       var geometry, material;
+
       var board;
-      var frame;
-
       var board_thickness = 20;
-      var frame_thickness = 20;
-      var frame_length = 720;
-
       var board_width = 1200;
       var board_depth = 700;
+      var board_material = new THREE.MeshStandardMaterial();
+
+      var frame;
+      var frame_thickness = 20;
+      var frame_length = 720;
 
       init();
       animate();
@@ -175,13 +185,13 @@
         container.appendChild(renderer.domElement);
 
         controls = new THREE.TrackballControls(camera, renderer.domElement);
-        controls.rotateSpeed = 50.0;
+        controls.rotateSpeed = 20.0;
         controls.zoomSpeed = 1.2;
-        controls.panSpeed = 0.8;
+        controls.panSpeed = 1.8;
         controls.noZoom = false;
         controls.noPan = false;
         controls.staticMoving = true;
-        controls.dynamicDampingFactor = 0.3;
+        controls.dynamicDampingFactor = 1.0;
 
         controls.addEventListener('change', render);
 
@@ -202,13 +212,19 @@
         render();
       }
 
+      function setBoardColor(color) {
+        board_material = new THREE.MeshStandardMaterial(color);
+        updateScene();
+        render();
+      }
+
       function updateScene() {
         // world
         scene = new THREE.Scene();
 
         geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
-        material = new THREE.MeshBasicMaterial();
-        board = new THREE.Mesh(geometry, material);
+        material = new THREE.MeshPhongMaterial(0xFFFFFF);
+        board = new THREE.Mesh(geometry, board_material);
         board.updateMatrix();
         board.matrixAutoUpdate = false;
 
@@ -216,40 +232,44 @@
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
         frame = new THREE.Mesh(geometry, material);
         frame.position.x = - (board_width - frame_thickness) / 2;
-        frame.position.y = - frame_length / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
-        board.add(frame);
+        scene.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
         frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - frame_length / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
-        board.add(frame);
+        scene.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
         frame.position.x = - (board_width - frame_thickness) / 2;
-        frame.position.y = - frame_length / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
-        board.add(frame);
+        scene.add(frame);
 
         frame = new THREE.Mesh(geometry, material);
         frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - frame_length / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
-        board.add(frame);
+        scene.add(frame);
 
         scene.add(board);
 
-        // lights
-        light = new THREE.DirectionalLight(0xffffff);
-        light.position.set(1, 1, 1);
-        scene.add(light);
-        light = new THREE.DirectionalLight(0x002288);
-        light.position.set(-1, -1, -1);
-        scene.add(light);
-        light = new THREE.AmbientLight(0x222222);
-        scene.add(light);
+        var lights = [];
+        lights[0] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[1] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[2] = new THREE.PointLight(0xffffff, 1, 0);
+
+        lights[0].position.set(0, 4000, 0);
+        lights[1].position.set(2000, 4000, 2000);
+        lights[2].position.set(- 2000, - 4000, - 2000);
+
+        scene.add(lights[0]);
+        scene.add(lights[1]);
+        scene.add(lights[2]);
       }
+
       function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
