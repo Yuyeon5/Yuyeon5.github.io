@@ -128,18 +128,23 @@
         </div>
       </div>
 
-      <div id="category_Table_type">
-        <table class="category_table">
-          <tbody>
-            <tr>
-              <th>상판색상</th>
-            </tr>
-            <tr>
-              <th>프레임색상</th>
-            </tr>
-          </tbody>
-        </table>
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <!-- ngIf: label -->
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">프레임색상</div>
+        <!-- end ngIf: label -->
+        <div class="flat-radio-buttons">
+          <!-- ngRepeat: entry in options -->
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setFrameColor({color:0xFFFFFF})" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">화이트</div>
+          <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setFrameColor({color:0x101010})" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">블랙</div>
+          <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setFrameColor({color:0x202020})" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">그레이</div>
+          
+        </div>
       </div>
+
+      
     </sidebar>
 
     <div id="canvas">
@@ -163,6 +168,7 @@
       var frame;
       var frame_thickness = 20;
       var frame_length = 720;
+      var frame_material = new THREE.MeshStandardMaterial();
 
       init();
       animate();
@@ -212,8 +218,14 @@
         render();
       }
 
-      function setBoardColor(color) {
-        board_material = new THREE.MeshStandardMaterial(color);
+      function setBoardColor(m) {
+        board_material = new THREE.MeshStandardMaterial(m);
+        updateScene();
+        render();
+      }
+
+      function setFrameColor(m) {
+        frame_material = new THREE.MeshStandardMaterial(m);
         updateScene();
         render();
       }
@@ -223,32 +235,31 @@
         scene = new THREE.Scene();
 
         geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
-        material = new THREE.MeshPhongMaterial(0xFFFFFF);
         board = new THREE.Mesh(geometry, board_material);
         board.updateMatrix();
         board.matrixAutoUpdate = false;
 
         // frame
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
-        frame = new THREE.Mesh(geometry, material);
+        frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
         scene.add(frame);
 
-        frame = new THREE.Mesh(geometry, material);
+        frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
         scene.add(frame);
 
-        frame = new THREE.Mesh(geometry, material);
+        frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
         scene.add(frame);
 
-        frame = new THREE.Mesh(geometry, material);
+        frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
@@ -260,14 +271,20 @@
         lights[0] = new THREE.PointLight(0xffffff, 1, 0);
         lights[1] = new THREE.PointLight(0xffffff, 1, 0);
         lights[2] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[3] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[4] = new THREE.PointLight(0xffffff, 1, 0);
 
         lights[0].position.set(0, 4000, 0);
-        lights[1].position.set(2000, 4000, 2000);
-        lights[2].position.set(- 2000, - 4000, - 2000);
-
+        lights[1].position.set(4000, 0, 0);
+        lights[2].position.set(-4000, 0, 0);
+        lights[3].position.set(0, 0, -4000);
+        lights[4].position.set(0, 0, 4000);
+        
         scene.add(lights[0]);
         scene.add(lights[1]);
         scene.add(lights[2]);
+        scene.add(lights[3]);
+        scene.add(lights[4]);
       }
 
       function onWindowResize() {
