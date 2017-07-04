@@ -112,19 +112,19 @@
         <div class="flat-radio-buttons">
           <!-- ngRepeat: entry in options -->
           <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xFFFFFF})" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">화이트</div>
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">화이트</div>
           <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0x101010})" ng-init="buttonWidth = setButtonWidth()" style="width: 12%;">블랙</div>
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 12%;">블랙</div>
           <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0x202020})" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">그레이</div>
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">그레이</div>
           <div id="Width_1400" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xEDE0D0})" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">내추럴</div>
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor(4)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">내추럴</div>
           <div id="Width_1600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xB49679})" ng-init="buttonWidth = setButtonWidth()" style="width: 12%;">파인</div>
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor(5)" ng-init="buttonWidth = setButtonWidth()" style="width: 12%;">파인</div>
           <div id="Width_1800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xFFFFFF})" ng-init="buttonWidth = setButtonWidth()" style="width: 16%;">콘크리트</div>
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor(6)" ng-init="buttonWidth = setButtonWidth()" style="width: 16%;">콘크리트</div>
           <div id="Width_2000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor({color:0xFFFFFF})" ng-init="buttonWidth = setButtonWidth()" style="width: 16%;">레드파인</div>
+            ng-style="{'width': buttonWidth};" onclick="setBoardColor(7)" ng-init="buttonWidth = setButtonWidth()" style="width: 16%;">레드파인</div>
         </div>
       </div>
 
@@ -135,11 +135,11 @@
         <div class="flat-radio-buttons">
           <!-- ngRepeat: entry in options -->
           <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setFrameColor({color:0xFFFFFF})" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">화이트</div>
+            ng-style="{'width': buttonWidth};" onclick="setFrameColor(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">화이트</div>
           <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setFrameColor({color:0x101010})" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">블랙</div>
+            ng-style="{'width': buttonWidth};" onclick="setFrameColor(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">블랙</div>
           <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setFrameColor({color:0x202020})" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">그레이</div>
+            ng-style="{'width': buttonWidth};" onclick="setFrameColor(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">그레이</div>
           
         </div>
       </div>
@@ -157,18 +157,22 @@
     <script>
       var container;
       var camera, controls, scene, renderer;
-      var geometry, material;
+      var geometry, material, texture;
+
+      var white_color = 0xf8f9fb;
+      var black_color = 0x21201e;
+      var gray_color = 0x6f6f6f;
 
       var board;
       var board_thickness = 30;
       var board_width = 1200;
       var board_depth = 700;
-      var board_material = new THREE.MeshStandardMaterial();
+      var board_material = new THREE.MeshStandardMaterial({color: white_color});
 
       var frame;
       var frame_thickness = 30;
       var frame_length = 720;
-      var frame_material = new THREE.MeshStandardMaterial();
+      var frame_material = new THREE.MeshStandardMaterial({color: white_color});
 
       init();
       animate();
@@ -191,7 +195,7 @@
         container.appendChild(renderer.domElement);
 
         controls = new THREE.TrackballControls(camera, renderer.domElement);
-        controls.rotateSpeed = 20.0;
+        controls.rotateSpeed = 10.0;
         controls.zoomSpeed = 1.2;
         controls.panSpeed = 1.8;
         controls.noZoom = false;
@@ -218,14 +222,39 @@
         render();
       }
 
-      function setBoardColor(m) {
-        board_material = new THREE.MeshStandardMaterial(m);
+      function getMaterial(color_code) {
+        var material;
+
+        switch (color_code) {
+          case 1:
+            material = new THREE.MeshStandardMaterial({color:white_color});
+            return material;
+          case 2:
+            material = new THREE.MeshStandardMaterial({color:black_color});
+            return material;
+          case 3:
+            material = new THREE.MeshStandardMaterial({color:gray_color});
+            return material;
+          case 4:
+            texture = new THREE.TextureLoader().load('texture/natural.jpg');
+            texture.minFilter = THREE.LinearFilter;
+
+            material = new THREE.MeshBasicMaterial({map:texture});
+            return material;  
+          default:
+            material = new THREE.MeshStandardMaterial({color:white_color});
+            return material;
+        }
+      }      
+
+      function setBoardColor(c) {
+        board_material = getMaterial(c);
         updateScene();
         render();
       }
 
-      function setFrameColor(m) {
-        frame_material = new THREE.MeshStandardMaterial(m);
+      function setFrameColor(c) {
+        frame_material = getMaterial(c);
         updateScene();
         render();
       }
