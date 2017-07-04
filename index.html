@@ -152,11 +152,11 @@
           <!-- ngRepeat: entry in options -->
           <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
             ng-style="{'width': buttonWidth};" onclick="setVertical(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">없음</div>
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
             ng-style="{'width': buttonWidth};" onclick="setVertical(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">640</div>
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
             ng-style="{'width': buttonWidth};" onclick="setVertical(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">920</div>
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
             ng-style="{'width': buttonWidth};" onclick="setVertical(4)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">1860</div>
           
         </div>
@@ -205,6 +205,10 @@
       var vertical;
       var vertical_length;
       var vertical_y;
+
+      var shelf;
+      var shelf_depth = 200;
+      var shelf_num;
 
       init();
       animate();
@@ -376,6 +380,11 @@
           scene.add(vertical);
 
           // default shelf
+          geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, shelf_depth);
+          shelf = new THREE.Mesh(geometry, board_material);
+          shelf.position.y =  vertical_y + vertical_length / 2;
+          shelf.position.z = - (board_depth + shelf_depth) / 2 ;
+          scene.add(shelf);
         }
 
         // light
