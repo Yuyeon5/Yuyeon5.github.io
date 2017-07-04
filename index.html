@@ -238,9 +238,23 @@
           case 4:
             texture = new THREE.TextureLoader().load('texture/natural.jpg');
             texture.minFilter = THREE.LinearFilter;
-
             material = new THREE.MeshBasicMaterial({map:texture});
-            return material;  
+            return material;
+          case 5:
+            texture = new THREE.TextureLoader().load('texture/pine.jpg');
+            texture.minFilter = THREE.LinearFilter;
+            material = new THREE.MeshBasicMaterial({map:texture});
+            return material;
+          case 6:
+            texture = new THREE.TextureLoader().load('texture/concrete.jpg');
+            texture.minFilter = THREE.LinearFilter;
+            material = new THREE.MeshBasicMaterial({map:texture});
+            return material;
+          case 7:
+            texture = new THREE.TextureLoader().load('texture/redpine.jpg');
+            texture.minFilter = THREE.LinearFilter;
+            material = new THREE.MeshBasicMaterial({map:texture});
+            return material;
           default:
             material = new THREE.MeshStandardMaterial({color:white_color});
             return material;
