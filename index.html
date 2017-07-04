@@ -183,7 +183,7 @@
         </div>
       </div>
 
-      
+
     </sidebar>
 
     <div id="canvas">
@@ -216,12 +216,12 @@
       var board_thickness = 30;
       var board_width = 1200;
       var board_depth = 700;
-      var board_material = new THREE.MeshStandardMaterial({color: white_color});
+      var board_material = new THREE.MeshStandardMaterial({ color: white_color });
 
       var frame;
       var frame_thickness = 30;
       var frame_length = 650;
-      var frame_material = new THREE.MeshStandardMaterial({color: white_color});
+      var frame_material = new THREE.MeshStandardMaterial({ color: white_color });
 
       var vertical;
       var vertical_length;
@@ -285,31 +285,31 @@
 
         switch (color_code) {
           case 1:
-            material = new THREE.MeshStandardMaterial({color:white_color});
+            material = new THREE.MeshStandardMaterial({ color: white_color });
             return material;
           case 2:
-            material = new THREE.MeshStandardMaterial({color:black_color});
+            material = new THREE.MeshStandardMaterial({ color: black_color });
             return material;
           case 3:
-            material = new THREE.MeshStandardMaterial({color:gray_color});
+            material = new THREE.MeshStandardMaterial({ color: gray_color });
             return material;
           case 4:
-            material = new THREE.MeshStandardMaterial({map:texture_natural});
+            material = new THREE.MeshStandardMaterial({ map: texture_natural });
             return material;
           case 5:
-            material = new THREE.MeshStandardMaterial({map:texture_pine});
+            material = new THREE.MeshStandardMaterial({ map: texture_pine });
             return material;
           case 6:
-            material = new THREE.MeshStandardMaterial({map:texture_concrete});
+            material = new THREE.MeshStandardMaterial({ map: texture_concrete });
             return material;
           case 7:
-            material = new THREE.MeshStandardMaterial({map:texture_redpine});
+            material = new THREE.MeshStandardMaterial({ map: texture_redpine });
             return material;
           default:
-            material = new THREE.MeshStandardMaterial({color:white_color});
+            material = new THREE.MeshStandardMaterial({ color: white_color });
             return material;
         }
-      }      
+      }
 
       function setBoardColor(c) {
         board_material = getMaterial(c);
@@ -354,11 +354,6 @@
 
       function setShelfNum(n) {
         shelf_num = n;
-
-        if (shelf_num > shelf_max_num) {
-          shelf_num = shelf_max_num;
-        }
-
         updateScene();
         render();
       }
@@ -402,18 +397,22 @@
 
         // vertical
         if (vertical_length > 0) {
+          if (shelf_num > shelf_max_num) {
+            shelf_num = shelf_max_num;
+          }
+
           geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
           vertical = new THREE.Mesh(geometry, frame_material);
           vertical.position.x = - (board_width - frame_thickness) / 2;
-          vertical.position.y =  vertical_y;
-          vertical.position.z = - (board_depth + frame_thickness + 5) / 2 ;
+          vertical.position.y = vertical_y;
+          vertical.position.z = - (board_depth + frame_thickness + 6) / 2;
           scene.add(vertical);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
           vertical = new THREE.Mesh(geometry, frame_material);
           vertical.position.x = + (board_width - frame_thickness) / 2;
-          vertical.position.y =  vertical_y;
-          vertical.position.z = - (board_depth + frame_thickness + 5) / 2 ;
+          vertical.position.y = vertical_y;
+          vertical.position.z = - (board_depth + frame_thickness + 6) / 2;
           scene.add(vertical);
 
           // shelves
@@ -421,12 +420,25 @@
           for (i = 0; i < shelf_num; i++) {
             geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, shelf_depth);
             shelf = new THREE.Mesh(geometry, board_material);
-            shelf.position.y =  vertical_y + vertical_length * (0.5 - i / shelf_num);
-            shelf.position.z = - (board_depth + shelf_depth) / 2 ;
+            shelf.position.y = vertical_y + vertical_length * (0.5 - i / shelf_num);
+            shelf.position.z = - (board_depth + shelf_depth) / 2;
             scene.add(shelf);
           }
 
           // safety leg
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.x = - (board_width - frame_thickness) / 2;
+          frame.position.y = - frame_length;
+          frame.position.z = - (board_depth + shelf_depth) / 2;
+          scene.add(frame);
+
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.x = + (board_width - frame_thickness) / 2;
+          frame.position.y = - frame_length;
+          frame.position.z = - (board_depth + shelf_depth) / 2;
+          scene.add(frame);
         }
 
         // light
@@ -442,7 +454,7 @@
         lights[2].position.set(-4000, 0, 0);
         lights[3].position.set(0, 0, -4000);
         lights[4].position.set(0, 0, 4000);
-        
+
         scene.add(lights[0]);
         scene.add(lights[1]);
         scene.add(lights[2]);
@@ -457,10 +469,12 @@
         controls.handleResize();
         render();
       }
+
       function animate() {
         requestAnimationFrame(animate);
         controls.update();
       }
+      
       function render() {
         renderer.render(scene, camera);
       }
