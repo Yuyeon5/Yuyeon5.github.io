@@ -157,11 +157,21 @@
     <script>
       var container;
       var camera, controls, scene, renderer;
-      var geometry, material, texture;
+      var geometry, material;
 
       var white_color = 0xf8f9fb;
       var black_color = 0x21201e;
       var gray_color = 0x6f6f6f;
+
+      var texture_natural = new THREE.TextureLoader().load('texture/natural.jpg');
+      var texture_pine = new THREE.TextureLoader().load('texture/pine.jpg');
+      var texture_concrete = new THREE.TextureLoader().load('texture/concrete.jpg');
+      var texture_redpine = new THREE.TextureLoader().load('texture/redpine.jpg');
+
+      texture_natural.minFilter = THREE.LinearFilter;
+      texture_pine.minFilter = THREE.LinearFilter;
+      texture_concrete.minFilter = THREE.LinearFilter;
+      texture_redpine.minFilter = THREE.LinearFilter;
 
       var board;
       var board_thickness = 30;
@@ -236,24 +246,16 @@
             material = new THREE.MeshStandardMaterial({color:gray_color});
             return material;
           case 4:
-            texture = new THREE.TextureLoader().load('texture/natural.jpg');
-            texture.minFilter = THREE.LinearFilter;
-            material = new THREE.MeshBasicMaterial({map:texture});
+            material = new THREE.MeshStandardMaterial({map:texture_natural});
             return material;
           case 5:
-            texture = new THREE.TextureLoader().load('texture/pine.jpg');
-            texture.minFilter = THREE.LinearFilter;
-            material = new THREE.MeshBasicMaterial({map:texture});
+            material = new THREE.MeshStandardMaterial({map:texture_pine});
             return material;
           case 6:
-            texture = new THREE.TextureLoader().load('texture/concrete.jpg');
-            texture.minFilter = THREE.LinearFilter;
-            material = new THREE.MeshBasicMaterial({map:texture});
+            material = new THREE.MeshStandardMaterial({map:texture_concrete});
             return material;
           case 7:
-            texture = new THREE.TextureLoader().load('texture/redpine.jpg');
-            texture.minFilter = THREE.LinearFilter;
-            material = new THREE.MeshBasicMaterial({map:texture});
+            material = new THREE.MeshStandardMaterial({map:texture_redpine});
             return material;
           default:
             material = new THREE.MeshStandardMaterial({color:white_color});
