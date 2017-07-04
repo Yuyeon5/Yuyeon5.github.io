@@ -144,6 +144,24 @@
         </div>
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <!-- ngIf: label -->
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">수직부재</div>
+        <!-- end ngIf: label -->
+        <div class="flat-radio-buttons">
+          <!-- ngRepeat: entry in options -->
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setVertical(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">없음</div>
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setVertical(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">640</div>
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setVertical(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">920</div>
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setVertical(4)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">1860</div>
+          
+        </div>
+      </div>
+
       
     </sidebar>
 
@@ -181,8 +199,12 @@
 
       var frame;
       var frame_thickness = 30;
-      var frame_length = 720;
+      var frame_length = 650;
       var frame_material = new THREE.MeshStandardMaterial({color: white_color});
+
+      var vertical;
+      var vertical_length;
+      var vertical_y;
 
       init();
       animate();
@@ -275,16 +297,43 @@
         render();
       }
 
+      function setVertical(c) {
+        switch (c) {
+          case 1:
+            vertical_length = 0;
+            break;
+          case 2:
+            vertical_length = 640;
+            vertical_y = -70;
+            break;
+          case 3:
+            vertical_length = 920;
+            vertical_y = -150;
+            break;
+          case 4:
+            vertical_length = 1860;
+            vertical_y = 350;
+            break;
+          default:
+            vertical_length = 0;
+            break;
+        }
+        updateScene();
+        render();
+      }
+
       function updateScene() {
         // world
         scene = new THREE.Scene();
 
+        // board
         geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
         board = new THREE.Mesh(geometry, board_material);
         board.updateMatrix();
         board.matrixAutoUpdate = false;
+        scene.add(board);
 
-        // frame
+        // frame (leg)
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
@@ -310,8 +359,26 @@
         frame.position.z = (board_depth - frame_thickness) / 2;
         scene.add(frame);
 
-        scene.add(board);
+        // vertical
+        if (vertical_length > 0) {
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
+          vertical = new THREE.Mesh(geometry, frame_material);
+          vertical.position.x = - (board_width - frame_thickness) / 2;
+          vertical.position.y =  vertical_y;
+          vertical.position.z = - (board_depth + frame_thickness + 5) / 2 ;
+          scene.add(vertical);
 
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
+          vertical = new THREE.Mesh(geometry, frame_material);
+          vertical.position.x = + (board_width - frame_thickness) / 2;
+          vertical.position.y =  vertical_y;
+          vertical.position.z = - (board_depth + frame_thickness + 5) / 2 ;
+          scene.add(vertical);
+
+          // default shelf
+        }
+
+        // light
         var lights = [];
         lights[0] = new THREE.PointLight(0xffffff, 1, 0);
         lights[1] = new THREE.PointLight(0xffffff, 1, 0);
