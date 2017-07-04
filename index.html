@@ -140,7 +140,6 @@
             ng-style="{'width': buttonWidth};" onclick="setFrameColor(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">블랙</div>
           <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
             ng-style="{'width': buttonWidth};" onclick="setFrameColor(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">그레이</div>
-          
         </div>
       </div>
 
@@ -158,7 +157,29 @@
             ng-style="{'width': buttonWidth};" onclick="setVertical(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">920</div>
           <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
             ng-style="{'width': buttonWidth};" onclick="setVertical(4)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">1860</div>
-          
+        </div>
+      </div>
+
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
+        <!-- ngIf: label -->
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">선반 갯수</div>
+        <!-- end ngIf: label -->
+        <div class="flat-radio-buttons">
+          <!-- ngRepeat: entry in options -->
+          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setShelfNum(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1</div>
+          <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setShelfNum(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">2</div>
+          <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setShelfNum(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">3</div>
+          <div id="Width_1400" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setShelfNum(4)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">4</div>
+          <div id="Width_1600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setShelfNum(5)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">5</div>
+          <div id="Width_1800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setShelfNum(6)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">6</div>
+          <div id="Width_2000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
+            ng-style="{'width': buttonWidth};" onclick="setShelfNum(7)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">7</div>
         </div>
       </div>
 
@@ -208,7 +229,8 @@
 
       var shelf;
       var shelf_depth = 200;
-      var shelf_num;
+      var shelf_num = 1;
+      var shelf_max_num = 1;
 
       init();
       animate();
@@ -309,19 +331,34 @@
           case 2:
             vertical_length = 640;
             vertical_y = -70;
+            shelf_max_num = 3;
             break;
           case 3:
             vertical_length = 920;
             vertical_y = -150;
+            shelf_max_num = 5;
             break;
           case 4:
             vertical_length = 1860;
             vertical_y = 350;
+            shelf_max_num = 7;
             break;
           default:
             vertical_length = 0;
             break;
         }
+
+        updateScene();
+        render();
+      }
+
+      function setShelfNum(n) {
+        shelf_num = n;
+
+        if (shelf_num > shelf_max_num) {
+          shelf_num = shelf_max_num;
+        }
+
         updateScene();
         render();
       }
@@ -379,12 +416,17 @@
           vertical.position.z = - (board_depth + frame_thickness + 5) / 2 ;
           scene.add(vertical);
 
-          // default shelf
-          geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, shelf_depth);
-          shelf = new THREE.Mesh(geometry, board_material);
-          shelf.position.y =  vertical_y + vertical_length / 2;
-          shelf.position.z = - (board_depth + shelf_depth) / 2 ;
-          scene.add(shelf);
+          // shelves
+          var i;
+          for (i = 0; i < shelf_num; i++) {
+            geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, shelf_depth);
+            shelf = new THREE.Mesh(geometry, board_material);
+            shelf.position.y =  vertical_y + vertical_length * (0.5 - i / shelf_num);
+            shelf.position.z = - (board_depth + shelf_depth) / 2 ;
+            scene.add(shelf);
+          }
+
+          // safety leg
         }
 
         // light
