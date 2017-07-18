@@ -212,6 +212,10 @@
       texture_concrete.minFilter = THREE.LinearFilter;
       texture_redpine.minFilter = THREE.LinearFilter;
 
+      var plane;
+      var plane_size = 10000;
+      var plane_material = new THREE.MeshBasicMaterial( {color: white_color} );
+
       var board;
       var board_thickness = 30;
       var board_width = 1200;
@@ -248,7 +252,7 @@
 
         // renderer
         renderer = new THREE.WebGLRenderer({ antialias: false });
-        renderer.setClearColor(0);
+        renderer.setClearColor(white_color);
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -365,11 +369,16 @@
         // world
         scene = new THREE.Scene();
 
+        // plane
+        geometry = new THREE.PlaneGeometry(plane_size, plane_size);
+        plane = new THREE.Mesh(geometry, plane_material);
+        plane.rotation.x = -0.5 * Math.PI;
+        scene.add(plane);
+
         // board
         geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
         board = new THREE.Mesh(geometry, board_material);
-        board.updateMatrix();
-        board.matrixAutoUpdate = false;
+        board.position.y = frame_length + board_thickness;
         scene.add(board);
 
         // frame (leg)
@@ -378,10 +387,10 @@
         frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
-        scene.add(frame);
+        board.add(frame);
 
         // leg pad
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 2 + 5, frame_thickness * 2);
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y -= (frame_length / 2 - 10);
         frame.add(leg_pad);
@@ -390,9 +399,9 @@
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
-        scene.add(frame);
+        board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 2 + 5, frame_thickness * 2);
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y -= (frame_length / 2 - 10);
         frame.add(leg_pad);
@@ -401,9 +410,9 @@
         frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
-        scene.add(frame);
+        board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 2 + 5, frame_thickness * 2);
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y -= (frame_length / 2 - 10);
         frame.add(leg_pad);
@@ -412,9 +421,9 @@
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
-        scene.add(frame);
+        board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 2 + 5, frame_thickness * 2);
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y -= (frame_length / 2 - 10);
         frame.add(leg_pad);
@@ -430,14 +439,14 @@
           vertical.position.x = - (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
           vertical.position.z = - (board_depth + frame_thickness + 6) / 2;
-          scene.add(vertical);
+          board.add(vertical);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
           vertical = new THREE.Mesh(geometry, frame_material);
           vertical.position.x = + (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
           vertical.position.z = - (board_depth + frame_thickness + 6) / 2;
-          scene.add(vertical);
+          board.add(vertical);
 
           // shelves
           var i;
@@ -446,7 +455,7 @@
             shelf = new THREE.Mesh(geometry, board_material);
             shelf.position.y = vertical_y + vertical_length * (0.5 - i / shelf_num);
             shelf.position.z = - (board_depth + shelf_depth) / 2;
-            scene.add(shelf);
+            board.add(shelf);
           }
 
           // safety leg
@@ -455,35 +464,25 @@
           frame.position.x = - (board_width - frame_thickness) / 2;
           frame.position.y = - frame_length;
           frame.position.z = - (board_depth + shelf_depth) / 2;
-          scene.add(frame);
+          board.add(frame);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
           frame = new THREE.Mesh(geometry, frame_material);
           frame.position.x = + (board_width - frame_thickness) / 2;
           frame.position.y = - frame_length;
           frame.position.z = - (board_depth + shelf_depth) / 2;
-          scene.add(frame);
+          board.add(frame);
         }
 
         // light
         var lights = [];
         lights[0] = new THREE.PointLight(0xffffff, 1, 0);
-        lights[1] = new THREE.PointLight(0xffffff, 1, 0);
-        lights[2] = new THREE.PointLight(0xffffff, 1, 0);
-        lights[3] = new THREE.PointLight(0xffffff, 1, 0);
-        lights[4] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[1] = new THREE.AmbientLight(white_color);
 
-        lights[0].position.set(0, 4000, 0);
-        lights[1].position.set(4000, 0, 0);
-        lights[2].position.set(-4000, 0, 0);
-        lights[3].position.set(0, 0, -4000);
-        lights[4].position.set(0, 0, 4000);
+        lights[0].position.set(4000, 4000, 4000);
 
         scene.add(lights[0]);
         scene.add(lights[1]);
-        scene.add(lights[2]);
-        scene.add(lights[3]);
-        scene.add(lights[4]);
       }
 
       function onWindowResize() {
