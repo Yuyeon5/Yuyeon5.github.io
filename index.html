@@ -196,7 +196,7 @@
     <script>
       var container;
       var camera, controls, scene, renderer;
-      var geometry, material;
+      var geometry, geometry1, material;
 
       var white_color = 0xf8f9fb;
       var black_color = 0x21201e;
@@ -231,6 +231,9 @@
       var shelf_depth = 200;
       var shelf_num = 1;
       var shelf_max_num = 1;
+
+      var leg_pad;
+      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b});
 
       init();
       animate();
@@ -377,11 +380,22 @@
         frame.position.z = - (board_depth - frame_thickness) / 2;
         scene.add(frame);
 
+        // leg pad
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 2 + 5, frame_thickness * 2);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        leg_pad.position.y -= (frame_length / 2 - 10);
+        frame.add(leg_pad);
+
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
         scene.add(frame);
+
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 2 + 5, frame_thickness * 2);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        leg_pad.position.y -= (frame_length / 2 - 10);
+        frame.add(leg_pad);
 
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
@@ -389,11 +403,21 @@
         frame.position.z = (board_depth - frame_thickness) / 2;
         scene.add(frame);
 
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 2 + 5, frame_thickness * 2);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        leg_pad.position.y -= (frame_length / 2 - 10);
+        frame.add(leg_pad);
+
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
         scene.add(frame);
+
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 2 + 5, frame_thickness * 2);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        leg_pad.position.y -= (frame_length / 2 - 10);
+        frame.add(leg_pad);
 
         // vertical
         if (vertical_length > 0) {
