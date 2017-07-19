@@ -70,20 +70,13 @@
         <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
           <!-- ngRepeat: entry in options -->
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setWidth(700)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">700</div>
-          <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setWidth(1000)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1000</div>
-          <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setWidth(1200)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1200</div>
-          <div id="Width_1400" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setWidth(1400)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1400</div>
-          <div id="Width_1600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setWidth(1600)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1600</div>
-          <div id="Width_1800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setWidth(1800)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1800</div>
-          <div id="Width_2000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setWidth(2000)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">2000</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setWidth(700)" style="width: 14%;">700</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1000)" style="width: 14%;">1000</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1200)" style="width: 14%;">1200</div>
+          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1400)" style="width: 14%;">1400</div>
+          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1600)" style="width: 14%;">1600</div>
+          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1800)" style="width: 14%;">1800</div>
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(2000)" style="width: 14%;">2000</div>
         </div>
       </div>
 
@@ -93,16 +86,11 @@
         <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
           <!-- ngRepeat: entry in options -->
-          <div id="Depth_500" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setDepth(500)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">500</div>
-          <div id="Depth_600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setDepth(600)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">600</div>
-          <div id="Depth_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setDepth(700)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">700</div>
-          <div id="Depth_800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setDepth(800)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">800</div>
-          <div id="Depth_900" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setDepth(900)" ng-init="buttonWidth = setButtonWidth()" style="width: 20%;">900</div>
+          <div id="Depth_500" class="flat-radio-btn ng-binding ng-scope first" onclick="setDepth(500)" style="width: 20%;">500</div>
+          <div id="Depth_600" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(600)" style="width: 20%;">600</div>
+          <div id="Depth_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(700)" style="width: 20%;">700</div>
+          <div id="Depth_800" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(800)" style="width: 20%;">800</div>
+          <div id="Depth_900" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(900)" style="width: 20%;">900</div>
         </div>
       </div>
 
@@ -112,20 +100,13 @@
         <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
           <!-- ngRepeat: entry in options -->
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">화이트</div>
-          <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 12%;">블랙</div>
-          <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">그레이</div>
-          <div id="Width_1400" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor(4)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">내추럴</div>
-          <div id="Width_1600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor(5)" ng-init="buttonWidth = setButtonWidth()" style="width: 12%;">파인</div>
-          <div id="Width_1800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor(6)" ng-init="buttonWidth = setButtonWidth()" style="width: 16%;">콘크리트</div>
-          <div id="Width_2000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setBoardColor(7)" ng-init="buttonWidth = setButtonWidth()" style="width: 16%;">레드파인</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setBoardColor(1)" style="width: 14%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(2)" style="width: 12%;">블랙</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(3)" style="width: 14%;">그레이</div>
+          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(4)" style="width: 14%;">내추럴</div>
+          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(5)" style="width: 12%;">파인</div>
+          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(6)" style="width: 16%;">콘크리트</div>
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(7)" style="width: 16%;">레드파인</div>
         </div>
       </div>
 
@@ -135,12 +116,9 @@
         <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
           <!-- ngRepeat: entry in options -->
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setFrameColor(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">화이트</div>
-          <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setFrameColor(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">블랙</div>
-          <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setFrameColor(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 33%;">그레이</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setFrameColor(1)" style="width: 33%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setFrameColor(2)" style="width: 33%;">블랙</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setFrameColor(3)" style="width: 33%;">그레이</div>
         </div>
       </div>
 
@@ -150,14 +128,10 @@
         <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
           <!-- ngRepeat: entry in options -->
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setVertical(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">없음</div>
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setVertical(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">640</div>
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setVertical(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">920</div>
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setVertical(4)" ng-init="buttonWidth = setButtonWidth()" style="width: 25%;">1860</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setVertical(1)" style="width: 25%;">없음</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setVertical(2)" style="width: 25%;">640</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setVertical(3)" style="width: 25%;">920</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setVertical(4)" style="width: 25%;">1860</div>
         </div>
       </div>
 
@@ -167,20 +141,13 @@
         <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
           <!-- ngRepeat: entry in options -->
-          <div id="Width_700" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope first" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setShelfNum(1)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">1</div>
-          <div id="Width_1000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setShelfNum(2)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">2</div>
-          <div id="Width_1200" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setShelfNum(3)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">3</div>
-          <div id="Width_1400" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setShelfNum(4)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">4</div>
-          <div id="Width_1600" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setShelfNum(5)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">5</div>
-          <div id="Width_1800" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setShelfNum(6)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">6</div>
-          <div id="Width_2000" ng-repeat="entry in options" class="flat-radio-btn ng-binding ng-scope" ng-class="{'first': $first || (options.length > 7 &amp;&amp; $index == 4), 'last': $last, 'active': entry.value == model }"
-            ng-style="{'width': buttonWidth};" onclick="setShelfNum(7)" ng-init="buttonWidth = setButtonWidth()" style="width: 14%;">7</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setShelfNum(1)" style="width: 14%;">1</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(2)" style="width: 14%;">2</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(3)" style="width: 14%;">3</div>
+          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(4)" style="width: 14%;">4</div>
+          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(5)" style="width: 14%;">5</div>
+          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(6)" style="width: 14%;">6</div>
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(7)" style="width: 14%;">7</div>
         </div>
       </div>
 
@@ -251,8 +218,7 @@
         height = window.innerHeight;
 
         camera = new THREE.PerspectiveCamera(60, width / height, 1, 10000);
-        camera.position.x = 1000;
-        camera.position.y = 500;
+        camera.position.y = 1000;
         camera.position.z = 3000;
 
         updateScene();
