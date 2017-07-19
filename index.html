@@ -220,7 +220,7 @@
       var shelf_max_num = 1;
 
       var leg_pad;
-      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b });
+      //var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b });
 
       init();
       animate();
@@ -381,8 +381,8 @@
         board.add(frame);
 
         // leg pad
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
-        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+        leg_pad = new THREE.Mesh(geometry1, frame_material);
         leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
@@ -392,8 +392,8 @@
         frame.position.z = - (board_depth - frame_thickness) / 2;
         board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
-        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+        leg_pad = new THREE.Mesh(geometry1, frame_material);
         leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
@@ -403,8 +403,8 @@
         frame.position.z = (board_depth - frame_thickness) / 2;
         board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
-        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+        leg_pad = new THREE.Mesh(geometry1, frame_material);
         leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
@@ -414,8 +414,8 @@
         frame.position.z = (board_depth - frame_thickness) / 2;
         board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
-        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+        leg_pad = new THREE.Mesh(geometry1, frame_material);
         leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
@@ -500,12 +500,26 @@
           frame.position.z = - (board_depth + shelf_depth) / 2;
           board.add(frame);
 
+          // leg pad
+          geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+          leg_pad = new THREE.Mesh(geometry1, frame_material);
+          leg_pad.position.y = - frame_thickness / 2;
+          leg_pad.position.z = - (shelf_depth - frame_thickness )/ 2;
+          frame.add(leg_pad);
+
           geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
           frame = new THREE.Mesh(geometry, frame_material);
           frame.position.x = + (board_width - frame_thickness) / 2;
           frame.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
           frame.position.z = - (board_depth + shelf_depth) / 2;
           board.add(frame);
+
+          // leg pad
+          geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+          leg_pad = new THREE.Mesh(geometry1, frame_material);
+          leg_pad.position.y = - frame_thickness / 2;
+          leg_pad.position.z = - (shelf_depth - frame_thickness )/ 2;
+          frame.add(leg_pad);
         }
 
         // light
