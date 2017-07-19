@@ -364,7 +364,7 @@
         geometry = new THREE.PlaneGeometry(plane_size, plane_size);
         plane = new THREE.Mesh(geometry, plane_material);
         plane.rotation.x = -0.5 * Math.PI;
-        scene.add(plane);
+        //scene.add(plane);
 
         // board
         geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
@@ -383,7 +383,7 @@
         // leg pad
         geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y -= (frame_length / 2 - 10);
+        leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
         frame = new THREE.Mesh(geometry, frame_material);
@@ -394,7 +394,7 @@
 
         geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y -= (frame_length / 2 - 10);
+        leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
         frame = new THREE.Mesh(geometry, frame_material);
@@ -405,7 +405,7 @@
 
         geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y -= (frame_length / 2 - 10);
+        leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
         frame = new THREE.Mesh(geometry, frame_material);
@@ -416,43 +416,43 @@
 
         geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.5, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y -= (frame_length / 2 - 10);
+        leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
         // frame under board
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - frame_thickness;
+        frame.position.y = - (board_thickness + frame_thickness) / 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
-        frame.position.y = - frame_thickness;
+        frame.position.y = - (board_thickness + frame_thickness) / 2;
         board.add(frame);
 
         // mium leg
         if (is_mium) {
           mium_leg = new THREE.Mesh(geometry, frame_material);
           mium_leg.position.x = (board_width - frame_thickness) / 2;
-          mium_leg.position.y = - frame_length;
+          mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
           board.add(mium_leg);
 
           mium_leg = new THREE.Mesh(geometry, frame_material);
           mium_leg.position.x = - (board_width - frame_thickness) / 2;
-          mium_leg.position.y = - frame_length;
+          mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
           board.add(mium_leg);
         }
 
         // frame under board
         geometry = new THREE.BoxBufferGeometry(board_width, frame_thickness, frame_thickness);
         frame = new THREE.Mesh(geometry, frame_material);
-        frame.position.y = - frame_thickness;
+        frame.position.y = - (board_thickness + frame_thickness) / 2;
         frame.position.z = board_depth / 4;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, frame_material);
-        frame.position.y = - frame_thickness;
+        frame.position.y = - (board_thickness + frame_thickness) / 2;
         frame.position.z = - board_depth / 4;
         board.add(frame);
 
@@ -481,14 +481,14 @@
           for (i = 0; i < shelf_num; i++) {
             geometry = new THREE.BoxBufferGeometry(board_width - 5, board_thickness, shelf_depth);
             shelf = new THREE.Mesh(geometry, board_material);
-            shelf.position.y = vertical_y + vertical_length * (0.5 - i / shelf_num);
+            shelf.position.y = vertical_y + vertical_length * (0.5 - i / shelf_num) + board_thickness / 2;
             shelf.position.z = - (board_depth + shelf_depth + 10) / 2;
             board.add(shelf);
 
             geometry = new THREE.BoxBufferGeometry(board_width - 5, frame_thickness, frame_thickness);
             frame = new THREE.Mesh(geometry, frame_material);
-            frame.position.y = - board_thickness;
-            frame.position.z = (shelf_depth - frame_thickness) / 2;
+            frame.position.y = - (board_thickness + frame_thickness) / 2;
+            frame.position.z = (shelf_depth - frame_thickness + 5) / 2;
             shelf.add(frame);
           }
 
@@ -496,14 +496,14 @@
           geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
           frame = new THREE.Mesh(geometry, frame_material);
           frame.position.x = - (board_width - frame_thickness) / 2;
-          frame.position.y = - frame_length;
+          frame.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
           frame.position.z = - (board_depth + shelf_depth) / 2;
           board.add(frame);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
           frame = new THREE.Mesh(geometry, frame_material);
           frame.position.x = + (board_width - frame_thickness) / 2;
-          frame.position.y = - frame_length;
+          frame.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
           frame.position.z = - (board_depth + shelf_depth) / 2;
           board.add(frame);
         }
