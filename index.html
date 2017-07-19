@@ -63,6 +63,16 @@
 <body>
   <div class="container">
     <sidebar>
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
+        <!-- ngIf: label -->
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">형식</div>
+        <!-- end ngIf: label -->
+        <div class="flat-radio-buttons">
+          <!-- ngRepeat: entry in options -->
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setMium(0)" style="width: 50%;">기본형</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setMium(1)" style="width: 50%;">ㅁ다리</div>
+        </div>
+      </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
         <!-- ngIf: label -->
@@ -186,6 +196,9 @@
       var plane_size = 10000;
       var plane_material = new THREE.MeshBasicMaterial( {color: white_color} );
 
+      var is_mium = 0;
+      var mium_leg;
+      
       var board;
       var board_thickness = 30;
       var board_width = 1200;
@@ -244,6 +257,12 @@
 
         window.addEventListener('resize', onWindowResize, false);
 
+        render();
+      }
+
+      function setMium(m) {
+        is_mium = m;
+        updateScene();
         render();
       }
 
@@ -399,6 +418,20 @@
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y -= (frame_length / 2 - 10);
         frame.add(leg_pad);
+
+        // mium leg
+        if (is_mium) {
+          var geometry2 = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
+          mium_leg = new THREE.Mesh(geometry2, frame_material);
+          mium_leg.position.x = (board_width - frame_thickness) / 2;
+          mium_leg.position.y = - frame_length;
+          board.add(mium_leg);
+
+          mium_leg = new THREE.Mesh(geometry2, frame_material);
+          mium_leg.position.x = - (board_width - frame_thickness) / 2;
+          mium_leg.position.y = - frame_length;
+          board.add(mium_leg);
+        }
 
         // vertical
         if (vertical_length > 0) {
