@@ -194,13 +194,13 @@
 
       var plane;
       var plane_size = 10000;
-      var plane_material = new THREE.MeshBasicMaterial( {color: white_color} );
+      var plane_material = new THREE.MeshBasicMaterial({ color: white_color });
 
       var is_mium = 0;
       var mium_leg;
-      
+
       var board;
-      var board_thickness = 30;
+      var board_thickness = 20;
       var board_width = 1200;
       var board_depth = 700;
       var board_material = new THREE.MeshStandardMaterial({ color: white_color });
@@ -220,7 +220,7 @@
       var shelf_max_num = 1;
 
       var leg_pad;
-      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b});
+      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b });
 
       init();
       animate();
@@ -419,19 +419,42 @@
         leg_pad.position.y -= (frame_length / 2 - 10);
         frame.add(leg_pad);
 
+        // frame under board
+        geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.x = (board_width - frame_thickness) / 2;
+        frame.position.y = - frame_thickness;
+        board.add(frame);
+
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.x = - (board_width - frame_thickness) / 2;
+        frame.position.y = - frame_thickness;
+        board.add(frame);
+
         // mium leg
         if (is_mium) {
-          var geometry2 = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
-          mium_leg = new THREE.Mesh(geometry2, frame_material);
+          mium_leg = new THREE.Mesh(geometry, frame_material);
           mium_leg.position.x = (board_width - frame_thickness) / 2;
           mium_leg.position.y = - frame_length;
           board.add(mium_leg);
 
-          mium_leg = new THREE.Mesh(geometry2, frame_material);
+          mium_leg = new THREE.Mesh(geometry, frame_material);
           mium_leg.position.x = - (board_width - frame_thickness) / 2;
           mium_leg.position.y = - frame_length;
           board.add(mium_leg);
         }
+
+        // frame under board
+        geometry = new THREE.BoxBufferGeometry(board_width, frame_thickness, frame_thickness);
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.y = - frame_thickness;
+        frame.position.z = board_depth / 4;
+        board.add(frame);
+
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.y = - frame_thickness;
+        frame.position.z = - board_depth / 4;
+        board.add(frame);
 
         // vertical
         if (vertical_length > 0) {
@@ -443,24 +466,30 @@
           vertical = new THREE.Mesh(geometry, frame_material);
           vertical.position.x = - (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
-          vertical.position.z = - (board_depth + frame_thickness + 6) / 2;
+          vertical.position.z = - (board_depth + frame_thickness + 5) / 2;
           board.add(vertical);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
           vertical = new THREE.Mesh(geometry, frame_material);
           vertical.position.x = + (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
-          vertical.position.z = - (board_depth + frame_thickness + 6) / 2;
+          vertical.position.z = - (board_depth + frame_thickness + 5) / 2;
           board.add(vertical);
 
           // shelves
           var i;
           for (i = 0; i < shelf_num; i++) {
-            geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, shelf_depth);
+            geometry = new THREE.BoxBufferGeometry(board_width - 5, board_thickness, shelf_depth);
             shelf = new THREE.Mesh(geometry, board_material);
             shelf.position.y = vertical_y + vertical_length * (0.5 - i / shelf_num);
-            shelf.position.z = - (board_depth + shelf_depth) / 2;
+            shelf.position.z = - (board_depth + shelf_depth + 10) / 2;
             board.add(shelf);
+
+            geometry = new THREE.BoxBufferGeometry(board_width - 5, frame_thickness, frame_thickness);
+            frame = new THREE.Mesh(geometry, frame_material);
+            frame.position.y = - board_thickness;
+            frame.position.z = (shelf_depth - frame_thickness) / 2;
+            shelf.add(frame);
           }
 
           // safety leg
@@ -508,7 +537,7 @@
         requestAnimationFrame(animate);
         controls.update();
       }
-      
+
       function render() {
         renderer.render(scene, camera);
       }
