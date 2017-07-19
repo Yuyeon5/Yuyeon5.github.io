@@ -16,11 +16,12 @@
     }
 
     #canvas {
-      background-color: #000;
-      margin-left: 300;
-      border-left: 1px solid gray;
-      padding: 1em;
-      overflow: hidden;
+      position: absolute;
+      border: 0px;
+      left: 350px;
+      width: calc(100% - 350px);
+      height: 100%;
+      overflow: auto;
     }
 
     * {
@@ -198,6 +199,8 @@
       var camera, controls, scene, renderer;
       var geometry, geometry1, material;
 
+      var width, height = 700;
+
       var white_color = 0xf8f9fb;
       var black_color = 0x21201e;
       var gray_color = 0x6f6f6f;
@@ -243,20 +246,23 @@
       animate();
 
       function init() {
-        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
+        container = document.getElementById('canvas');
+        width = window.innerWidth - 350;
+        height = window.innerHeight;
+
+        camera = new THREE.PerspectiveCamera(60, width / height, 1, 10000);
         camera.position.x = 1000;
         camera.position.y = 500;
         camera.position.z = 3000;
 
-        updateScene(1000);
+        updateScene();
 
         // renderer
         renderer = new THREE.WebGLRenderer({ antialias: false });
         renderer.setClearColor(white_color);
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(width, height);
 
-        container = document.getElementById('canvas');
         container.appendChild(renderer.domElement);
 
         controls = new THREE.TrackballControls(camera, renderer.domElement);
@@ -486,10 +492,16 @@
       }
 
       function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        container = document.getElementById('canvas');
+        width = window.innerWidth - 350;
+        height = window.innerHeight;
+
+        camera.aspect = width / height;
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        renderer.setSize(width, height);
         controls.handleResize();
+
         render();
       }
 
