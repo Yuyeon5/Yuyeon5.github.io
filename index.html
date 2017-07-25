@@ -151,6 +151,10 @@
         데스크매트 <input type="checkbox" id="deskMatCheck" onclick="setDeskMat(this)">
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
+        미니서랍 <input type="checkbox" id="drawerCheck" onclick="setDrawer(this)">
+      </div>
+
 
     </sidebar>
 
@@ -217,6 +221,9 @@
 
       var is_desk_mat;
       var desk_mat;
+
+      var is_drawer;
+      var drawer;
 
       init();
       animate();
@@ -362,7 +369,13 @@
         is_desk_mat = c.checked;
         updateScene();
         render();
-      }      
+      }
+
+      function setDrawer(c) {
+        is_drawer = c.checked;
+        updateScene();
+        render();
+      }
 
       function updateScene() {
         // world
@@ -387,6 +400,23 @@
           desk_mat.position.y = frame_length + board_thickness + 2;
           desk_mat.position.z = (board_depth - 420) / 2 + 2;
           scene.add(desk_mat);
+        }
+
+        // drawer
+        if (is_drawer) {
+          geometry = new THREE.BoxBufferGeometry(309, 30, 150);
+          drawer = new THREE.Mesh(geometry, frame_material);
+          drawer.position.x = (board_width - 309 - 110) / 2;
+          drawer.position.y = frame_length - 10;
+          drawer.position.z = (board_depth - 150) / 2 + 2;
+          scene.add(drawer);
+
+          geometry1 = new THREE.BoxBufferGeometry(309, 25, 40);
+          drawer = new THREE.Mesh(geometry1, frame_material);
+          drawer.position.x = (board_width - 309 - 110) / 2;
+          drawer.position.y = frame_length + board_thickness;
+          drawer.position.z = (board_depth - 40) / 2 + 2;
+          scene.add(drawer);
         }
 
         // frame (leg)
