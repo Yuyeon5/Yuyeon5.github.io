@@ -159,6 +159,18 @@
         </div>
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
+        <!-- ngIf: label -->
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">ㄱ자 모듈</div>
+        <!-- end ngIf: label -->
+        <div class="flat-radio-buttons">
+          <!-- ngRepeat: entry in options -->
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setGieok(0)" style="width: 33%;">없음</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setGieok(1)" style="width: 33%;">왼쪽</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setGieok(2)" style="width: 33%;">오른쪽</div>          
+        </div>
+      </div>
+
 
     </sidebar>
 
@@ -219,7 +231,9 @@
       var shelf_max_num = 1;
 
       var leg_pad;
-      //var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b });
+      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b });
+
+      var gieok_direction = 0;
 
       init();
       animate();
@@ -355,6 +369,12 @@
         render();
       }
 
+      function setGieok(d) {
+        gieok_direction = d;
+        updateScene();
+        render();
+      }
+
       function updateScene() {
         // world
         scene = new THREE.Scene();
@@ -381,7 +401,7 @@
 
         // leg pad
         geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
-        leg_pad = new THREE.Mesh(geometry1, frame_material);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
@@ -392,7 +412,7 @@
         board.add(frame);
 
         geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
-        leg_pad = new THREE.Mesh(geometry1, frame_material);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
@@ -403,7 +423,7 @@
         board.add(frame);
 
         geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
-        leg_pad = new THREE.Mesh(geometry1, frame_material);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
@@ -414,7 +434,7 @@
         board.add(frame);
 
         geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
-        leg_pad = new THREE.Mesh(geometry1, frame_material);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
         leg_pad.position.y = - frame_length / 2;
         frame.add(leg_pad);
 
@@ -505,7 +525,7 @@
 
           // leg pad
           geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
-          leg_pad = new THREE.Mesh(geometry1, frame_material);
+          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
           leg_pad.position.y = - frame_thickness / 2;
           leg_pad.position.z = - (shelf_depth - frame_thickness )/ 2;
           frame.add(leg_pad);
@@ -519,9 +539,50 @@
 
           // leg pad
           geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
-          leg_pad = new THREE.Mesh(geometry1, frame_material);
+          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
           leg_pad.position.y = - frame_thickness / 2;
           leg_pad.position.z = - (shelf_depth - frame_thickness )/ 2;
+          frame.add(leg_pad);
+        }
+
+        // Gieok module
+        if (gieok_direction) {
+          geometry = new THREE.BoxBufferGeometry(600, board_thickness, 800);
+          board = new THREE.Mesh(geometry, board_material);
+          if (gieok_direction == 1)
+            board.position.x = - (board_width - 600) / 2;
+          else
+            board.position.x = (board_width - 600) / 2;
+          board.position.y = frame_length + board_thickness;
+          board.position.z = (board_depth + 800) / 2;
+          scene.add(board);
+
+          // frame (leg)
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.x = - (600 - frame_thickness) / 2;
+          frame.position.y = - (frame_length + board_thickness) / 2;
+          frame.position.z = (800 - frame_thickness) / 2;
+          board.add(frame);
+
+          // leg pad
+          geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+          leg_pad.position.y = - frame_length / 2;
+          frame.add(leg_pad);
+
+          // frame (leg)
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.x = (600 - frame_thickness) / 2;
+          frame.position.y = - (frame_length + board_thickness) / 2;
+          frame.position.z = (800 - frame_thickness) / 2;
+          board.add(frame);
+
+          // leg pad
+          geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+          leg_pad.position.y = - frame_length / 2;
           frame.add(leg_pad);
         }
 
