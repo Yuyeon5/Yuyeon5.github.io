@@ -327,17 +327,17 @@
             break;
           case 2:
             vertical_length = 640;
-            vertical_y = -70;
+            vertical_y = -15;
             shelf_max_num = 3;
             break;
           case 3:
             vertical_length = 920;
-            vertical_y = -150;
+            vertical_y = -7;
             shelf_max_num = 5;
             break;
           case 4:
             vertical_length = 1860;
-            vertical_y = 350;
+            vertical_y = 360;
             shelf_max_num = 7;
             break;
           default:
@@ -481,7 +481,10 @@
           for (i = 0; i < shelf_num; i++) {
             geometry = new THREE.BoxBufferGeometry(board_width - 5, board_thickness, shelf_depth);
             shelf = new THREE.Mesh(geometry, board_material);
-            shelf.position.y = vertical_y + vertical_length * (0.5 - i / shelf_num) + board_thickness / 2;
+            if (i == 0)
+              shelf.position.y = vertical_y + vertical_length / 2 + board_thickness / 2;
+            else
+              shelf.position.y = vertical_y + vertical_length * (0.5 - i / (shelf_num - 1)) + board_thickness / 2;
             shelf.position.z = - (board_depth + shelf_depth + 10) / 2;
             board.add(shelf);
 
