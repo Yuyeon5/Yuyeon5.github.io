@@ -64,22 +64,16 @@
   <div class="container">
     <sidebar>
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">형식</div>
-        <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
-          <!-- ngRepeat: entry in options -->
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setMium(0)" style="width: 50%;">기본형</div>
           <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setMium(1)" style="width: 50%;">ㅁ다리</div>
         </div>
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">폭(W)</div>
-        <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
-          <!-- ngRepeat: entry in options -->
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setWidth(700)" style="width: 14%;">700</div>
           <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1000)" style="width: 14%;">1000</div>
           <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1200)" style="width: 14%;">1200</div>
@@ -91,23 +85,17 @@
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="depth" model="dimensions.depth">
-        <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">깊이(D)</div>
-        <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
-          <!-- ngRepeat: entry in options -->
           <div id="Depth_500" class="flat-radio-btn ng-binding ng-scope first" onclick="setDepth(500)" style="width: 33%;">500</div>
           <div id="Depth_600" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(600)" style="width: 33%;">600</div>
-          <div id="Depth_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(700)" style="width: 33%;">700</div>          
+          <div id="Depth_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(700)" style="width: 33%;">700</div>
         </div>
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">상판색상</div>
-        <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
-          <!-- ngRepeat: entry in options -->
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setBoardColor(1)" style="width: 14%;">화이트</div>
           <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(2)" style="width: 12%;">블랙</div>
           <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(3)" style="width: 14%;">그레이</div>
@@ -119,11 +107,8 @@
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">프레임색상</div>
-        <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
-          <!-- ngRepeat: entry in options -->
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setFrameColor(1)" style="width: 33%;">화이트</div>
           <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setFrameColor(2)" style="width: 33%;">블랙</div>
           <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setFrameColor(3)" style="width: 33%;">그레이</div>
@@ -131,11 +116,8 @@
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">수직부재</div>
-        <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
-          <!-- ngRepeat: entry in options -->
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setVertical(1)" style="width: 25%;">없음</div>
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setVertical(2)" style="width: 25%;">640</div>
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setVertical(3)" style="width: 25%;">920</div>
@@ -144,11 +126,8 @@
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">선반 갯수</div>
-        <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
-          <!-- ngRepeat: entry in options -->
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setShelfNum(1)" style="width: 14%;">1</div>
           <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(2)" style="width: 14%;">2</div>
           <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(3)" style="width: 14%;">3</div>
@@ -160,15 +139,16 @@
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <!-- ngIf: label -->
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">ㄱ자 모듈</div>
-        <!-- end ngIf: label -->
         <div class="flat-radio-buttons">
-          <!-- ngRepeat: entry in options -->
           <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setGieok(0)" style="width: 33%;">없음</div>
           <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setGieok(1)" style="width: 33%;">왼쪽</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setGieok(2)" style="width: 33%;">오른쪽</div>          
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setGieok(2)" style="width: 33%;">오른쪽</div>
         </div>
+      </div>
+
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
+        데스크매트 <input type="checkbox" id="deskMatCheck" onclick="setDeskMat(this)">
       </div>
 
 
@@ -234,6 +214,9 @@
       var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b });
 
       var gieok_direction = 0;
+
+      var is_desk_mat;
+      var desk_mat;
 
       init();
       animate();
@@ -375,6 +358,12 @@
         render();
       }
 
+      function setDeskMat(c) {
+        is_desk_mat = c.checked;
+        updateScene();
+        render();
+      }      
+
       function updateScene() {
         // world
         scene = new THREE.Scene();
@@ -390,6 +379,15 @@
         board = new THREE.Mesh(geometry, board_material);
         board.position.y = frame_length + board_thickness;
         scene.add(board);
+
+        // desk mat
+        if (is_desk_mat) {
+          geometry = new THREE.BoxBufferGeometry(700, board_thickness, 420);
+          desk_mat = new THREE.Mesh(geometry, getMaterial(2));
+          desk_mat.position.y = frame_length + board_thickness + 2;
+          desk_mat.position.z = (board_depth - 420) / 2 + 2;
+          scene.add(desk_mat);
+        }
 
         // frame (leg)
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
@@ -527,7 +525,7 @@
           geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
           leg_pad.position.y = - frame_thickness / 2;
-          leg_pad.position.z = - (shelf_depth - frame_thickness )/ 2;
+          leg_pad.position.z = - (shelf_depth - frame_thickness) / 2;
           frame.add(leg_pad);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
@@ -541,7 +539,7 @@
           geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
           leg_pad.position.y = - frame_thickness / 2;
-          leg_pad.position.z = - (shelf_depth - frame_thickness )/ 2;
+          leg_pad.position.z = - (shelf_depth - frame_thickness) / 2;
           frame.add(leg_pad);
         }
 
