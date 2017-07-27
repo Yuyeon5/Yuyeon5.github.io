@@ -428,7 +428,7 @@
           geometry1 = new THREE.BoxBufferGeometry(309, 25, 40);
           drawer = new THREE.Mesh(geometry1, frame_material);
           drawer.position.x = (board_width - 309 - 110) / 2;
-          drawer.position.y = 0 ;
+          drawer.position.y = 0;
           drawer.position.z = (board_depth - 40) / 2 + 2;
           board.add(drawer);
         }
@@ -437,7 +437,7 @@
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
-        frame.position.y = - (frame_length + board_thickness) / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2 - 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
         board.add(frame);
 
@@ -449,7 +449,7 @@
 
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - (frame_length + board_thickness) / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2 - 2;
         frame.position.z = - (board_depth - frame_thickness) / 2;
         board.add(frame);
 
@@ -460,7 +460,7 @@
 
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
-        frame.position.y = - (frame_length + board_thickness) / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2 - 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
         board.add(frame);
 
@@ -471,7 +471,7 @@
 
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - (frame_length + board_thickness) / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2 - 2;
         frame.position.z = (board_depth - frame_thickness) / 2;
         board.add(frame);
 
@@ -484,12 +484,12 @@
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - (board_thickness + frame_thickness) / 2;
+        frame.position.y = - (board_thickness + frame_thickness) / 2 - 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
-        frame.position.y = - (board_thickness + frame_thickness) / 2;
+        frame.position.y = - (board_thickness + frame_thickness) / 2 - 2;
         board.add(frame);
 
         // mium leg
@@ -497,24 +497,24 @@
           geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
           mium_leg = new THREE.Mesh(geometry, frame_material);
           mium_leg.position.x = (board_width - frame_thickness) / 2;
-          mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
+          mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2 - 2;
           board.add(mium_leg);
 
           mium_leg = new THREE.Mesh(geometry, frame_material);
           mium_leg.position.x = - (board_width - frame_thickness) / 2;
-          mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
+          mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2 - 2;
           board.add(mium_leg);
         }
 
         // frame under board
         geometry = new THREE.BoxBufferGeometry(board_width, frame_thickness_under_board, frame_thickness);
         frame = new THREE.Mesh(geometry, frame_material);
-        frame.position.y = - (board_thickness + frame_thickness_under_board) / 2;
+        frame.position.y = - (board_thickness + frame_thickness_under_board) / 2 - 2;
         frame.position.z = board_depth / 4;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, frame_material);
-        frame.position.y = - (board_thickness + frame_thickness_under_board) / 2;
+        frame.position.y = - (board_thickness + frame_thickness_under_board) / 2 - 2;
         frame.position.z = - board_depth / 4;
         board.add(frame);
 
