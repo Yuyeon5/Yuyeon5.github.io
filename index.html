@@ -481,15 +481,15 @@
         frame.add(leg_pad);
 
         // frame under board
-        geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness_under_board, board_depth);
+        geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - (board_thickness + frame_thickness_under_board) / 2;
+        frame.position.y = - (board_thickness + frame_thickness) / 2;
         board.add(frame);
 
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.x = - (board_width - frame_thickness) / 2;
-        frame.position.y = - (board_thickness + frame_thickness_under_board) / 2;
+        frame.position.y = - (board_thickness + frame_thickness) / 2;
         board.add(frame);
 
         // mium leg
