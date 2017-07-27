@@ -155,6 +155,10 @@
         미니서랍 <input type="checkbox" id="drawerCheck" onclick="setDrawer(this)">
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
+        하부가림판 <input type="checkbox" id="fenceCheck" onclick="setFence(this)">
+      </div>
+
 
     </sidebar>
 
@@ -215,15 +219,19 @@
       var shelf_max_num = 1;
 
       var leg_pad;
-      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: 0x1a181b });
+      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: black_color });
 
       var gieok_direction = 0;
 
       var is_desk_mat;
       var desk_mat;
+      var desk_mat_material = new THREE.MeshStandardMaterial({ color: black_color });
 
       var is_drawer;
       var drawer;
+
+      var is_fence;
+      var fence;
 
       init();
       animate();
@@ -377,6 +385,12 @@
         render();
       }
 
+      function setFence(c) {
+        is_fence = c.checked;
+        updateScene();
+        render();
+      }
+
       function updateScene() {
         // world
         scene = new THREE.Scene();
@@ -396,10 +410,10 @@
         // desk mat
         if (is_desk_mat) {
           geometry = new THREE.BoxBufferGeometry(700, board_thickness, 420);
-          desk_mat = new THREE.Mesh(geometry, getMaterial(2));
-          desk_mat.position.y = frame_length + board_thickness + 2;
+          desk_mat = new THREE.Mesh(geometry, desk_mat_material);
+          desk_mat.position.y = 2;
           desk_mat.position.z = (board_depth - 420) / 2 + 2;
-          scene.add(desk_mat);
+          board.add(desk_mat);
         }
 
         // drawer
@@ -407,16 +421,16 @@
           geometry = new THREE.BoxBufferGeometry(309, 30, 150);
           drawer = new THREE.Mesh(geometry, frame_material);
           drawer.position.x = (board_width - 309 - 110) / 2;
-          drawer.position.y = frame_length - 10;
+          drawer.position.y = -37;
           drawer.position.z = (board_depth - 150) / 2 + 2;
-          scene.add(drawer);
+          board.add(drawer);
 
           geometry1 = new THREE.BoxBufferGeometry(309, 25, 40);
           drawer = new THREE.Mesh(geometry1, frame_material);
           drawer.position.x = (board_width - 309 - 110) / 2;
-          drawer.position.y = frame_length + board_thickness;
+          drawer.position.y = 0 ;
           drawer.position.z = (board_depth - 40) / 2 + 2;
-          scene.add(drawer);
+          board.add(drawer);
         }
 
         // frame (leg)
@@ -503,6 +517,19 @@
         frame.position.y = - (board_thickness + frame_thickness_under_board) / 2;
         frame.position.z = - board_depth / 4;
         board.add(frame);
+
+        // fence
+        if (is_fence) {
+          geometry = new THREE.BoxBufferGeometry(board_width - 80, 200, 5);
+          fence = new THREE.Mesh(geometry, frame_material);
+          fence.position.y = -100;
+          frame.add(fence);
+
+          geometry = new THREE.BoxBufferGeometry(board_width - 80, 200, 5);
+          fence = new THREE.Mesh(geometry, frame_material);
+          fence.position.y = -305;
+          frame.add(fence);
+        }
 
         // vertical
         if (vertical_length > 0) {
