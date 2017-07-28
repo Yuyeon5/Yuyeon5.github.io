@@ -453,7 +453,7 @@
           geometry = new THREE.BoxBufferGeometry(300, 585, 400);
           moving2 = new THREE.Mesh(geometry, frame_material);
           moving2.position.x = - (board_width - 400 ) / 2;
-          moving2.position.y = - frame_length + (585 + 50) / 2;
+          moving2.position.y = - frame_length + (585 + 20) / 2;
           moving2.position.z = (board_depth - 450 )/ 2;
           board.add(moving2);
 
@@ -470,6 +470,37 @@
           moving2.add(drawer2);
 
           // wheel
+          geometry = new THREE.CylinderBufferGeometry(25, 25, 30);
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = -130;
+          wheel.position.y = -320;
+          wheel.position.z = 180;
+          wheel.rotation.x = Math.PI / 2;          
+          moving2.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = 130;
+          wheel.position.y = -320;
+          wheel.position.z = 180;
+          wheel.rotation.x = Math.PI / 2;          
+          moving2.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = -130;
+          wheel.position.y = -320;
+          wheel.position.z = -180;
+          wheel.rotation.x = Math.PI / 2;          
+          moving2.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = 130;
+          wheel.position.y = -320;
+          wheel.position.z = -180;
+          wheel.rotation.x = Math.PI / 2;          
+          moving2.add(wheel);
         }
 
         // frame (leg)
