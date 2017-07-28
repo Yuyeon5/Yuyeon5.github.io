@@ -159,6 +159,10 @@
         하부가림판 <input type="checkbox" id="fenceCheck" onclick="setFence(this)">
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
+        이동서랍 2단<input type="checkbox" id="moving2Check" onclick="setMoving2(this)">
+      </div>
+
 
     </sidebar>
 
@@ -206,7 +210,7 @@
       var frame;
       var frame_thickness = 40;
       var frame_thickness_under_board = 20;
-      var frame_length = 650;
+      var frame_length = 700;
       var frame_material = new THREE.MeshStandardMaterial({ color: white_color });
 
       var vertical;
@@ -232,6 +236,11 @@
 
       var is_fence;
       var fence;
+
+      var is_moving2;
+      var moving2;
+      var drawer1, drawer2;
+      var wheel;
 
       init();
       animate();
@@ -391,6 +400,12 @@
         render();
       }
 
+      function setMoving2(c) {
+        is_moving2 = c.checked;
+        updateScene();
+        render();
+      }
+
       function updateScene() {
         // world
         scene = new THREE.Scene();
@@ -431,6 +446,30 @@
           drawer.position.y = 0;
           drawer.position.z = (board_depth - 40) / 2 + 2;
           board.add(drawer);
+        }
+
+        // moving2
+        if (is_moving2) {
+          geometry = new THREE.BoxBufferGeometry(300, 585, 400);
+          moving2 = new THREE.Mesh(geometry, frame_material);
+          moving2.position.x = - (board_width - 400 ) / 2;
+          moving2.position.y = - frame_length + (585 + 50) / 2;
+          moving2.position.z = (board_depth - 450 )/ 2;
+          board.add(moving2);
+
+          // drawer 1 and 2
+          geometry = new THREE.BoxBufferGeometry(300, 275, 20);
+          drawer1 = new THREE.Mesh(geometry, frame_material);
+          drawer1.position.y = (585 - 275) / 2;
+          drawer1.position.z = 220;
+          moving2.add(drawer1);
+
+          drawer2 = new THREE.Mesh(geometry, frame_material);
+          drawer2.position.y = -(585 - 275) / 2;
+          drawer2.position.z = 220;
+          moving2.add(drawer2);
+
+          // wheel
         }
 
         // frame (leg)
