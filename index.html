@@ -630,13 +630,13 @@
               shelf.position.y = vertical_y + vertical_length / 2 + board_thickness / 2;
             else
               shelf.position.y = vertical_y + vertical_length * (0.5 - i / (shelf_num - 1)) + board_thickness / 2;
-            shelf.position.z = - (board_depth + shelf_depth + 10) / 2;
+            shelf.position.z = - (board_depth + shelf_depth + 7) / 2;
             board.add(shelf);
 
-            geometry = new THREE.BoxBufferGeometry(board_width + 5, frame_thickness, frame_thickness);
+            geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness);
             frame = new THREE.Mesh(geometry, frame_material);
             frame.position.y = - (board_thickness + frame_thickness) / 2;
-            frame.position.z = (shelf_depth - frame_thickness + 5) / 2;
+            frame.position.z = (shelf_depth - frame_thickness) / 2;
             shelf.add(frame);
           }
 
