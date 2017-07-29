@@ -454,7 +454,7 @@
           geometry = new THREE.BoxBufferGeometry(300, 585, 400);
           moving2 = new THREE.Mesh(geometry, frame_material);
           moving2.position.x = - (board_width - 400 ) / 2;
-          moving2.position.y = - frame_length + (585 + 20) / 2;
+          moving2.position.y = - frame_length + (585 + 50) / 2;
           moving2.position.z = (board_depth - 450 )/ 2;
           board.add(moving2);
 
@@ -575,7 +575,7 @@
         }
 
         // frame under board
-        geometry = new THREE.BoxBufferGeometry(board_width, frame_thickness, frame_thickness_under_board);
+        geometry = new THREE.BoxBufferGeometry(board_width - 2, frame_thickness, frame_thickness_under_board);
         frame = new THREE.Mesh(geometry, frame_material);
         frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
         frame.position.z = board_depth / 4;
