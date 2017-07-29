@@ -512,9 +512,9 @@
         board.add(frame);
 
         // leg pad
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
+        geometry1 = new THREE.CylinderBufferGeometry(frame_thickness / 1.8, frame_thickness / 1.8, 10);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y = - frame_length / 2;
+        leg_pad.position.y = - frame_length / 2 - 8;
         frame.add(leg_pad);
 
         frame = new THREE.Mesh(geometry, frame_material);
@@ -523,9 +523,8 @@
         frame.position.z = - (board_depth - frame_thickness) / 2;
         board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y = - frame_length / 2;
+        leg_pad.position.y = - frame_length / 2 - 8;
         frame.add(leg_pad);
 
         frame = new THREE.Mesh(geometry, frame_material);
@@ -534,9 +533,8 @@
         frame.position.z = (board_depth - frame_thickness) / 2;
         board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y = - frame_length / 2;
+        leg_pad.position.y = - frame_length / 2 - 8;
         frame.add(leg_pad);
 
         frame = new THREE.Mesh(geometry, frame_material);
@@ -545,9 +543,8 @@
         frame.position.z = (board_depth - frame_thickness) / 2;
         board.add(frame);
 
-        geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y = - frame_length / 2;
+        leg_pad.position.y = - frame_length / 2 - 8;
         frame.add(leg_pad);
 
         // frame under board
@@ -651,9 +648,8 @@
           board.add(frame);
 
           // leg pad
-          geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-          leg_pad.position.y = - frame_thickness / 2;
+          leg_pad.position.y = - frame_thickness / 2 - 8;
           leg_pad.position.z = - (shelf_depth - frame_thickness) / 2;
           frame.add(leg_pad);
 
@@ -665,9 +661,8 @@
           board.add(frame);
 
           // leg pad
-          geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-          leg_pad.position.y = - frame_thickness / 2;
+          leg_pad.position.y = - frame_thickness / 2 - 8;
           leg_pad.position.z = - (shelf_depth - frame_thickness) / 2;
           frame.add(leg_pad);
         }
@@ -693,13 +688,11 @@
           board.add(frame);
 
           // leg pad
-          geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-          leg_pad.position.y = - frame_length / 2;
+          leg_pad.position.y = - frame_length / 2 - 8;
           frame.add(leg_pad);
 
           // frame (leg)
-          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
           frame = new THREE.Mesh(geometry, frame_material);
           frame.position.x = (600 - frame_thickness) / 2;
           frame.position.y = - (frame_length + board_thickness) / 2;
@@ -707,9 +700,8 @@
           board.add(frame);
 
           // leg pad
-          geometry1 = new THREE.ConeBufferGeometry(frame_thickness / 1.8, frame_thickness * 1.5);
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-          leg_pad.position.y = - frame_length / 2;
+          leg_pad.position.y = - frame_length / 2 - 8;
           frame.add(leg_pad);
         }
 
