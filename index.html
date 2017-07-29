@@ -338,6 +338,12 @@
 
       function setFrameColor(c) {
         frame_material = getMaterial(c);
+
+        if (c == 1)
+          leg_pad_meterial = new THREE.MeshStandardMaterial({ color: white_color });
+        else
+          leg_pad_meterial = new THREE.MeshStandardMaterial({ color: black_color });
+
         updateScene();
         render();
       }
