@@ -170,7 +170,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="./TrackballControls.js"></script>
 
     <script>
@@ -196,7 +195,12 @@
 
       var plane;
       var plane_size = 10000;
-      var plane_material = new THREE.MeshBasicMaterial({ color: white_color });
+      var plane_material = new THREE.MeshPhongMaterial( {
+					color: 0xffffff,
+					shininess: 10,
+					specular: 0x111111,
+					side: THREE.BackSide
+				} );
 
       var is_mium = 0;
       var mium_leg;
@@ -421,8 +425,9 @@
         // plane
         geometry = new THREE.PlaneGeometry(plane_size, plane_size);
         plane = new THREE.Mesh(geometry, plane_material);
-        plane.rotation.x = -0.5 * Math.PI;
-        //scene.add(plane);
+        plane.rotation.x = 0.5 * Math.PI;
+        plane.receiveShadow = true;
+        scene.add(plane);
 
         // board
         geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
