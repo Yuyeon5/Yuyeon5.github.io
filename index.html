@@ -264,6 +264,8 @@
 
         // renderer
         renderer = new THREE.WebGLRenderer({ antialias: false });
+        renderer.shadowMap.enabled = true;
+				renderer.shadowMap.type = THREE.BasicShadowMap;
         renderer.setClearColor(white_color);
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(width, height);
@@ -733,7 +735,7 @@
 
         // light
         var lights = [];
-        lights[0] = new THREE.PointLight(0xffffff, 1, 0);
+        lights[0] = new THREE.PointLight(0xffffff, 5, 10000);
         lights[1] = new THREE.AmbientLight(white_color);
 
         lights[0].position.set(4000, 4000, 4000);
