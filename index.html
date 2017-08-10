@@ -209,14 +209,14 @@
       var board_thickness = 20;
       var board_width = 1200;
       var board_depth = 700;
-      var board_material = new THREE.MeshStandardMaterial({ color: white_color });
+      var board_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var frame;
       var frame_thickness = 40;
       var frame_thickness_under_board = 20;
       var frame_length = 700;
       var frame_margin = 2;       // between frame and board
-      var frame_material = new THREE.MeshStandardMaterial({ color: white_color });
+      var frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var vertical;
       var vertical_length;
@@ -228,13 +228,13 @@
       var shelf_max_num = 1;
 
       var leg_pad;
-      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: black_color });
+      var leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
 
       var gieok_direction = 0;
 
       var is_desk_mat;
       var desk_mat;
-      var desk_mat_material = new THREE.MeshStandardMaterial({ color: black_color });
+      var desk_mat_material = new THREE.MeshPhongMaterial({ color: black_color });
 
       var is_drawer;
       var drawer;
@@ -310,28 +310,28 @@
 
         switch (color_code) {
           case 1:
-            material = new THREE.MeshStandardMaterial({ color: white_color });
+            material = new THREE.MeshPhongMaterial({ color: white_color });
             return material;
           case 2:
-            material = new THREE.MeshStandardMaterial({ color: black_color });
+            material = new THREE.MeshPhongMaterial({ color: black_color });
             return material;
           case 3:
-            material = new THREE.MeshStandardMaterial({ color: gray_color });
+            material = new THREE.MeshPhongMaterial({ color: gray_color });
             return material;
           case 4:
-            material = new THREE.MeshStandardMaterial({ map: texture_natural });
+            material = new THREE.MeshPhongMaterial({ map: texture_natural });
             return material;
           case 5:
-            material = new THREE.MeshStandardMaterial({ map: texture_pine });
+            material = new THREE.MeshPhongMaterial({ map: texture_pine });
             return material;
           case 6:
-            material = new THREE.MeshStandardMaterial({ map: texture_concrete });
+            material = new THREE.MeshPhongMaterial({ map: texture_concrete });
             return material;
           case 7:
-            material = new THREE.MeshStandardMaterial({ map: texture_redpine });
+            material = new THREE.MeshPhongMaterial({ map: texture_redpine });
             return material;
           default:
-            material = new THREE.MeshStandardMaterial({ color: white_color });
+            material = new THREE.MeshPhongMaterial({ color: white_color });
             return material;
         }
       }
@@ -346,9 +346,9 @@
         frame_material = getMaterial(c);
 
         if (c == 1)
-          leg_pad_meterial = new THREE.MeshStandardMaterial({ color: white_color });
+          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: white_color });
         else
-          leg_pad_meterial = new THREE.MeshStandardMaterial({ color: black_color });
+          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
 
         updateScene();
         render();
@@ -434,6 +434,7 @@
         geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
         board = new THREE.Mesh(geometry, board_material);
         board.position.y = frame_length + board_thickness;
+        board.castShadow = true;
         scene.add(board);
 
         // desk mat
@@ -469,6 +470,7 @@
           moving2.position.x = - (board_width - 400 ) / 2;
           moving2.position.y = - frame_length + (585 + 50) / 2;
           moving2.position.z = (board_depth - 450 )/ 2;
+          moving2.castShadow = true;
           board.add(moving2);
 
           // drawer 1 and 2
@@ -523,6 +525,7 @@
         frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
         frame.position.z = - (board_depth - frame_thickness) / 2;
+        frame.castShadow = true;
         board.add(frame);
 
         // leg pad
@@ -535,6 +538,7 @@
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
         frame.position.z = - (board_depth - frame_thickness) / 2;
+        frame.castShadow = true;
         board.add(frame);
 
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
@@ -545,6 +549,7 @@
         frame.position.x = - (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
         frame.position.z = (board_depth - frame_thickness) / 2;
+        frame.castShadow = true;
         board.add(frame);
 
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
@@ -555,6 +560,7 @@
         frame.position.x = (board_width - frame_thickness) / 2;
         frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
         frame.position.z = (board_depth - frame_thickness) / 2;
+        frame.castShadow = true;
         board.add(frame);
 
         leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
@@ -579,11 +585,13 @@
           mium_leg = new THREE.Mesh(geometry, frame_material);
           mium_leg.position.x = (board_width - frame_thickness) / 2;
           mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2 - frame_margin;
+          mium_leg.castShadow = true;
           board.add(mium_leg);
 
           mium_leg = new THREE.Mesh(geometry, frame_material);
           mium_leg.position.x = - (board_width - frame_thickness) / 2;
           mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2 - frame_margin;
+          mium_leg.castShadow = true;
           board.add(mium_leg);
         }
 
@@ -605,12 +613,14 @@
           fence = new THREE.Mesh(geometry, frame_material);
           fence.position.y = -100;
           fence.position.z = - frame_thickness_under_board;
+          fence.castShadow = true;
           frame.add(fence);
 
           geometry = new THREE.BoxBufferGeometry(board_width, 200, 18);
           fence = new THREE.Mesh(geometry, frame_material);
           fence.position.y = -305;
           fence.position.z = - frame_thickness_under_board;
+          fence.castShadow = true;
           frame.add(fence);
         }
 
@@ -625,6 +635,7 @@
           vertical.position.x = - (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
           vertical.position.z = - (board_depth + frame_thickness + 5) / 2;
+          vertical.castShadow = true;
           board.add(vertical);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
@@ -632,6 +643,7 @@
           vertical.position.x = + (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
           vertical.position.z = - (board_depth + frame_thickness + 5) / 2;
+          vertical.castShadow = true;
           board.add(vertical);
 
           // shelves
@@ -644,6 +656,7 @@
             else
               shelf.position.y = vertical_y + vertical_length * (0.5 - i / (shelf_num - 1)) + board_thickness / 2;
             shelf.position.z = - (board_depth + shelf_depth + 7) / 2;
+            shelf.castShadow = true;
             board.add(shelf);
 
             geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness);
@@ -659,6 +672,7 @@
           frame.position.x = - (board_width - frame_thickness) / 2;
           frame.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
           frame.position.z = - (board_depth + shelf_depth) / 2;
+          frame.castShadow = true;
           board.add(frame);
 
           // leg pad
@@ -672,6 +686,7 @@
           frame.position.x = + (board_width - frame_thickness) / 2;
           frame.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
           frame.position.z = - (board_depth + shelf_depth) / 2;
+          frame.castShadow = true;
           board.add(frame);
 
           // leg pad
@@ -691,6 +706,7 @@
             board.position.x = (board_width - 600) / 2;
           board.position.y = frame_length + board_thickness;
           board.position.z = (board_depth + 800) / 2;
+          board.castShadow = true;
           scene.add(board);
 
           // frame (leg)
@@ -699,6 +715,7 @@
           frame.position.x = - (600 - frame_thickness) / 2;
           frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
           frame.position.z = (800 - frame_thickness) / 2;
+          frame.castShadow = true;
           board.add(frame);
 
           // leg pad
@@ -711,6 +728,7 @@
           frame.position.x = (600 - frame_thickness) / 2;
           frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
           frame.position.z = (800 - frame_thickness) / 2;
+          frame.castShadow = true;
           board.add(frame);
 
           // leg pad
@@ -734,11 +752,11 @@
 
         // light
         var lights = [];
-        lights[0] = new THREE.SpotLight(0xffffff, 1, 10000);
-        lights[1] = new THREE.AmbientLight(white_color);
+        lights[0] = new THREE.SpotLight(0xffffff, 0.5, 10000);
+        lights[1] = new THREE.AmbientLight(white_color, 0.7);
 
         lights[0].castShadow = true;
-        lights[0].position.set(0, 3000, 0);
+        lights[0].position.set(0, 2000, 1000);
 
         scene.add(lights[0]);
         scene.add(lights[1]);
