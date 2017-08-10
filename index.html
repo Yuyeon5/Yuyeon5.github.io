@@ -752,11 +752,17 @@
 
         // light
         var lights = [];
-        lights[0] = new THREE.SpotLight(0xffffff, 0.5, 10000);
+        var d = 2048;
+        lights[0] = new THREE.DirectionalLight(0xffffff, 0.5);
         lights[1] = new THREE.AmbientLight(white_color, 0.7);
 
         lights[0].castShadow = true;
-        lights[0].position.set(0, 2000, 1000);
+				lights[0].shadow.camera.left = -d ;
+				lights[0].shadow.camera.right = d ;
+				lights[0].shadow.camera.top = d ;
+				lights[0].shadow.camera.bottom = -d ;
+				lights[0].shadow.camera.far = 10000;
+        lights[0].position.set(-1000, 2000, 1000);
 
         scene.add(lights[0]);
         scene.add(lights[1]);
@@ -779,6 +785,7 @@
       function animate() {
         requestAnimationFrame(animate);
         controls.update();
+        render();
       }
 
       function render() {
