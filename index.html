@@ -125,6 +125,15 @@
         </div>
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">수직부재프레임색상</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setVerticalColor(1)" style="width: 33%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setVerticalColor(2)" style="width: 33%;">블랙</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setVerticalColor(3)" style="width: 33%;">그레이</div>
+        </div>
+      </div>
+
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">선반 갯수</div>
         <div class="flat-radio-buttons">
@@ -141,13 +150,22 @@
       <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">선반색상</div>
         <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setShelfColor(1)" style="width: 14%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfColor(2)" style="width: 12%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfColor(3)" style="width: 14%;">그레이</div>
-          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfColor(4)" style="width: 14%;">내추럴</div>
-          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfColor(5)" style="width: 12%;">파인</div>
-          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfColor(6)" style="width: 16%;">콘크리트</div>
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfColor(7)" style="width: 16%;">레드파인</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setShelfBoardColor(1)" style="width: 14%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(2)" style="width: 12%;">블랙</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(3)" style="width: 14%;">그레이</div>
+          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(4)" style="width: 14%;">내추럴</div>
+          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(5)" style="width: 12%;">파인</div>
+          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(6)" style="width: 16%;">콘크리트</div>
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(7)" style="width: 16%;">레드파인</div>
+        </div>
+      </div>
+
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">선반프레임색상</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setShelfFrameColor(1)" style="width: 33%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfFrameColor(2)" style="width: 33%;">블랙</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfFrameColor(3)" style="width: 33%;">그레이</div>
         </div>
       </div>
 
@@ -234,12 +252,14 @@
       var vertical;
       var vertical_length;
       var vertical_y;
+      var vertical_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var shelf;
       var shelf_depth = 200;
       var shelf_num = 1;
       var shelf_max_num = 1;
-      var shelf_material = new THREE.MeshPhongMaterial({ color: white_color });
+      var shelf_board_material = new THREE.MeshPhongMaterial({ color: white_color });
+      var shelf_frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var leg_pad;
       var leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
@@ -356,8 +376,20 @@
         render();
       }
 
-      function setShelfColor(c) {
-        shelf_material = getMaterial(c);
+      function setVerticalColor(c) {
+        vertical_material = getMaterial(c);
+        updateScene();
+        render();
+      }
+
+      function setShelfBoardColor(c) {
+        shelf_board_material = getMaterial(c);
+        updateScene();
+        render();
+      }
+
+      function setShelfFrameColor(c) {
+        shelf_frame_material = getMaterial(c);
         updateScene();
         render();
       }
@@ -651,7 +683,7 @@
           }
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
-          vertical = new THREE.Mesh(geometry, frame_material);
+          vertical = new THREE.Mesh(geometry, vertical_material);
           vertical.position.x = - (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
           vertical.position.z = - (board_depth + frame_thickness + 5) / 2;
@@ -659,7 +691,7 @@
           board.add(vertical);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
-          vertical = new THREE.Mesh(geometry, frame_material);
+          vertical = new THREE.Mesh(geometry, vertical_material);
           vertical.position.x = + (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
           vertical.position.z = - (board_depth + frame_thickness + 5) / 2;
@@ -670,7 +702,7 @@
           var i;
           for (i = 0; i < shelf_num; i++) {
             geometry = new THREE.BoxBufferGeometry(board_width - 2, board_thickness, shelf_depth);
-            shelf = new THREE.Mesh(geometry, shelf_material);
+            shelf = new THREE.Mesh(geometry, shelf_board_material);
             if (i == 0)
               shelf.position.y = vertical_y + vertical_length / 2 + board_thickness / 2;
             else
@@ -680,7 +712,7 @@
             board.add(shelf);
 
             geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness);
-            frame = new THREE.Mesh(geometry, frame_material);
+            frame = new THREE.Mesh(geometry, shelf_frame_material);
             frame.position.y = - (board_thickness + frame_thickness) / 2;
             frame.position.z = (shelf_depth - frame_thickness) / 2;
             shelf.add(frame);
