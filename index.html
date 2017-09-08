@@ -178,7 +178,12 @@
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        데스크매트 <input type="checkbox" id="deskMatCheck" onclick="setDeskMat(this)">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">데스크 매트</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDeskMat(0)" style="width: 33%;">없음</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskMat(1)" style="width: 33%;">그레이</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskMat(2)" style="width: 33%;">블랙</div>
+        </div>
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
@@ -265,9 +270,9 @@
 
       var gieok_direction = 0;
 
-      var is_desk_mat;
+      var desk_mat_option = 0;
       var desk_mat;
-      var desk_mat_material = new THREE.MeshPhongMaterial({ color: black_color });
+      var desk_mat_material;
 
       var is_drawer;
       var drawer;
@@ -447,8 +452,18 @@
         render();
       }
 
-      function setDeskMat(c) {
-        is_desk_mat = c.checked;
+      function setDeskMat(o) {
+        desk_mat_option = o;
+        switch (desk_mat_option) {
+        case 0:
+          break;
+        case 1:
+          desk_mat_material = getMaterial(3);
+          break;
+        case 2:
+          desk_mat_material = getMaterial(2);
+          break;
+        }
         updateScene();
         render();
       }
@@ -490,7 +505,7 @@
         scene.add(board);
 
         // desk mat
-        if (is_desk_mat) {
+        if (desk_mat_option) {
           geometry = new THREE.BoxBufferGeometry(700, board_thickness, 420);
           desk_mat = new THREE.Mesh(geometry, desk_mat_material);
           desk_mat.position.y = 2;
