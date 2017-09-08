@@ -187,7 +187,12 @@
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        미니서랍 <input type="checkbox" id="drawerCheck" onclick="setDrawer(this)">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">미니서랍</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDrawer(0)" style="width: 33%;">없음</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawer(1)" style="width: 33%;">화이트</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawer(2)" style="width: 33%;">블랙</div>
+        </div>
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
@@ -274,8 +279,9 @@
       var desk_mat;
       var desk_mat_material;
 
-      var is_drawer;
+      var drawer_option = 0;
       var drawer;
+      var drawer_material;
 
       var is_fence;
       var fence;
@@ -469,7 +475,9 @@
       }
 
       function setDrawer(c) {
-        is_drawer = c.checked;
+        drawer_option = c;
+        if (drawer_option)
+          drawer_material = getMaterial(c);      
         updateScene();
         render();
       }
@@ -514,16 +522,16 @@
         }
 
         // drawer
-        if (is_drawer) {
+        if (drawer_option) {
           geometry = new THREE.BoxBufferGeometry(309, 30, 150);
-          drawer = new THREE.Mesh(geometry, frame_material);
+          drawer = new THREE.Mesh(geometry, drawer_material);
           drawer.position.x = (board_width - 309 - 110) / 2;
           drawer.position.y = -37;
           drawer.position.z = (board_depth - 150) / 2 + 2;
           board.add(drawer);
 
           geometry1 = new THREE.BoxBufferGeometry(309, 25, 40);
-          drawer = new THREE.Mesh(geometry1, frame_material);
+          drawer = new THREE.Mesh(geometry1, drawer_material);
           drawer.position.x = (board_width - 309 - 110) / 2;
           drawer.position.y = 0;
           drawer.position.z = (board_depth - 40) / 2 + 2;
