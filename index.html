@@ -288,7 +288,7 @@
 
       var giyeok_position = 0;
 
-      var desk_mat_option = 0;
+      var desk_mat_color = 0;
       var desk_mat;
       var desk_mat_material;
 
@@ -355,7 +355,14 @@
       }
 
       function setWidth(w) {
+        var prev = board_width;
+
         board_width = w;
+        if (checkCollision()) {
+          board_width = prev;
+          return;
+        }
+
         updateScene();
         render();
       }
@@ -469,14 +476,28 @@
       }
 
       function setGiyeok(d) {
+        var prev = giyeok_position;
+
         giyeok_position = d;
+        if (checkCollision()) {
+          giyeok_position = prev;
+          return;
+        }
+
         updateScene();
         render();
       }
 
-      function setDeskMat(o) {
-        desk_mat_option = o;
-        switch (desk_mat_option) {
+      function setDeskMat(c) {
+        var prev = desk_mat_color;
+
+        desk_mat_color = c;
+        if (checkCollision()) {
+          desk_mat_color = prev;
+          return;
+        }
+
+        switch (desk_mat_color) {
         case 0:
           break;
         case 1:
@@ -491,7 +512,14 @@
       }
 
       function setDrawerPosition(p) {
+        var prev = drawer_position;
+
         drawer_position = p;
+        if (checkCollision()) {
+          drawer_position = prev;
+          return;
+        }
+
         updateScene();
         render();
       }
@@ -521,16 +549,24 @@
 
       function checkCollision() {
         if (giyeok_position && (giyeok_position == drawer_position)) {
-          drawer_position = 0;
-          alert("ㄱ자 모듈과 미니서랍이 같은 방향입니다.");
-          return;
-        }          
+          alert("ㄱ자 모듈과 미니서랍이 겹칩니다.");
+          return true;
+        }
+
+        if (giyeok_position && desk_mat_color && (board_width < 2000)) {
+          alert("데스크매트와 ㄱ자 모듈이 겹칩니다.");
+          return true;
+        }
+
+        if (desk_mat_color && drawer_position && (board_width < 1500)) {
+          alert("데스크매트와 미니서랍이 겹칩니다.");
+          return true;
+        }
+
+        return false;
       }
 
       function updateScene() {
-        // check collision first
-        checkCollision();
-
         // world
         scene = new THREE.Scene();
 
@@ -549,7 +585,7 @@
         scene.add(board);
 
         // desk mat
-        if (desk_mat_option) {
+        if (desk_mat_color) {
           geometry = new THREE.BoxBufferGeometry(700, board_thickness, 420);
           desk_mat = new THREE.Mesh(geometry, desk_mat_material);
           desk_mat.position.y = 2;
@@ -562,9 +598,9 @@
           geometry = new THREE.BoxBufferGeometry(309, 30, 150);
           drawer_down = new THREE.Mesh(geometry, drawer_material);
           if (drawer_position == 1)
-            drawer_down.position.x = -(board_width - 309 - 110) / 2;
+            drawer_down.position.x = -(board_width - 309 - 90) / 2;
           else
-            drawer_down.position.x = (board_width - 309 - 110) / 2;
+            drawer_down.position.x = (board_width - 309 - 90) / 2;
           drawer_down.position.y = -32;
           drawer_down.position.z = (board_depth - 150) / 2 + 2;
           board.add(drawer_down);
