@@ -189,9 +189,17 @@
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">미니서랍</div>
         <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDrawer(0)" style="width: 33%;">없음</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawer(1)" style="width: 33%;">화이트</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawer(2)" style="width: 33%;">블랙</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDrawerPosition(0)" style="width: 33%;">없음</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerPosition(1)" style="width: 33%;">왼쪽</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerPosition(2)" style="width: 33%;">오른쪽</div>
+        </div>
+      </div>
+
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">미니서랍 색상</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDrawerColor(1)" style="width: 50%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerColor(2)" style="width: 50%;">블랙</div>
         </div>
       </div>
 
@@ -279,9 +287,11 @@
       var desk_mat;
       var desk_mat_material;
 
-      var drawer_option = 0;
-      var drawer;
-      var drawer_material;
+      var drawer_position = 0;
+      var drawer_color = 1;
+      var drawer_up;
+      var drawer_down;
+      var drawer_material = getMaterial(drawer_color);
 
       var is_fence;
       var fence;
@@ -474,9 +484,15 @@
         render();
       }
 
-      function setDrawer(c) {
-        drawer_option = c;
-        if (drawer_option)
+      function setDrawerPosition(p) {
+        drawer_position = p;
+        updateScene();
+        render();
+      }
+
+      function setDrawerColor(c) {
+        drawer_color = c;
+        if (drawer_color)
           drawer_material = getMaterial(c);      
         updateScene();
         render();
@@ -494,7 +510,12 @@
         render();
       }
 
+      function checkCollision() {
+      }
+
       function updateScene() {
+        // check collision
+
         // world
         scene = new THREE.Scene();
 
@@ -522,20 +543,22 @@
         }
 
         // drawer
-        if (drawer_option) {
+        if (drawer_position) {
           geometry = new THREE.BoxBufferGeometry(309, 30, 150);
-          drawer = new THREE.Mesh(geometry, drawer_material);
-          drawer.position.x = (board_width - 309 - 110) / 2;
-          drawer.position.y = -37;
-          drawer.position.z = (board_depth - 150) / 2 + 2;
-          board.add(drawer);
+          drawer_down = new THREE.Mesh(geometry, drawer_material);
+          if (drawer_position == 1)
+            drawer_down.position.x = -(board_width - 309 - 110) / 2;
+          else
+            drawer_down.position.x = (board_width - 309 - 110) / 2;
+          drawer_down.position.y = -32;
+          drawer_down.position.z = (board_depth - 150) / 2 + 2;
+          board.add(drawer_down);
 
           geometry1 = new THREE.BoxBufferGeometry(309, 25, 40);
-          drawer = new THREE.Mesh(geometry1, drawer_material);
-          drawer.position.x = (board_width - 309 - 110) / 2;
-          drawer.position.y = 0;
-          drawer.position.z = (board_depth - 40) / 2 + 2;
-          board.add(drawer);
+          drawer_up = new THREE.Mesh(geometry1, drawer_material);
+          drawer_up.position.y = 32;
+          drawer_up.position.z = 56;
+          drawer_down.add(drawer_up);
         }
 
         // moving2
