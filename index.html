@@ -243,7 +243,7 @@
 
       var plane;
       var plane_size = 10000;
-      var plane_material = new THREE.MeshPhongMaterial( {
+      var plane_material = new THREE.MeshStandardMaterial( {
 					color: 0xffffff,
 					shininess: 10,
 					specular: 0x111111,
@@ -257,29 +257,29 @@
       var board_thickness = 20;
       var board_width = 1200;
       var board_depth = 700;
-      var board_material = new THREE.MeshPhongMaterial({ color: white_color });
+      var board_material = new THREE.MeshStandardMaterial({ color: white_color });
 
       var frame;
       var frame_thickness = 40;
       var frame_thickness_under_board = 20;
       var frame_length = 700;
       var frame_margin = 2;       // between frame and board
-      var frame_material = new THREE.MeshPhongMaterial({ color: white_color });
+      var frame_material = new THREE.MeshStandardMaterial({ color: white_color });
 
       var vertical;
       var vertical_length;
       var vertical_y;
-      var vertical_material = new THREE.MeshPhongMaterial({ color: white_color });
+      var vertical_material = new THREE.MeshStandardMaterial({ color: white_color });
 
       var shelf;
       var shelf_depth = 200;
       var shelf_num = 1;
       var shelf_max_num = 1;
-      var shelf_board_material = new THREE.MeshPhongMaterial({ color: white_color });
-      var shelf_frame_material = new THREE.MeshPhongMaterial({ color: white_color });
+      var shelf_board_material = new THREE.MeshStandardMaterial({ color: white_color });
+      var shelf_frame_material = new THREE.MeshStandardMaterial({ color: white_color });
 
       var leg_pad;
-      var leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
+      var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: black_color });
 
       var gieok_direction = 0;
 
@@ -365,28 +365,28 @@
 
         switch (color_code) {
           case 1:
-            material = new THREE.MeshPhongMaterial({ color: white_color });
+            material = new THREE.MeshStandardMaterial({ color: white_color });
             return material;
           case 2:
-            material = new THREE.MeshPhongMaterial({ color: black_color });
+            material = new THREE.MeshStandardMaterial({ color: black_color });
             return material;
           case 3:
-            material = new THREE.MeshPhongMaterial({ color: gray_color });
+            material = new THREE.MeshStandardMaterial({ color: gray_color });
             return material;
           case 4:
-            material = new THREE.MeshPhongMaterial({ map: texture_natural });
+            material = new THREE.MeshStandardMaterial({ map: texture_natural });
             return material;
           case 5:
-            material = new THREE.MeshPhongMaterial({ map: texture_pine });
+            material = new THREE.MeshStandardMaterial({ map: texture_pine });
             return material;
           case 6:
-            material = new THREE.MeshPhongMaterial({ map: texture_concrete });
+            material = new THREE.MeshStandardMaterial({ map: texture_concrete });
             return material;
           case 7:
-            material = new THREE.MeshPhongMaterial({ map: texture_redpine });
+            material = new THREE.MeshStandardMaterial({ map: texture_redpine });
             return material;
           default:
-            material = new THREE.MeshPhongMaterial({ color: white_color });
+            material = new THREE.MeshStandardMaterial({ color: white_color });
             return material;
         }
       }
@@ -419,9 +419,9 @@
         frame_material = getMaterial(c);
 
         if (c == 1)
-          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: white_color });
+          leg_pad_meterial = new THREE.MeshStandardMaterial({ color: white_color });
         else
-          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
+          leg_pad_meterial = new THREE.MeshStandardMaterial({ color: black_color });
 
         updateScene();
         render();
@@ -851,8 +851,8 @@
         // light
         var lights = [];
         var d = 2048;
-        lights[0] = new THREE.DirectionalLight(0xffffff, 0.3);
-        lights[1] = new THREE.AmbientLight(white_color, 0.7);
+        lights[0] = new THREE.DirectionalLight(0xffffff, 1.0);
+        lights[1] = new THREE.AmbientLight(white_color, 1.0);
 
         lights[0].castShadow = true;
 				lights[0].shadow.camera.left = -d ;
