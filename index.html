@@ -201,8 +201,17 @@
         </div>
       </div>
 
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        하부가림판 <input type="checkbox" id="fenceCheck" onclick="setFence(this)">
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">하부가림판</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setFence(0)" style="width: 16%;">없음</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(1)" style="width: 14%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(2)" style="width: 12%;">블랙</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(3)" style="width: 14%;">그레이</div>
+          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(4)" style="width: 14%;">내추럴</div>
+          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(5)" style="width: 12%;">파인</div>
+          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(6)" style="width: 16%;">콘크리트</div>
+        </div>
       </div>
 
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
@@ -289,8 +298,9 @@
       var drawer_down;
       var drawer_material = getMaterial(drawer_color);
 
-      var is_fence;
+      var fence_color;
       var fence;
+      var fence_material = new THREE.MeshStandardMaterial({ color: white_color });
 
       var is_moving2;
       var moving2;
@@ -495,7 +505,10 @@
       }
 
       function setFence(c) {
-        is_fence = c.checked;
+        fence_color = c;
+        if (fence_color)
+          fence_material = getMaterial(c);
+
         updateScene();
         render();
       }
@@ -708,16 +721,16 @@
         board.add(frame);
 
         // fence
-        if (is_fence) {
+        if (fence_color) {
           geometry = new THREE.BoxBufferGeometry(board_width, 200, 18);
-          fence = new THREE.Mesh(geometry, frame_material);
+          fence = new THREE.Mesh(geometry, fence_material);
           fence.position.y = -100;
           fence.position.z = - frame_thickness_under_board;
           fence.castShadow = true;
           frame.add(fence);
 
           geometry = new THREE.BoxBufferGeometry(board_width, 200, 18);
-          fence = new THREE.Mesh(geometry, frame_material);
+          fence = new THREE.Mesh(geometry, fence_material);
           fence.position.y = -305;
           fence.position.z = - frame_thickness_under_board;
           fence.castShadow = true;
