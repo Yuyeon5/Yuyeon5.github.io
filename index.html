@@ -206,10 +206,16 @@
         </div>
       </div>
 
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        이동서랍 2단<input type="checkbox" id="moving2Check" onclick="setMoving2(this)">
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">이동서랍 2단</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setMoving2(0)" style="width: 20%;">없음</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving2(1)" style="width: 20%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving2(2)" style="width: 20%;">블랙</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving2(3)" style="width: 20%;">그레이</div>
+          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving2(4)" style="width: 20%;">내추럴</div>
+        </div>
       </div>
-
 
     </sidebar>
 
@@ -294,8 +300,10 @@
       var fence;
       var fence_material = new THREE.MeshStandardMaterial({ color: white_color });
 
-      var is_moving2;
+      var moving2_color = 0;
+      var moving2_position = 1;
       var moving2;
+      var moving2_material = new THREE.MeshStandardMaterial({ color: white_color });
       var drawer1, drawer2;
       var wheel;
 
@@ -533,7 +541,16 @@
       }
 
       function setMoving2(c) {
-        is_moving2 = c.checked;
+        moving2_color = c;
+        if (moving2_color) {
+          if (giyeok_position == 1)
+            moving2_position = 2;
+          else
+            moving2_position = 1;
+
+          moving2_material = getMaterial(c);
+        }
+
         updateScene();
         render();
       }
@@ -604,10 +621,13 @@
         }
 
         // moving2
-        if (is_moving2) {
+        if (moving2_color) {
           geometry = new THREE.BoxBufferGeometry(300, 585, 400);
-          moving2 = new THREE.Mesh(geometry, frame_material);
-          moving2.position.x = - (board_width - 400 ) / 2;
+          moving2 = new THREE.Mesh(geometry, moving2_material);
+          if (moving2_position == 1)
+            moving2.position.x = - (board_width - 400 ) / 2;
+          else
+            moving2.position.x = (board_width - 400 ) / 2;
           moving2.position.y = - frame_length + (585 + 50) / 2;
           moving2.position.z = (board_depth - 450 )/ 2;
           moving2.castShadow = true;
@@ -615,12 +635,12 @@
 
           // drawer 1 and 2
           geometry = new THREE.BoxBufferGeometry(300, 275, 20);
-          drawer1 = new THREE.Mesh(geometry, frame_material);
+          drawer1 = new THREE.Mesh(geometry, moving2_material);
           drawer1.position.y = (585 - 275) / 2;
           drawer1.position.z = 220;
           moving2.add(drawer1);
 
-          drawer2 = new THREE.Mesh(geometry, frame_material);
+          drawer2 = new THREE.Mesh(geometry, moving2_material);
           drawer2.position.y = -(585 - 275) / 2;
           drawer2.position.z = 220;
           moving2.add(drawer2);
