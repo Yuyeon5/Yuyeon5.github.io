@@ -187,17 +187,9 @@
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">미니서랍</div>
         <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDrawerPosition(0)" style="width: 33%;">없음</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerPosition(1)" style="width: 33%;">왼쪽</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerPosition(2)" style="width: 33%;">오른쪽</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">미니서랍 색상</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDrawerColor(1)" style="width: 50%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerColor(2)" style="width: 50%;">블랙</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDrawerColor(0)" style="width: 33%;">없음</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerColor(1)" style="width: 33%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerColor(2)" style="width: 33%;">블랙</div>
         </div>
       </div>
 
@@ -293,7 +285,7 @@
       var desk_mat_material;
 
       var drawer_position = 0;
-      var drawer_color = 1;
+      var drawer_color = 0;
       var drawer_up;
       var drawer_down;
       var drawer_material = getMaterial(drawer_color);
@@ -511,23 +503,22 @@
         render();
       }
 
-      function setDrawerPosition(p) {
-        var prev = drawer_position;
-
-        drawer_position = p;
-        if (checkCollision()) {
-          drawer_position = prev;
-          return;
-        }
-
-        updateScene();
-        render();
-      }
-
       function setDrawerColor(c) {
         drawer_color = c;
-        if (drawer_color)
-          drawer_material = getMaterial(c);      
+        if (drawer_color) {
+          if (giyeok_position == 1)
+            drawer_position = 2;
+          else
+            drawer_position = 1;
+
+          if (checkCollision()) {
+            drawer_color = 0;
+            return;
+          }
+
+          drawer_material = getMaterial(c);
+        }
+        
         updateScene();
         render();
       }
@@ -548,7 +539,7 @@
       }
 
       function checkCollision() {
-        if (giyeok_position && (giyeok_position == drawer_position)) {
+        if (giyeok_position && drawer_color && (giyeok_position == drawer_position)) {
           alert("ㄱ자 모듈과 미니서랍이 겹칩니다.");
           return true;
         }
@@ -558,7 +549,7 @@
           return true;
         }
 
-        if (desk_mat_color && drawer_position && (board_width < 1500)) {
+        if (desk_mat_color && drawer_color && (board_width < 1500)) {
           alert("데스크매트와 미니서랍이 겹칩니다.");
           return true;
         }
@@ -594,7 +585,7 @@
         }
 
         // drawer
-        if (drawer_position) {
+        if (drawer_color) {
           geometry = new THREE.BoxBufferGeometry(309, 30, 150);
           drawer_down = new THREE.Mesh(geometry, drawer_material);
           if (drawer_position == 1)
