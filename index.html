@@ -171,9 +171,9 @@
       <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
         <div class="flat-radio-label ng-binding ng-scope" ng-if="label">ㄱ자 모듈</div>
         <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setGieok(0)" style="width: 33%;">없음</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setGieok(1)" style="width: 33%;">왼쪽</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setGieok(2)" style="width: 33%;">오른쪽</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setGiyeok(0)" style="width: 33%;">없음</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setGiyeok(1)" style="width: 33%;">왼쪽</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setGiyeok(2)" style="width: 33%;">오른쪽</div>
         </div>
       </div>
 
@@ -279,7 +279,7 @@
       var leg_pad;
       var leg_pad_meterial = new THREE.MeshStandardMaterial({ color: black_color });
 
-      var gieok_direction = 0;
+      var giyeok_position = 0;
 
       var desk_mat_option = 0;
       var desk_mat;
@@ -460,8 +460,8 @@
         render();
       }
 
-      function setGieok(d) {
-        gieok_direction = d;
+      function setGiyeok(d) {
+        giyeok_position = d;
         updateScene();
         render();
       }
@@ -509,10 +509,16 @@
       }
 
       function checkCollision() {
+        if (giyeok_position && (giyeok_position == drawer_position)) {
+          drawer_position = 0;
+          alert("ㄱ자 모듈과 미니서랍이 같은 방향입니다.");
+          return;
+        }          
       }
 
       function updateScene() {
-        // check collision
+        // check collision first
+        checkCollision();
 
         // world
         scene = new THREE.Scene();
@@ -793,10 +799,10 @@
         }
 
         // Gieok module
-        if (gieok_direction) {
+        if (giyeok_position) {
           geometry = new THREE.BoxBufferGeometry(600, board_thickness, 800);
           board = new THREE.Mesh(geometry, board_material);
-          if (gieok_direction == 1)
+          if (giyeok_position == 1)
             board.position.x = - (board_width - 600) / 2;
           else
             board.position.x = (board_width - 600) / 2;
