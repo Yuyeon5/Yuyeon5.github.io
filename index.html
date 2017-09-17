@@ -913,8 +913,8 @@
         // light
         var lights = [];
         var d = 2048;
-        lights[0] = new THREE.DirectionalLight(0xffffff, 1.0);
-        lights[1] = new THREE.AmbientLight(white_color, 1.0);
+        lights[0] = new THREE.SpotLight(0xffffff, 1.0);
+        lights[1] = new THREE.AmbientLight(0xffffff, 1.0);
 
         lights[0].castShadow = true;
 				lights[0].shadow.camera.left = -d ;
