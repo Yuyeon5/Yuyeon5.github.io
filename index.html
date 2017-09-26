@@ -769,14 +769,13 @@
 
         // fence
         if (fence_color) {
-          geometry = new THREE.BoxBufferGeometry(board_width, 200, 18);
+          geometry = new THREE.BoxBufferGeometry(board_width - 5, 200, 18);
           fence = new THREE.Mesh(geometry, fence_material);
           fence.position.y = -100;
           fence.position.z = - frame_thickness_under_board;
           fence.castShadow = true;
           frame.add(fence);
 
-          geometry = new THREE.BoxBufferGeometry(board_width, 200, 18);
           fence = new THREE.Mesh(geometry, fence_material);
           fence.position.y = -305;
           fence.position.z = - frame_thickness_under_board;
