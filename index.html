@@ -573,6 +573,12 @@
 
       function setMoving3(c) {
         moving3_color = c;
+
+        if (checkCollision()) {
+          moving3_color = 0;
+          return;
+        }
+
         if (moving3_color) {
           if (moving2_color && moving2_position == 1)
             moving3_position = 2;
@@ -599,6 +605,11 @@
 
         if (desk_mat_color && drawer_color && (board_width < 1500)) {
           alert("데스크매트와 미니서랍이 겹칩니다.");
+          return true;
+        }
+
+        if (fence_color && moving3_color) {
+          alert("하부가림막과 3단 서랍이 겹칩니다.");
           return true;
         }
 
