@@ -217,6 +217,17 @@
         </div>
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">이동서랍 3단</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setMoving3(0)" style="width: 20%;">없음</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving3(1)" style="width: 20%;">화이트</div>
+          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving3(2)" style="width: 20%;">블랙</div>
+          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving3(3)" style="width: 20%;">그레이</div>
+          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving3(4)" style="width: 20%;">내추럴</div>
+        </div>
+      </div>
+
     </sidebar>
 
     <div id="canvas">
@@ -304,8 +315,13 @@
       var moving2_position = 1;
       var moving2;
       var moving2_material = new THREE.MeshPhongMaterial({ color: white_color });
-      var drawer1, drawer2;
+      var drawer1, drawer2, drawer3;
       var wheel;
+
+      var moving3_color = 0;
+      var moving3_position = 1;
+      var moving3;
+      var moving3_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       init();
       animate();
@@ -555,6 +571,21 @@
         render();
       }
 
+      function setMoving3(c) {
+        moving3_color = c;
+        if (moving3_color) {
+          if (giyeok_position == 1)
+            moving3_position = 2;
+          else
+            moving3_position = 1;
+
+          moving3_material = getMaterial(c);
+        }
+
+        updateScene();
+        render();
+      }
+
       function checkCollision() {
         if (giyeok_position && drawer_color && (giyeok_position == drawer_position)) {
           alert("ㄱ자 모듈과 미니서랍이 겹칩니다.");
@@ -677,6 +708,70 @@
           wheel.position.z = -180;
           wheel.rotation.x = Math.PI / 2;          
           moving2.add(wheel);
+        }
+
+        // moving3
+        if (moving3_color) {
+          geometry = new THREE.BoxBufferGeometry(400, 585, 580);
+          moving3 = new THREE.Mesh(geometry, moving3_material);
+          if (moving3_position == 1)
+            moving3.position.x = - (board_width - 500 ) / 2;
+          else
+            moving3.position.x = (board_width - 500 ) / 2;
+          moving3.position.y = - frame_length + (585 + 50) / 2;
+          moving3.position.z = (board_depth - 640 )/ 2;
+          moving3.castShadow = true;
+          board.add(moving3);
+
+          // drawer 1, 2, 3
+          geometry = new THREE.BoxBufferGeometry(400, 190, 20);
+          drawer1 = new THREE.Mesh(geometry, moving3_material);
+          drawer1.position.y = (585 - 190) / 2;
+          drawer1.position.z = 310;
+          moving3.add(drawer1);
+
+          drawer2 = new THREE.Mesh(geometry, moving3_material);
+          drawer2.position.y = 0;
+          drawer2.position.z = 310;
+          moving3.add(drawer2);
+
+          drawer3 = new THREE.Mesh(geometry, moving3_material);
+          drawer3.position.y = - (585 - 190) / 2;
+          drawer3.position.z = 310;
+          moving3.add(drawer3);
+
+          // wheel
+          geometry = new THREE.CylinderBufferGeometry(25, 25, 30);
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = -180;
+          wheel.position.y = -320;
+          wheel.position.z = 280;
+          wheel.rotation.x = Math.PI / 2;          
+          moving3.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = 180;
+          wheel.position.y = -320;
+          wheel.position.z = 280;
+          wheel.rotation.x = Math.PI / 2;          
+          moving3.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = -180;
+          wheel.position.y = -320;
+          wheel.position.z = -280;
+          wheel.rotation.x = Math.PI / 2;          
+          moving3.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = 180;
+          wheel.position.y = -320;
+          wheel.position.z = -280;
+          wheel.rotation.x = Math.PI / 2;          
+          moving3.add(wheel);
         }
 
         // frame (leg)
