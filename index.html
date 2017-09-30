@@ -249,7 +249,7 @@
       var plane;
       var plane_size = 10000;
       var plane_material = new THREE.MeshPhongMaterial( {
-					color: 0xffffff,
+					color: gray_color,
 					side: THREE.BackSide
 				} );
 
@@ -912,9 +912,11 @@
         // light
         var lights = [];
         var d = 2048;
-        lights[0] = new THREE.DirectionalLight(0xffffff, 0.3);
-        lights[1] = new THREE.DirectionalLight(0xffffff, 0.3);
-        lights[2] = new THREE.AmbientLight(0xffffff, 0.5);
+        lights[0] = new THREE.DirectionalLight(0xffffff, 0.2);
+        lights[1] = new THREE.DirectionalLight(0xffffff, 0.2);
+        lights[2] = new THREE.DirectionalLight(0xffffff, 0.2);
+        lights[3] = new THREE.DirectionalLight(0xffffff, 0.2);
+        lights[4] = new THREE.AmbientLight(0xffffff, 0.5);
 
         lights[0].castShadow = true;
 				lights[0].shadow.camera.left = -d ;
@@ -922,13 +924,17 @@
 				lights[0].shadow.camera.top = d ;
 				lights[0].shadow.camera.bottom = -d ;
 				lights[0].shadow.camera.far = 10000;
-        lights[0].position.set(-1000, 2000, 1000);
+        lights[0].position.set(-1000, 1000, 1000);
 
-        lights[1].position.set(1000, 2000, -1000);
+        lights[1].position.set(1000, 1000, -1000);
+        lights[2].position.set(-1000, 1000, -1000);
+        lights[3].position.set(1000, 1000, 1000);
 
         scene.add(lights[0]);
         scene.add(lights[1]);
         scene.add(lights[2]);
+        scene.add(lights[3]);
+        scene.add(lights[4]);
       }
 
       function onWindowResize() {
