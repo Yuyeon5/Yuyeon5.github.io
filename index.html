@@ -559,7 +559,7 @@
       function setMoving2(c) {
         moving2_color = c;
         if (moving2_color) {
-          if (giyeok_position == 1)
+          if (moving3_color && moving3_position == 1)
             moving2_position = 2;
           else
             moving2_position = 1;
@@ -574,7 +574,7 @@
       function setMoving3(c) {
         moving3_color = c;
         if (moving3_color) {
-          if (giyeok_position == 1)
+          if (moving2_color && moving2_position == 1)
             moving3_position = 2;
           else
             moving3_position = 1;
