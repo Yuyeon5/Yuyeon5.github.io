@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+		@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+    container {
+      width: 100%;
+			overflow: hidden;
+    }
+
+    #canvas {
+      position: absolute;
+      border: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      display: block;
+    }
+
+    * {
+      border-style: none;
+      border-width: 0;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      font-family: 'Noto Sans KR', Helvetica, Arial, sans-serif;
+      margin: 0;
+      outline: none;
+      overflow: visible;
+      padding: 0;
+    }
+
+		.header { position: fixed; z-index: 1; width: 100%; height: 60px; padding: 0 50px; background-color: #fff; /*box-shadow: 0 2px 5px rgba(0,0,0,0.1);*/ border-bottom: 1px solid #eaeaea; }
+		.h_title { float: left; height: 60px; line-height: 60px; font-size: 20px; }
+		.h_logo { float: right; padding-top: 10px; }
+
+		.sidebar { position: fixed;	top: 60px; width: 800px; height: 720px; overflow: hidden;}
+			.sidebar ul { width: 800px; height: 639px;  overflow: hidden;}
+				.sidebar li { position: relative; width: 80px; background-color: rgba(255, 255, 255, 1); border-bottom: 1px solid #eaeaea; border-right: 1px solid #eaeaea; box-sizing: border-box;}
+
+		.menu_box { position: relative; width: 100%; height: 79px; text-align: center; padding-top: 10px; }
+			.menu_title { display: none; position: absolute; left: 0; top: 0; width: 80px; height: 80px; line-height: 82px; background-color: rgba(0, 0, 0, 0.75); color: #fff; font-size: 14px; }
+			.menu_title:after { content: ""; background-image: url('img/bg_arrow.png'); position: absolute; left: 80px; top: 50%; margin-top: -4.5px; width: 8px; height: 9px; z-index: 1; }
+			.menu_box:hover .menu_title { display: block; }
+			.menu_icon { display: block; width: 30px; height: 30px; background-color: #333; border-radius: 100%; margin: 0 auto; }
+			.menu_sel_text { font-size: 14px; line-height: 40px; }
+		
+		.menu_all_list { display: none; position: absolute; left: 80px; top: -1px;  height: 81px; background-color: #fff; border: 1px solid #eaeaea; border-left: 0; }
+		.sidebar li:first-child .menu_all_list { border-top: 0; }
+			.mal_buttons { overflow: hidden; }
+			.mal_buttons>div { float:left; width: 100px; height: 80px; background-color: #fff; text-align: center; line-height: 80px; font-size: 14px; cursor: pointer; color: #888; font-weight: 500;}
+			.mal_buttons>div.sel,
+			.mal_buttons>div:hover { border: 4px solid #ed9c00; line-height: 72px; color: #333; }
+
+		.btn_down { height: 80px; }
+
+		.footer { position: fixed; left: 0; bottom: 0; width: 100%; height: 150px; padding:20px 0; background-color: rgba(0, 0, 0, 0.7);}
+			.ft_inner {}
+				.ft_inner>div { float: left; height: 110px; padding: 20px 40px 0; border-left: 1px solid rgba(255, 255, 255, 0.1);}
+				.ft_inner>div:first-child { border-left: 0; }
+
+					.ft_title { font-weight: normal; color: #9f9f9f; font-size: 16px; }
+					.ft_prd_code { color: #fff; font-size: 30px; font-family: "Montserrat" }
+
+					.delevery_box { float: left; }
+					.delevery_box:first-child { margin-right: 20px; }
+						.delevery_info { position: relative; width: 175px; height: 35px; line-height: 35px; background-color: #000; overflow: hidden; color: #fff; text-indent: 10px; font-size: 18px; margin-top: 5px; }
+						.delevery_info.price { text-align: right; padding-right: 10px; }
+							.delevery_area_list { height: 35px; }
+								.delevery_area_list>li { line-height: 35px; list-style: none; }
+							.delevery_list_more { position: absolute; right: 10px; top: 0; }
+
+							.delevery_info.price>span { font-size: 14px; }
+
+						.ft_total_title { display: block; float: left; line-height: 110px; font-size: 24px; color: #fff; font-weight: normal; }
+						.ft_total_price { display: block; float: right; line-height: 110px; font-size: 50px; color: #fff;  }
+							.ft_total_price>span { padding-left: 5px; font-size: 20px; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+		<div class="header">
+			<div class="h_title">F1 DESK CONFIGURATION</div>
+			<div class="h_logo"><img src="img/logo.png"></div>
+		</div>
+		<div class="sidebar">
+			<ul>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">형식</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">기본형</p>
+					</div>
+					<div class="menu_all_list" style="width: 201px;">
+						<div class="mal_buttons">
+							<div class="sel" onclick="setMium(0)">기본형</div>
+							<div onclick="setMium(1)">ㅁ다리</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">폭(W)</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">1400</p>
+					</div>
+					<div class="menu_all_list" style="width: 601px;">
+						<div class="mal_buttons">
+							<div onclick="setWidth(1000)">1000</div>
+							<div onclick="setWidth(1200)">1200</div>
+							<div onclick="setWidth(1400)" class="sel">1400</div>
+							<div onclick="setWidth(1600)">1600</div>
+							<div onclick="setWidth(1800)">1800</div>
+							<div onclick="setWidth(2000)">2000</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">깊이(D)</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">500</p>
+					</div>
+					<div class="menu_all_list" style="width: 301px;">
+						<div class="mal_buttons">
+							<div onclick="setDepth(500)" class="sel">500</div>
+							<div onclick="setDepth(600)">600</div>
+							<div onclick="setDepth(700)">700</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">수직부재</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">없음</p>
+					</div>
+					<div class="menu_all_list" style="width: 401px;">
+						<div class="mal_buttons">
+							<div onclick="setVertical(1)" class="sel">없음</div>
+							<div onclick="setVertical(2)">640</div>
+							<div onclick="setVertical(3)">920</div>
+							<div onclick="setVertical(4)">1860</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">선반갯수</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">1개</p>
+					</div>
+					<div class="menu_all_list" style="width: 701px;">
+						<div class="mal_buttons">
+							<div onclick="setShelfNum(1)" class="sel">1</div>
+							<div onclick="setShelfNum(2)">2</div>
+							<div onclick="setShelfNum(3)">3</div>
+							<div onclick="setShelfNum(4)">4</div>
+							<div onclick="setShelfNum(5)">5</div>
+							<div onclick="setShelfNum(6)">6</div>
+							<div onclick="setShelfNum(7)">7</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">상판색상</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">블랙</p>
+					</div>
+					<div class="menu_all_list" style="width: 701px;">
+						<div class="mal_buttons">
+							<div onclick="setBoardColor(1)">화이트</div>
+							<div onclick="setBoardColor(2)">블랙</div>
+							<div onclick="setBoardColor(3)" class="sel">그레이</div>
+							<div onclick="setBoardColor(4)">내추럴</div>
+							<div onclick="setBoardColor(5)">파인</div>
+							<div onclick="setBoardColor(6)">콘크리트</div>
+							<div onclick="setBoardColor(7)">레드파인</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title" >프레임색상</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">블랙</p>
+					</div>
+					<div class="menu_all_list" style="width: 301px;">
+						<div class="mal_buttons">
+							<div onclick="setFrameColor(1)" class="sel">화이트</div>
+							<div onclick="setFrameColor(2)">블랙</div>
+							<div onclick="setFrameColor(3)">그레이</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title" style="line-height: 20px; padding-top: 18px; ">수직부재<br>프레임색상</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">블랙</p>
+					</div>
+					<div class="menu_all_list" style="width: 301px;">
+						<div class="mal_buttons">
+							<div onclick="setVerticalColor(1)">화이트</div>
+							<div onclick="setVerticalColor(2)" class="sel">블랙</div>
+							<div onclick="setVerticalColor(3)">그레이</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">선반색상</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">화이트</p>
+					</div>
+					<div class="menu_all_list" style="width: 501px;">
+						<div class="mal_buttons">
+							<div onclick="setShelfBoardColor(1)">화이트</div>
+							<div onclick="setShelfBoardColor(2)" class="sel">블랙</div>
+							<div onclick="setShelfBoardColor(3)">그레이</div>
+							<div onclick="setShelfBoardColor(4)">내추럴</div>
+							<div onclick="setShelfBoardColor(5)">파인</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title" style="line-height: 20px; padding-top: 18px; ">선반<br>프레임색상</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">블랙</p>
+					</div>
+					<div class="menu_all_list" style="width: 301px;">
+						<div class="mal_buttons">
+							<div onclick="setShelfFrameColor(1)">화이트</div>
+							<div onclick="setShelfFrameColor(2)" class="sel">블랙</div>
+							<div onclick="setShelfFrameColor(3)">그레이</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">ㄱ자 모듈</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">없음</p>
+					</div>
+					<div class="menu_all_list" style="width: 301px;">
+						<div class="mal_buttons">
+							<div onclick="setGiyeok(0)">없음</div>
+							<div onclick="setGiyeok(1)" class="sel">왼쪽</div>
+							<div onclick="setGiyeok(2)">오른쪽</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">데스크매트</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">없음</p>
+					</div>
+					<div class="menu_all_list" style="width: 301px;">
+						<div class="mal_buttons">
+							<div onclick="setDeskMat(0)">없음</div>
+							<div onclick="setDeskMat(1)">그레이</div>
+							<div onclick="setDeskMat(2)" class="sel">블랙</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">미니서랍</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">없음</p>
+					</div>
+					<div class="menu_all_list" style="width: 301px;">
+						<div class="mal_buttons">
+							<div onclick="setDrawerColor(0)" class="sel">없음</div>
+							<div onclick="setDrawerColor(1)">화이트</div>
+							<div onclick="setDrawerColor(2)">블랙</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">하부가림판</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">없음</p>
+					</div>
+					<div class="menu_all_list" style="width: 701px;">
+						<div class="mal_buttons">
+							<div onclick="setFence(0)" class="sel">없음</div>
+							<div onclick="setFence(1)">화이트</div>
+							<div onclick="setFence(2)">블랙</div>
+							<div onclick="setFence(3)">그레이</div>
+							<div onclick="setFence(4)">내추럴</div>
+							<div onclick="setFence(5)">파인</div>
+							<div onclick="setFence(6)">콘크리트</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">이동서랍<br>2단</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">없음</p>
+					</div>
+					<div class="menu_all_list" style="width: 501px;">
+						<div class="mal_buttons">
+							<div onclick="setMoving2(0)" class="sel">없음</div>
+							<div onclick="setMoving2(1)">화이트</div>
+							<div onclick="setMoving2(2)">블랙</div>
+							<div onclick="setMoving2(3)">그레이</div>
+							<div onclick="setMoving2(4)">내추럴</div>
+						</div>
+					</div>
+				</li>
+				<li label="width" model="dimensions.width">
+					<div class="menu_box">
+						<div class="menu_title">이동서랍<br>3단</div>
+						<span class="menu_icon"></span>
+						<p class="menu_sel_text">없음</p>
+					</div>
+					<div class="menu_all_list" style="width: 501px;">
+						<div class="mal_buttons">
+							<div onclick="setMoving3(0)" class="sel">없음</div>
+							<div onclick="setMoving3(1)">화이트</div>
+							<div onclick="setMoving3(2)">블랙</div>
+							<div onclick="setMoving3(3)">그레이</div>
+							<div onclick="setMoving3(4)">내추럴</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="btn_down"><img src="img/bg_arrow_down.png"></div>
+		</div>
+		<div class="footer">
+			<div class="ft_inner">
+
+				<div style="width: 13%;">
+					<strong class="ft_title">상품코드</strong>
+					<p class="ft_prd_code">P00000RM</p>
+				</div>
+
+				<div style="width: 23.5%;">
+					<div class="delevery_box">
+						<strong class="ft_title">배송지역 설정</strong>
+						<div class="delevery_info">
+							<ul class="delevery_area_list">
+								<li>서울</li>
+								<li>경기</li>
+							</ul>
+							<span class="delevery_list_more">+</span>
+						</div>
+					</div>
+					<div class="delevery_box">
+						<strong class="ft_title">배송 가능 날짜</strong>
+						<div class="delevery_info">2017년 12월 31일</div>
+					</div>
+				</div>
+
+				<div style="width: 23.5%;">
+					<div class="delevery_box">
+						<strong class="ft_title">배송조립비</strong>
+						<div class="delevery_info price">28,000 <span>원</span></div>
+					</div>
+					<div class="delevery_box">
+						<strong class="ft_title">상품금액</strong>
+						<div class="delevery_info price">283,000 <span>원</span></div>
+					</div>
+				</div>
+
+				<div style="width: 40%; padding-top: 0;">
+					<strong class="ft_total_title">총 결제금액</strong>
+					<span class="ft_total_price">99,313,000<span>원</span></span>
+				</div>
+
+			</div>
+		</div>
+
+    <div id="canvas">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.js"></script>
+    <script src="./TrackballControls.js"></script>
+
+    <script>
+      var container;
+      var camera, controls, scene, renderer;
+      var geometry, geometry1, material;
+
+      var width, height = 700;
+
+      var white_color = 0xf8f9fb;
+      var black_color = 0x21201e;
+      var gray_color = 0x6f6f6f;
+
+      var texture_natural = new THREE.TextureLoader().load('texture/natural.jpg');
+      var texture_pine = new THREE.TextureLoader().load('texture/pine.jpg');
+      var texture_concrete = new THREE.TextureLoader().load('texture/concrete.jpg');
+      var texture_redpine = new THREE.TextureLoader().load('texture/redpine.jpg');
+
+      texture_natural.minFilter = THREE.LinearFilter;
+      texture_pine.minFilter = THREE.LinearFilter;
+      texture_concrete.minFilter = THREE.LinearFilter;
+      texture_redpine.minFilter = THREE.LinearFilter;
+
+      var plane;
+      var plane_size = 10000;
+      var plane_material = new THREE.MeshPhongMaterial( {
+					color: 0xAAAAAA,
+					side: THREE.BackSide
+				} );
+
+      var is_mium = 0;
+      var mium_leg;
+
+      var board;
+      var board_thickness = 20;
+      var board_width = 1200;
+      var board_depth = 700;
+      var board_material = new THREE.MeshPhongMaterial({ color: white_color });
+
+      var frame;
+      var frame_thickness = 40;
+      var frame_thickness_under_board = 20;
+      var frame_length = 700;
+      var frame_margin = 2;       // between frame and board
+      var frame_material = new THREE.MeshPhongMaterial({ color: white_color });
+
+      var vertical;
+      var vertical_length;
+      var vertical_y;
+      var vertical_material = new THREE.MeshPhongMaterial({ color: white_color });
+
+      var shelf;
+      var shelf_depth = 200;
+      var shelf_num = 1;
+      var shelf_max_num = 1;
+      var shelf_board_material = new THREE.MeshPhongMaterial({ color: white_color });
+      var shelf_frame_material = new THREE.MeshPhongMaterial({ color: white_color });
+
+      var leg_pad;
+      var leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
+
+      var giyeok_position = 0;
+
+      var desk_mat_color = 0;
+      var desk_mat;
+      var desk_mat_material;
+
+      var drawer_position = 0;
+      var drawer_color = 0;
+      var drawer_up;
+      var drawer_down;
+      var drawer_material = getMaterial(drawer_color);
+
+      var fence_color;
+      var fence;
+      var fence_material = new THREE.MeshPhongMaterial({ color: white_color });
+
+      var moving2_color = 0;
+      var moving2_position = 1;
+      var moving2;
+      var moving2_material = new THREE.MeshPhongMaterial({ color: white_color });
+      var drawer1, drawer2, drawer3;
+      var wheel;
+
+      var moving3_color = 0;
+      var moving3_position = 1;
+      var moving3;
+      var moving3_material = new THREE.MeshPhongMaterial({ color: white_color });
+
+      init();
+      animate();
+
+      function init() {
+        container = document.getElementById('canvas');
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        camera = new THREE.PerspectiveCamera(20, width / height, 100, 50000);
+        camera.position.x = 1000;
+        camera.position.y = 2000;
+        camera.position.z = 5000;
+
+        updateScene();
+
+        // renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.shadowMap.enabled = true;
+        renderer.setClearColor(white_color);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(width, height);
+
+        container.appendChild(renderer.domElement);
+
+        controls = new THREE.TrackballControls(camera, renderer.domElement);
+        controls.rotateSpeed = 10.0;
+        controls.zoomSpeed = 1.2;
+        controls.panSpeed = 1.8;
+        controls.noZoom = false;
+        controls.noPan = false;
+        controls.staticMoving = true;
+        controls.dynamicDampingFactor = 1.0;
+        controls.target = new THREE.Vector3(0, 500, 0);
+
+        controls.addEventListener('change', render);
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        render();
+      }
+
+      function setMium(m) {
+        is_mium = m;
+        updateScene();
+        render();
+      }
+
+      function setWidth(w) {
+        var prev = board_width;
+
+        board_width = w;
+        if (checkCollision()) {
+          board_width = prev;
+          return;
+        }
+
+        updateScene();
+        render();
+      }
+
+      function setDepth(d) {
+        board_depth = d;
+        updateScene();
+        render();
+      }
+
+      function getMaterial(color_code) {
+        var material;
+
+        switch (color_code) {
+          case 1:
+            material = new THREE.MeshPhongMaterial({ color: white_color });
+            return material;
+          case 2:
+            material = new THREE.MeshPhongMaterial({ color: black_color });
+            return material;
+          case 3:
+            material = new THREE.MeshPhongMaterial({ color: gray_color });
+            return material;
+          case 4:
+            material = new THREE.MeshPhongMaterial({ map: texture_natural });
+            return material;
+          case 5:
+            material = new THREE.MeshPhongMaterial({ map: texture_pine });
+            return material;
+          case 6:
+            material = new THREE.MeshPhongMaterial({ map: texture_concrete });
+            return material;
+          case 7:
+            material = new THREE.MeshPhongMaterial({ map: texture_redpine });
+            return material;
+          default:
+            material = new THREE.MeshPhongMaterial({ color: white_color });
+            return material;
+        }
+      }
+
+      function setBoardColor(c) {
+        board_material = getMaterial(c);
+        updateScene();
+        render();
+      }
+
+      function setVerticalColor(c) {
+        vertical_material = getMaterial(c);
+        updateScene();
+        render();
+      }
+
+      function setShelfBoardColor(c) {
+        shelf_board_material = getMaterial(c);
+        updateScene();
+        render();
+      }
+
+      function setShelfFrameColor(c) {
+        shelf_frame_material = getMaterial(c);
+        updateScene();
+        render();
+      }
+
+      function setFrameColor(c) {
+        frame_material = getMaterial(c);
+
+        if (c == 1)
+          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: white_color });
+        else
+          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
+
+        updateScene();
+        render();
+      }
+
+      function setVertical(c) {
+        switch (c) {
+          case 1:
+            vertical_length = 0;
+            break;
+          case 2:
+            vertical_length = 640;
+            vertical_y = -15;
+            shelf_max_num = 3;
+            break;
+          case 3:
+            vertical_length = 920;
+            vertical_y = -7;
+            shelf_max_num = 5;
+            break;
+          case 4:
+            vertical_length = 1860;
+            vertical_y = 360;
+            shelf_max_num = 7;
+            break;
+          default:
+            vertical_length = 0;
+            break;
+        }
+
+        updateScene();
+        render();
+      }
+
+      function setShelfNum(n) {
+        shelf_num = n;
+        updateScene();
+        render();
+      }
+
+      function setGiyeok(d) {
+        var prev = giyeok_position;
+
+        giyeok_position = d;
+        if (checkCollision()) {
+          giyeok_position = prev;
+          return;
+        }
+
+        updateScene();
+        render();
+      }
+
+      function setDeskMat(c) {
+        var prev = desk_mat_color;
+
+        desk_mat_color = c;
+        if (checkCollision()) {
+          desk_mat_color = prev;
+          return;
+        }
+
+        switch (desk_mat_color) {
+        case 0:
+          break;
+        case 1:
+          desk_mat_material = getMaterial(3);
+          break;
+        case 2:
+          desk_mat_material = getMaterial(2);
+          break;
+        }
+        updateScene();
+        render();
+      }
+
+      function setDrawerColor(c) {
+        drawer_color = c;
+        if (drawer_color) {
+          if (giyeok_position == 1)
+            drawer_position = 2;
+          else
+            drawer_position = 1;
+
+          if (checkCollision()) {
+            drawer_color = 0;
+            return;
+          }
+
+          drawer_material = getMaterial(c);
+        }
+        
+        updateScene();
+        render();
+      }
+
+      function setFence(c) {
+        fence_color = c;
+        if (fence_color)
+          fence_material = getMaterial(c);
+
+        updateScene();
+        render();
+      }
+
+      function setMoving2(c) {
+        moving2_color = c;
+        if (moving2_color) {
+          if (moving3_color && moving3_position == 1)
+            moving2_position = 2;
+          else
+            moving2_position = 1;
+
+          moving2_material = getMaterial(c);
+        }
+
+        updateScene();
+        render();
+      }
+
+      function setMoving3(c) {
+        moving3_color = c;
+
+        if (checkCollision()) {
+          moving3_color = 0;
+          return;
+        }
+
+        if (moving3_color) {
+          if (moving2_color && moving2_position == 1)
+            moving3_position = 2;
+          else
+            moving3_position = 1;
+
+          moving3_material = getMaterial(c);
+        }
+
+        updateScene();
+        render();
+      }
+
+      function checkCollision() {
+        if (giyeok_position && drawer_color && (giyeok_position == drawer_position)) {
+          alert("ㄱ자 모듈과 미니서랍이 겹칩니다.");
+          return true;
+        }
+
+        if (giyeok_position && desk_mat_color && (board_width < 2000)) {
+          alert("데스크매트와 ㄱ자 모듈이 겹칩니다.");
+          return true;
+        }
+
+        if (desk_mat_color && drawer_color && (board_width < 1500)) {
+          alert("데스크매트와 미니서랍이 겹칩니다.");
+          return true;
+        }
+
+        if (fence_color && moving3_color) {
+          alert("하부가림막과 3단 서랍이 겹칩니다.");
+          return true;
+        }
+
+        return false;
+      }
+
+      function updateScene() {
+        // world
+        scene = new THREE.Scene();
+
+        // plane
+        geometry = new THREE.PlaneGeometry(plane_size, plane_size);
+        plane = new THREE.Mesh(geometry, plane_material);
+        plane.rotation.x = 0.5 * Math.PI;
+        plane.receiveShadow = true;
+        scene.add(plane);
+
+        // board
+        geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
+        board = new THREE.Mesh(geometry, board_material);
+        board.position.y = frame_length + board_thickness;
+        board.castShadow = true;
+        scene.add(board);
+
+        // desk mat
+        if (desk_mat_color) {
+          geometry = new THREE.BoxBufferGeometry(700, board_thickness, 420);
+          desk_mat = new THREE.Mesh(geometry, desk_mat_material);
+          desk_mat.position.y = 2;
+          desk_mat.position.z = (board_depth - 420) / 2 + 2;
+          board.add(desk_mat);
+        }
+
+        // drawer
+        if (drawer_color) {
+          geometry = new THREE.BoxBufferGeometry(309, 30, 150);
+          drawer_down = new THREE.Mesh(geometry, drawer_material);
+          if (drawer_position == 1)
+            drawer_down.position.x = -(board_width - 309 - 90) / 2;
+          else
+            drawer_down.position.x = (board_width - 309 - 90) / 2;
+          drawer_down.position.y = -32;
+          drawer_down.position.z = (board_depth - 150) / 2 + 2;
+          board.add(drawer_down);
+
+          geometry1 = new THREE.BoxBufferGeometry(309, 25, 40);
+          drawer_up = new THREE.Mesh(geometry1, drawer_material);
+          drawer_up.position.y = 32;
+          drawer_up.position.z = 56;
+          drawer_down.add(drawer_up);
+        }
+
+        // moving2
+        if (moving2_color) {
+          geometry = new THREE.BoxBufferGeometry(300, 585, 400);
+          moving2 = new THREE.Mesh(geometry, moving2_material);
+          if (moving2_position == 1)
+            moving2.position.x = - (board_width - 400 ) / 2;
+          else
+            moving2.position.x = (board_width - 400 ) / 2;
+          moving2.position.y = - frame_length + (585 + 50) / 2;
+          moving2.position.z = (board_depth - 450 )/ 2;
+          moving2.castShadow = true;
+          board.add(moving2);
+
+          // drawer 1 and 2
+          geometry = new THREE.BoxBufferGeometry(300, 275, 20);
+          drawer1 = new THREE.Mesh(geometry, moving2_material);
+          drawer1.position.y = (585 - 275) / 2;
+          drawer1.position.z = 220;
+          moving2.add(drawer1);
+
+          drawer2 = new THREE.Mesh(geometry, moving2_material);
+          drawer2.position.y = -(585 - 275) / 2;
+          drawer2.position.z = 220;
+          moving2.add(drawer2);
+
+          // wheel
+          geometry = new THREE.CylinderBufferGeometry(25, 25, 30);
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = -130;
+          wheel.position.y = -320;
+          wheel.position.z = 180;
+          wheel.rotation.x = Math.PI / 2;          
+          moving2.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = 130;
+          wheel.position.y = -320;
+          wheel.position.z = 180;
+          wheel.rotation.x = Math.PI / 2;          
+          moving2.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = -130;
+          wheel.position.y = -320;
+          wheel.position.z = -180;
+          wheel.rotation.x = Math.PI / 2;          
+          moving2.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = 130;
+          wheel.position.y = -320;
+          wheel.position.z = -180;
+          wheel.rotation.x = Math.PI / 2;          
+          moving2.add(wheel);
+        }
+
+        // moving3
+        if (moving3_color) {
+          geometry = new THREE.BoxBufferGeometry(400, 585, 580);
+          moving3 = new THREE.Mesh(geometry, moving3_material);
+          if (moving3_position == 1)
+            moving3.position.x = - (board_width - 500 ) / 2;
+          else
+            moving3.position.x = (board_width - 500 ) / 2;
+          moving3.position.y = - frame_length + (585 + 50) / 2;
+          moving3.position.z = (board_depth - 640 )/ 2;
+          moving3.castShadow = true;
+          board.add(moving3);
+
+          // drawer 1, 2, 3
+          geometry = new THREE.BoxBufferGeometry(400, 190, 20);
+          drawer1 = new THREE.Mesh(geometry, moving3_material);
+          drawer1.position.y = (585 - 190) / 2;
+          drawer1.position.z = 310;
+          moving3.add(drawer1);
+
+          drawer2 = new THREE.Mesh(geometry, moving3_material);
+          drawer2.position.y = 0;
+          drawer2.position.z = 310;
+          moving3.add(drawer2);
+
+          drawer3 = new THREE.Mesh(geometry, moving3_material);
+          drawer3.position.y = - (585 - 190) / 2;
+          drawer3.position.z = 310;
+          moving3.add(drawer3);
+
+          // wheel
+          geometry = new THREE.CylinderBufferGeometry(25, 25, 30);
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = -180;
+          wheel.position.y = -320;
+          wheel.position.z = 280;
+          wheel.rotation.x = Math.PI / 2;          
+          moving3.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = 180;
+          wheel.position.y = -320;
+          wheel.position.z = 280;
+          wheel.rotation.x = Math.PI / 2;          
+          moving3.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = -180;
+          wheel.position.y = -320;
+          wheel.position.z = -280;
+          wheel.rotation.x = Math.PI / 2;          
+          moving3.add(wheel);
+
+          // wheel
+          wheel = new THREE.Mesh(geometry, leg_pad_meterial);
+          wheel.position.x = 180;
+          wheel.position.y = -320;
+          wheel.position.z = -280;
+          wheel.rotation.x = Math.PI / 2;          
+          moving3.add(wheel);
+        }
+
+        // frame (leg)
+        geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.x = - (board_width - frame_thickness) / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+        frame.position.z = - (board_depth - frame_thickness) / 2;
+        frame.castShadow = true;
+        board.add(frame);
+
+        // leg pad
+        geometry1 = new THREE.CylinderBufferGeometry(frame_thickness / 1.8, frame_thickness / 1.8, 10);
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        leg_pad.position.y = - frame_length / 2 - 8;
+        frame.add(leg_pad);
+
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.x = (board_width - frame_thickness) / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+        frame.position.z = - (board_depth - frame_thickness) / 2;
+        frame.castShadow = true;
+        board.add(frame);
+
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        leg_pad.position.y = - frame_length / 2 - 8;
+        frame.add(leg_pad);
+
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.x = - (board_width - frame_thickness) / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+        frame.position.z = (board_depth - frame_thickness) / 2;
+        frame.castShadow = true;
+        board.add(frame);
+
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        leg_pad.position.y = - frame_length / 2 - 8;
+        frame.add(leg_pad);
+
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.x = (board_width - frame_thickness) / 2;
+        frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+        frame.position.z = (board_depth - frame_thickness) / 2;
+        frame.castShadow = true;
+        board.add(frame);
+
+        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+        leg_pad.position.y = - frame_length / 2 - 8;
+        frame.add(leg_pad);
+
+        // frame under board
+        geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.x = (board_width - frame_thickness) / 2;
+        frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
+        board.add(frame);
+
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.x = - (board_width - frame_thickness) / 2;
+        frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
+        board.add(frame);
+
+        // mium leg
+        if (is_mium) {
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
+          mium_leg = new THREE.Mesh(geometry, frame_material);
+          mium_leg.position.x = (board_width - frame_thickness) / 2;
+          mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2 - frame_margin;
+          mium_leg.castShadow = true;
+          board.add(mium_leg);
+
+          mium_leg = new THREE.Mesh(geometry, frame_material);
+          mium_leg.position.x = - (board_width - frame_thickness) / 2;
+          mium_leg.position.y = - frame_length + (frame_thickness - board_thickness) / 2 - frame_margin;
+          mium_leg.castShadow = true;
+          board.add(mium_leg);
+        }
+
+        // frame under board
+        geometry = new THREE.BoxBufferGeometry(board_width - 2, frame_thickness, frame_thickness_under_board);
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
+        frame.position.z = board_depth / 4;
+        board.add(frame);
+
+        frame = new THREE.Mesh(geometry, frame_material);
+        frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
+        frame.position.z = - board_depth / 4;
+        board.add(frame);
+
+        // fence
+        if (fence_color) {
+          geometry = new THREE.BoxBufferGeometry(board_width - 5, 200, 18);
+          fence = new THREE.Mesh(geometry, fence_material);
+          fence.position.y = -100;
+          fence.position.z = - frame_thickness_under_board;
+          fence.castShadow = true;
+          frame.add(fence);
+
+          fence = new THREE.Mesh(geometry, fence_material);
+          fence.position.y = -305;
+          fence.position.z = - frame_thickness_under_board;
+          fence.castShadow = true;
+          frame.add(fence);
+        }
+
+        // vertical
+        if (vertical_length > 0) {
+          if (shelf_num > shelf_max_num) {
+            shelf_num = shelf_max_num;
+          }
+
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
+          vertical = new THREE.Mesh(geometry, vertical_material);
+          vertical.position.x = - (board_width - frame_thickness) / 2;
+          vertical.position.y = vertical_y;
+          vertical.position.z = - (board_depth + frame_thickness + 5) / 2;
+          vertical.castShadow = true;
+          board.add(vertical);
+
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
+          vertical = new THREE.Mesh(geometry, vertical_material);
+          vertical.position.x = + (board_width - frame_thickness) / 2;
+          vertical.position.y = vertical_y;
+          vertical.position.z = - (board_depth + frame_thickness + 5) / 2;
+          vertical.castShadow = true;
+          board.add(vertical);
+
+          // shelves
+          var i;
+          for (i = 0; i < shelf_num; i++) {
+            geometry = new THREE.BoxBufferGeometry(board_width - 2, board_thickness, shelf_depth);
+            shelf = new THREE.Mesh(geometry, shelf_board_material);
+            if (i == 0)
+              shelf.position.y = vertical_y + vertical_length / 2 + board_thickness / 2;
+            else
+              shelf.position.y = vertical_y + vertical_length * (0.5 - i / (shelf_num - 1)) + board_thickness / 2;
+            shelf.position.z = - (board_depth + shelf_depth + 7) / 2;
+            shelf.castShadow = true;
+            board.add(shelf);
+
+            geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness);
+            frame = new THREE.Mesh(geometry, shelf_frame_material);
+            frame.position.y = - (board_thickness + frame_thickness) / 2;
+            frame.position.z = (shelf_depth - frame_thickness) / 2;
+            shelf.add(frame);
+          }
+
+          // safety leg
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.x = - (board_width - frame_thickness) / 2;
+          frame.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
+          frame.position.z = - (board_depth + shelf_depth) / 2;
+          frame.castShadow = true;
+          board.add(frame);
+
+          // leg pad
+          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+          leg_pad.position.y = - frame_thickness / 2 - 8;
+          leg_pad.position.z = - (shelf_depth - frame_thickness) / 2;
+          frame.add(leg_pad);
+
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, shelf_depth);
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.x = + (board_width - frame_thickness) / 2;
+          frame.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
+          frame.position.z = - (board_depth + shelf_depth) / 2;
+          frame.castShadow = true;
+          board.add(frame);
+
+          // leg pad
+          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+          leg_pad.position.y = - frame_thickness / 2 - 8;
+          leg_pad.position.z = - (shelf_depth - frame_thickness) / 2;
+          frame.add(leg_pad);
+        }
+
+        // Gieok module
+        if (giyeok_position) {
+          geometry = new THREE.BoxBufferGeometry(600, board_thickness, 800);
+          board = new THREE.Mesh(geometry, board_material);
+          if (giyeok_position == 1)
+            board.position.x = - (board_width - 600) / 2;
+          else
+            board.position.x = (board_width - 600) / 2;
+          board.position.y = frame_length + board_thickness;
+          board.position.z = (board_depth + 800) / 2;
+          board.castShadow = true;
+          scene.add(board);
+
+          // frame (leg)
+          geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.x = - (600 - frame_thickness) / 2;
+          frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+          frame.position.z = (800 - frame_thickness) / 2;
+          frame.castShadow = true;
+          board.add(frame);
+
+          // leg pad
+          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+          leg_pad.position.y = - frame_length / 2 - 8;
+          frame.add(leg_pad);
+
+          // frame (leg)
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.x = (600 - frame_thickness) / 2;
+          frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+          frame.position.z = (800 - frame_thickness) / 2;
+          frame.castShadow = true;
+          board.add(frame);
+
+          // leg pad
+          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
+          leg_pad.position.y = - frame_length / 2 - 8;
+          frame.add(leg_pad);
+
+          // frame under board
+          geometry = new THREE.BoxBufferGeometry(600, frame_thickness, frame_thickness);
+          frame = new THREE.Mesh(geometry, frame_material);          
+          frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
+          frame.position.z = (800 - frame_thickness) / 2;
+          board.add(frame);
+
+          geometry = new THREE.BoxBufferGeometry(frame_thickness_under_board, frame_thickness, 800 + board_depth / 4);
+          frame = new THREE.Mesh(geometry, frame_material);
+          frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
+          frame.position.z = - board_depth / 8;
+          board.add(frame);
+        }
+
+        // light
+        var lights = [];
+        var d = 2048;
+        lights[0] = new THREE.DirectionalLight(0xffffff, 0.3);
+        lights[1] = new THREE.DirectionalLight(0xffffff, 0.3);
+        lights[2] = new THREE.DirectionalLight(0xffffff, 0.3);
+        lights[3] = new THREE.DirectionalLight(0xffffff, 0.3);
+        lights[4] = new THREE.AmbientLight(0xffffff, 0.5);
+
+        lights[0].castShadow = true;
+				lights[0].shadow.camera.left = -d ;
+				lights[0].shadow.camera.right = d ;
+				lights[0].shadow.camera.top = d ;
+				lights[0].shadow.camera.bottom = -d ;
+				lights[0].shadow.camera.far = 10000;
+        lights[0].position.set(-1000, 1000, 1000);
+
+        lights[1].position.set(1000, 500, -1000);
+        lights[2].position.set(-1000, 500, -1000);
+        lights[3].position.set(1000, 500, 1000);
+
+        scene.add(lights[0]);
+        scene.add(lights[1]);
+        scene.add(lights[2]);
+        scene.add(lights[3]);
+        scene.add(lights[4]);
+      }
+
+      function onWindowResize() {
+        container = document.getElementById('canvas');
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(width, height);
+        controls.handleResize();
+
+        render();
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        render();
+      }
+
+      function render() {
+        renderer.render(scene, camera);
+      }
+    </script>
+</body>
+
+</html>
