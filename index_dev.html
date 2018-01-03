@@ -42,6 +42,22 @@
 					$(".sidebar_m .menu_all_list").fadeOut();
 					$(".sidebar_m .sidebar_popup li:eq(" + liInx + ") .menu_all_list").fadeIn();
 				});
+
+				$(".mal_buttons>div").click(function(){
+
+					$(".mal_buttons>div").removeClass("sel");
+					$(this).addClass("sel");
+					$(".menu_all_list").fadeOut();
+				});
+
+				$(".sidebar_popup li").click(function(){
+					var selliIdx = $(".sidebar_popup li").index(this);
+					var seltext1 = $(".sidebar_popup li:eq("+ selliIdx + ") .mal_buttons>div.sel").text();
+
+					$(".sidebar_m .bxslider>li:eq(" + selliIdx + ") .menu_sel_text").text(seltext1);
+					console.log(selliIdx, seltext1);
+				});
+
 			} else {
 					// PC
 					// alert("PC");
@@ -77,19 +93,21 @@
 
 						$(".sidebar").animate({"width":aaWidth});
 					});
+
+					$(".mal_buttons>div").click(function(){
+
+						$(".mal_buttons>div").removeClass("sel");
+						$(this).addClass("sel");
+						$(".menu_all_list").fadeOut();
+						$(".sidebar").animate({"width":"130px"});
+
+						var seltext = $(this).text();
+						$(this).parents("li").find("p.menu_sel_text").text(seltext);
+						console.log(seltext);
+					});
 			}		
 
-			$(".mal_buttons>div").click(function(){
-
-				$(".mal_buttons>div").removeClass("sel");
-				$(this).addClass("sel");
-				$(".menu_all_list").fadeOut();
-				$(".sidebar").animate({"width":"130px"});
-
-				var seltext = $(this).text();
-				$(this).parents("li").find("p.menu_sel_text").text(seltext);
-				console.log(seltext);
-			});
+			
 	});
 	</script>
   <style>
