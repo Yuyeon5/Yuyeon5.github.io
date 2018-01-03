@@ -36,11 +36,11 @@
 					var liInx = $(".sidebar_m .bxslider>li").index(this);
 					console.log(liInx);
 					
-					$(".menu_box").removeClass("sel");
-					$(this).children(".menu_box").addClass("sel");
+					$(".sidebar_m .menu_box").removeClass("sel");
+					$(this).children(".sidebar_m .menu_box").addClass("sel");
 
-					$(".menu_all_list").fadeOut();
-					$(".sidebar_popup li:eq(" + liInx + ") .menu_all_list").fadeIn();
+					$(".sidebar_m .menu_all_list").fadeOut();
+					$(".sidebar_m .sidebar_popup li:eq(" + liInx + ") .menu_all_list").fadeIn();
 				});
 			} else {
 					// PC
@@ -77,19 +77,19 @@
 
 						$(".sidebar").animate({"width":aaWidth});
 					});
+			}		
 
-					$(".mal_buttons>div").click(function(){
+			$(".mal_buttons>div").click(function(){
 
-						$(".mal_buttons>div").removeClass("sel");
-						$(this).addClass("sel");
-						$(".menu_all_list").fadeOut();
-						$(".sidebar").animate({"width":"130px"});
+				$(".mal_buttons>div").removeClass("sel");
+				$(this).addClass("sel");
+				$(".menu_all_list").fadeOut();
+				$(".sidebar").animate({"width":"130px"});
 
-						var seltext = $(this).text();
-						$(this).parents("li").find("p.menu_sel_text").text(seltext);
-						console.log(seltext);
-					});
-				}			
+				var seltext = $(this).text();
+				$(this).parents("li").find("p.menu_sel_text").text(seltext);
+				console.log(seltext);
+			});
 	});
 	</script>
   <style>
@@ -145,10 +145,9 @@
 		@media (max-width:1024px) {
 			.sidebar { display: none; }
 			.sidebar_m { display: block; padding-top: 140px; }
-			.sidebar_m .menu_box { position: relative; width: 130px; height: 340px; padding: 15px; background: #fff url("img/btn_menubg_m.png") no-repeat 18px 8%;  text-align: center; border-top: 1px dashed #b1b1b1; }
+			.sidebar_m .menu_box { position: relative; width: 130px; height: 140px; padding: 15px; background: #fff url("img/btn_menubg_m.png") no-repeat 18px 8%;  text-align: center; border-top: 1px dashed #b1b1b1; }
 			.sidebar_m .menu_box.sel { background-image: url("img/btn_menubg_sel_m.png");}
-			.sidebar_m .sidebar_popup { display: block; position: fixed; left: 50%; top: 446px; width: 80%; height: 40%; margin: -20% 0 0 -40%; }
-			.sidebar_m .menu_all_list { display: none;  position: static; border: 1px solid red; margin: 0 auto; }			
+			.sidebar_m .menu_all_list { display: none;  position: static; margin: 0 auto; }			
 			.sidebar_m .bx-prev { top: -260px; }
 			.footer { display: none; }
 		}
