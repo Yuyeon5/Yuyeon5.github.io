@@ -218,7 +218,8 @@
       }
       // make modifications to the viewport (.bx-viewport)
       slider.viewport.css({
-        width: '100%',
+		width: slider.settings.mode === 'horizontal' ? '520px' : '100%',
+		margin: slider.settings.mode === 'horizontal' ? '0 auto' : 'none',
         overflow: 'hidden',
         position: 'relative'
       });
@@ -233,7 +234,7 @@
       slider.children.css({
         float: slider.settings.mode === 'horizontal' ? 'left' : 'none',
         listStyle: 'none',
-        position: 'relative'
+		position: slider.settings.mode === 'horizontal' ? 'none' : 'relative'
       });
       // apply the calculated width after the float is applied to prevent scrollbar interference
       slider.children.css('width', getSlideWidth());
