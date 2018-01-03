@@ -218,7 +218,7 @@
       }
       // make modifications to the viewport (.bx-viewport)
       slider.viewport.css({
-		width: slider.settings.mode === 'horizontal' ? '520px' : '100%',
+		width: slider.settings.mode === 'horizontal' ? '650px' : '100%',
 		margin: slider.settings.mode === 'horizontal' ? '0 auto' : 'none',
         overflow: 'hidden',
         position: 'relative'
