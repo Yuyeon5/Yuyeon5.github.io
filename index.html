@@ -230,6 +230,24 @@
         </div>
       </div>
 
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">책상 배열</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setDeskArray(1)" style="width: 25%;">1</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskArray(2)" style="width: 25%;">2</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskArray(3)" style="width: 25%;">3</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskArray(4)" style="width: 25%;">4</div>
+        </div>
+      </div>
+
+      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
+        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">책상 맞은편 배열</div>
+        <div class="flat-radio-buttons">
+          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setDeskOpposite(false)" style="width: 50%;">No</div>
+          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskOpposite(true)" style="width: 50%;">Yes</div>
+        </div>
+      </div>
+
     </sidebar>
 
     <div id="canvas">
@@ -269,7 +287,11 @@
       var is_mium = 0;
       var mium_leg;
 
+      var num_desk = 1;
+      var is_desk_duplicated = false;
+
       var board;
+      var giyeok_board;
       var board_thickness = 20;
       var board_width = 1200;
       var board_depth = 700;
@@ -589,6 +611,20 @@
 
           moving3_material = getMaterial(c);
         }
+
+        updateScene();
+        render();
+      }
+
+      function setDeskArray(n) {
+        num_desk = n;
+
+        updateScene();
+        render();
+      }
+
+      function setDeskOpposite(b) {
+        is_desk_duplicated = b;
 
         updateScene();
         render();
@@ -966,15 +1002,15 @@
         // Gieok module
         if (giyeok_position) {
           geometry = new THREE.BoxBufferGeometry(600, board_thickness, 800);
-          board = new THREE.Mesh(geometry, board_material);
+          giyeok_board = new THREE.Mesh(geometry, board_material);
           if (giyeok_position == 1)
-            board.position.x = - (board_width - 600) / 2;
+            giyeok_board.position.x = - (board_width - 600) / 2;
           else
-            board.position.x = (board_width - 600) / 2;
-          board.position.y = frame_length + board_thickness;
-          board.position.z = (board_depth + 800) / 2;
-          board.castShadow = true;
-          scene.add(board);
+            giyeok_board.position.x = (board_width - 600) / 2;
+            
+          giyeok_board.position.z = (board_depth + 800) / 2;
+          giyeok_board.castShadow = true;
+          board.add(giyeok_board);
 
           // frame (leg)
           geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_length, frame_thickness);
@@ -983,7 +1019,7 @@
           frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
           frame.position.z = (800 - frame_thickness) / 2;
           frame.castShadow = true;
-          board.add(frame);
+          giyeok_board.add(frame);
 
           // leg pad
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
@@ -996,7 +1032,7 @@
           frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
           frame.position.z = (800 - frame_thickness) / 2;
           frame.castShadow = true;
-          board.add(frame);
+          giyeok_board.add(frame);
 
           // leg pad
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
@@ -1008,15 +1044,32 @@
           frame = new THREE.Mesh(geometry, frame_material);          
           frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
           frame.position.z = (800 - frame_thickness) / 2;
-          board.add(frame);
+          giyeok_board.add(frame);
 
           geometry = new THREE.BoxBufferGeometry(frame_thickness_under_board, frame_thickness, 800 + board_depth / 4);
           frame = new THREE.Mesh(geometry, frame_material);
           frame.position.y = - (board_thickness + frame_thickness) / 2 - frame_margin;
           frame.position.z = - board_depth / 8;
-          board.add(frame);
+          giyeok_board.add(frame);
         }
 
+        // desk array
+        for (var i = 1; i < num_desk; i++) {
+          var board_dup = board.clone();
+          board_dup.position.set((board_width + 10) * i, frame_length + board_thickness, 0);
+          scene.add(board_dup);    
+        }
+
+        // desk array in opposite side
+        if (is_desk_duplicated) {
+          for (var i = 0; i < num_desk; i++) {
+            var board_dup = board.clone();
+            board_dup.position.set((board_width + 10) * i, frame_length + board_thickness, - (board_depth + 10));
+            board_dup.rotation.y = Math.PI;
+            scene.add(board_dup);    
+          }
+        }
+        
         // light
         var lights = [];
         var d = 2048;
