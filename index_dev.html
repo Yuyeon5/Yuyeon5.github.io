@@ -13,8 +13,42 @@
 	<link rel="stylesheet" href="http://idangero.us/swiper/dist/css/swiper.min.css" media="only screen and (max-width:1024px)">
 	<script>
 		$(document).ready(function(){
-			var UserAgent = navigator.userAgent;
-			var swiper = new Swiper('.swiper-container', {
+
+			$(".menu_box").click(function(){
+				$(".menu_box").removeClass("sel");
+				$(this).addClass("sel");
+
+				$(".menu_all_list").fadeOut();
+				$(this).siblings(".menu_all_list").fadeIn();
+
+				//var aaWidth = parseInt($(this).siblings(".menu_all_list").css("width")) + 130;
+				console.log(typeof aaWidth);
+
+				$(".sidebar").animate({"width":aaWidth});
+			});
+
+			$(".mal_buttons>div").click(function(){
+
+				$(".mal_buttons>div").removeClass("sel");
+				$(this).addClass("sel");
+				$(".menu_all_list").fadeOut();
+				//$(".sidebar").animate({"width":"130px"});
+
+				var seltext = $(this).html();
+				$(this).parents("div.swiper-slide").find(".menu_sel_text").html(seltext);
+				console.log(seltext);
+			});
+
+			$(".swiper-button-prev, .swiper-button-next").click(function(){
+				$(".menu_all_list").fadeOut();
+			});
+
+			var windowWidth = $( window ).width();
+			console.log(windowWidth);
+			if(windowWidth < 1024) {
+			//창 가로 크기가 500 미만일 경우 
+			 alert("모바일");
+			 var swiper = new Swiper('.swiper-container', {
 					direction: 'horizontal',
 					slidesPerView: 5,
 					spaceBetween: 0,
@@ -29,91 +63,27 @@
 						prevEl: '.swiper-button-prev',
 					},
 				});
-			if (UserAgent.match(/iPhone|iPod|iPad|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || UserAgent.match(/LG|SAMSUNG|Samsung/) != null) {
-				
-			alert("모바일1234");// 모바일
-				
-
-				/*$(".sidebar_m .bxslider>li").click(function(){
-					var liInx = $(".sidebar_m .bxslider>li").index(this);
-					console.log(liInx);
-					
-					$(".sidebar_m .menu_box").removeClass("sel");
-					$(this).children(".sidebar_m .menu_box").addClass("sel");
-
-					$(".sidebar_m .menu_all_list").fadeOut();
-					$(".sidebar_m .sidebar_popup li:eq(" + liInx + ") .menu_all_list").fadeIn();
-				});
-
-				$(".mal_buttons>div").click(function(){
-
-					$(".mal_buttons>div").removeClass("sel");
-					$(this).addClass("sel");
-					$(".menu_all_list").fadeOut();
-				});
-
-				$(".sidebar_popup li").click(function(){
-					var selliIdx = $(".sidebar_popup li").index(this);
-					var seltext1 = $(".sidebar_popup li:eq("+ selliIdx + ") .mal_buttons>div.sel").text();
-
-					$(".sidebar_m .bxslider>li:eq(" + selliIdx + ") .menu_sel_text").text(seltext1);
-					console.log(selliIdx, seltext1);
-				}); */
 
 			} else {
-					// PC
-					alert("PC");
-					var swiper = new Swiper('.swiper-container', {
-						direction: 'vertical',
-						slidesPerView: 5,
-						spaceBetween: 0,
-						grabCursor: true,
-					 // freeMode: true,
-					 //  pagination: {
-						//  el: '.swiper-pagination',
-						//  clickable: true,
-						// },
-						navigation: {
-							nextEl: '.swiper-button-next',
-							prevEl: '.swiper-button-prev',
-						},
-					});
 
-					/* $(".menu_box").mouseover(function(){
-						$(".menu_box").removeClass("sel");
-						$(this).addClass("sel");
-					}); */
+			 alert("pc");
+			 var swiper = new Swiper('.swiper-container', {
+					direction: 'vertical',
+					slidesPerView: 5,
+					spaceBetween: 0,
+					grabCursor: true,
+				 // freeMode: true,
+				 //  pagination: {
+					//  el: '.swiper-pagination',
+					//  clickable: true,
+					// },
+					navigation: {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev',
+					},
+				});
 
-					
-			}		
-						$(".menu_box").click(function(){
-							$(".menu_box").removeClass("sel");
-							$(this).addClass("sel");
-
-							$(".menu_all_list").fadeOut();
-							$(this).siblings(".menu_all_list").fadeIn();
-
-							//var aaWidth = parseInt($(this).siblings(".menu_all_list").css("width")) + 130;
-							console.log(typeof aaWidth);
-
-							$(".sidebar").animate({"width":aaWidth});
-						});
-
-						$(".mal_buttons>div").click(function(){
-
-							$(".mal_buttons>div").removeClass("sel");
-							$(this).addClass("sel");
-							$(".menu_all_list").fadeOut();
-							//$(".sidebar").animate({"width":"130px"});
-
-							var seltext = $(this).html();
-							$(this).parents("div.swiper-slide").find(".menu_sel_text").html(seltext);
-							console.log(seltext);
-						});
-
-						$(".swiper-button-prev, .swiper-button-next").click(function(){
-							$(".menu_all_list").fadeOut();
-						});
+			}
 			
 	});
 	</script>
