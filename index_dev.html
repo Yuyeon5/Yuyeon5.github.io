@@ -4,12 +4,8 @@
 <head>
   <meta charset="utf-8" name="format-detection" content="telephone=no">
 	<title>F1DESK CONFIGURATOR</title>
-	<!-- jQuery library (served from Google) -->
 	<script src="js/jquery-1.7.2.min.js"></script>
-	<!-- bxSlider Javascript file -->
 	<script src="js/swiper.js"></script>
-	<!-- bxSlider CSS file 
-	<link href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" rel="stylesheet" />-->
 	<link rel="stylesheet" href="css/swiper.css" media="only screen and (max-width:1024px)">
 	<script>
 		$(document).ready(function(){
@@ -21,10 +17,6 @@
 				$(".menu_all_list").fadeOut();
 				$(this).siblings(".menu_all_list").fadeIn();
 
-				//var aaWidth = parseInt($(this).siblings(".menu_all_list").css("width")) + 130;
-				//console.log(typeof aaWidth);
-
-				//$(".sidebar").animate({"width":aaWidth});
 			});
 
 			$(".mal_buttons>div").click(function(){
@@ -32,7 +24,6 @@
 				$(".mal_buttons>div").removeClass("sel");
 				$(this).addClass("sel");
 				$(".menu_all_list").fadeOut();
-				//$(".sidebar").animate({"width":"130px"});
 
 				var seltext = $(this).html();
 				$(this).parents("div.swiper-slide").find(".menu_sel_text").html(seltext);
@@ -46,40 +37,50 @@
 			var windowWidth = $( window ).width();
 			console.log(windowWidth);
 			if(windowWidth < 1024) {
-			//창 가로 크기가 500 미만일 경우 
-			 alert("모바일:0433");
-			 var swiper = new Swiper('.sidebar_m .swiper-container', {
-					slidesPerView: 5,
+			//창 가로 크기가 1024 미만일 경우 
+			 // alert("모바일:0433");
+			 var swiper = new Swiper('.swiper-container', {
+					slidesPerView: 4,
 					spaceBetween: 0,
-					// grabCursor: true,
 					freeMode: true,
-				 //  pagination: {
-					//  el: '.swiper-pagination',
-					//  clickable: true,
-					// },
 					navigation: {
 						nextEl: '.swiper-button-next',
 						prevEl: '.swiper-button-prev',
 					},
 				});
 
+				// 버튼 크기 가져오기
+				var btnWidth = parseInt($(".swiper-slide").css("width")) + 100;
+				console.log(btnWidth);
+				$(".sidebar, .swiper-slide").css({"height":btnWidth});
+
+				var sideWidth = windowWidth-50;
+				$(".swiper-button-next").css({"left":sideWidth});
+				console.log(sideWidth);
+
 			} else {
 
 			 alert("pc");
-			 var swiper = new Swiper('.sidebar .swiper-container', {
+			 var swiper = new Swiper('.swiper-container', {
 					direction: 'vertical',
 					slidesPerView: 5,
 					spaceBetween: 0,
 					grabCursor: true,
-				 // freeMode: true,
-				 //  pagination: {
-					//  el: '.swiper-pagination',
-					//  clickable: true,
-					// },
 					navigation: {
 						nextEl: '.swiper-button-next',
 						prevEl: '.swiper-button-prev',
 					},
+				});
+
+				$(".menu_box").click(function(){
+					var aaWidth = parseInt($(this).siblings(".menu_all_list").css("width")) + 130;
+					//console.log(typeof aaWidth);
+
+					$(".sidebar").animate({"width":aaWidth});
+				});
+
+				$(".swiper-button-prev, .swiper-button-next").click(function(){
+					$(".sidebar").animate({"width":"130px"});
 				});
 
 			}
@@ -105,7 +106,7 @@
 		.sidebar .swiper-button-next:hover, .sidebar .swiper-button-prev:hover { background-color: #555; }
 		.sidebar .swiper-button-next { top: 690px; }
 		.sidebar .swiper-button-prev { top: 0; }
-		.sidebar_m { display: none; }
+		/*.sidebar_m { display: none; }*/
 		.menu_box { position: relative; width: 130px; height: 130px; padding: 15px; background: #fff url("img/btn_menubg.gif") no-repeat 18px 50%;  text-align: center; border-top: 1px dashed #b1b1b1; }
 		.menu_box.sel { background-image: url("img/btn_menubg_sel.png");}
 			.menu_title { height: 30px; padding-top: 2px; color: #fff; font-size: 17px; }
@@ -145,22 +146,24 @@
 							.ft_total_price>span { padding-left: 5px; font-size: 20px; }
   
 		@media (max-width:1024px) {
-			.sidebar { display: none; }
-			.sidebar_m {display: block; overflow: hidden; position: relative; left: 0; top: 100px; width: 100%; height: 200px; margin: 0 auto; padding: 0 50px; box-sizing: border-box; border: 1px solid red; }
-			.sidebar_m .swiper-container { position: static; width: 100%; height: 100%;  }
-			.sidebar_m .swiper-wrapper { height: 100%; }
-			.swiper-slide { border-left: 1px dashed #b1b1b1; }
+			/*.sidebar { display: none; }*/
+			.sidebar {display: block; overflow: hidden; position: fixed; left: 0; top: 100px; width: 100%; height: 130px; margin: 0 auto; padding: 0 50px; box-sizing: border-box; }
+			.sidebar .swiper-container { position: static; width: 100%; height: 100%; }
+			.sidebar .swiper-wrapper { position: static; height: 100%; }
+			.swiper-slide {  }
 			.swiper-slide:first-child { border-left: 0; }
 
-			.sidebar_m .swiper-button-next, .sidebar_m .swiper-button-prev { display: block; position: absolute; top: 0; width: 40px; height: 130px; line-height: 130px; background-color: #888; text-align: center; color: #fff; font-size: 0; margin-top: 0; }
-			.sidebar_m .swiper-button-next:hover, .sidebar_m .swiper-button-prev:hover { background-color: #555; }
-			.sidebar_m .swiper-button-next { left: 96% !important; }
-			.sidebar_m .swiper-button-prev { left: 0; }
+			.sidebar .swiper-button-next, .sidebar .swiper-button-prev { display: block; position: absolute; top: 0; width: 50px; height: 130px; line-height: 130px; background-color: #888; text-align: center; color: #fff; font-size: 0; margin-top: 0; }
+			.sidebar .swiper-button-next:hover, .sidebar .swiper-button-prev:hover { background-color: #555; }
+			/*.sidebar .swiper-button-next { left: 95% !important; }*/
+			.sidebar .swiper-button-prev { left: 0; }
 
-			.menu_box { width: 100%; border-top: 0; background-image: url("img/btn_menubg_m.gif"); background-size: 80% 130px; }
+			.menu_box { width: 100%; border-top: 0; background-image: url("img/btn_menubg_m.gif"); background-size: 80% 130px; background-position: center; }
 			.menu_box.sel { background-image: url("img/btn_menubg_sel_m.png");}
 
-			.menu_all_list { z-index: 1; left: 0; top: 130px; border: 1px solid red;}
+			.menu_all_list { position: absolute; z-index: 1; left: 50%; top: 130px; border: 1px solid red;}
+
+
 			
 			
 			.footer { height: 220px; }
@@ -417,7 +420,7 @@
 		</div>
 
 		
-		<div class="sidebar_m">
+		<!--<div class="sidebar_m">
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
@@ -650,11 +653,11 @@
 						</div>
 					</div>
 				</div>
-				<!-- Add Arrows -->
+				<!-- Add Arrows
 				<div class="swiper-button-next">Next</div>
 				<div class="swiper-button-prev">Prev</div>
 			</div>
-		</div>
+		</div>-->
 
 		<!--<div class="sidebar_m">
 			<div class="swiper-container">
