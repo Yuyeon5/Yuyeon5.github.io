@@ -54,9 +54,13 @@
 				console.log(btnWidth);
 				$(".sidebar, .swiper-slide").css({"height":btnWidth});
 
-				var sideWidth = windowWidth-50;
+				var sideWidth = windowWidth-80;
 				$(".swiper-button-next").css({"left":sideWidth});
 				console.log(sideWidth);
+
+				$(".menu_box, .swiper-button-next, .swiper-button-prev").css({"height":btnWidth*0.5});
+
+				$(".line2").css({"margin-top":"2%"});
 
 			} else {
 
@@ -162,9 +166,11 @@
 			.menu_box.sel { background-image: url("img/btn_menubg_sel_m.png");}
 
 			.menu_all_list { position: absolute; z-index: 1; left: 50%; top: 130px; border: 1px solid red;}
-
-
-			
+			.menu_sel_text { width: 78%; height: 44.5%; line-height: 3.2; text-align: center; margin-top: 5%; }
+			.menu_sel_text>img { width: 100%; height: 100%; position: static; }
+			.menu_sel_text>span { line-height: 3.2; width: 100%; height: 100%; top: 0;}
+			.menu_title { height: 55.5%; line-height: 2.8;}
+		
 			
 			.footer { height: 220px; }
 			.ft_inner>div { height: 175px; }
@@ -288,7 +294,7 @@
 					<div class="swiper-slide">
 						<div class="menu_box">
 							<p class="menu_sel_text">화이트</p>
-							<div class="menu_title" style="margin-top: -8px; line-height: 1.2;">수직프레임<br>색상</div>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">수직프레임<br>색상</div>
 						</div>
 						<div class="menu_all_list" style="width: 302px;">
 							<div class="mal_buttons">
@@ -316,7 +322,7 @@
 					<div class="swiper-slide">
 						<div class="menu_box">
 							<p class="menu_sel_text">화이트</p>
-							<div class="menu_title" style="margin-top: -8px; line-height: 1.2;">선반프레임<br>색상</div>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">선반프레임<br>색상</div>
 						</div>
 						<div class="menu_all_list" style="width: 302px;">
 							<div class="mal_buttons">
@@ -385,7 +391,7 @@
 					<div class="swiper-slide">
 						<div class="menu_box">
 							<p class="menu_sel_text">없음</p>
-							<div class="menu_title" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>2단</div>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>2단</div>
 						</div>
 						<div class="menu_all_list" style="width: 502px;">
 							<div class="mal_buttons">
@@ -400,7 +406,7 @@
 					<div class="swiper-slide">
 						<div class="menu_box">
 							<p class="menu_sel_text">없음</p>
-							<div class="menu_title" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>3단</div>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>3단</div>
 						</div>
 						<div class="menu_all_list" style="width: 502px;">
 							<div class="mal_buttons">
@@ -418,519 +424,6 @@
 				<div class="swiper-button-prev">Prev</div>
 			</div>
 		</div>
-
-		
-		<!--<div class="sidebar_m">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<div class="menu_box sel" style=" border-top: 0;">
-							<p class="menu_sel_text">기본형</p>
-							<div class="menu_title">스타일</div>
-						</div>
-						<div class="menu_all_list" style="width: 202px;">
-							<div class="mal_buttons">
-								<div onclick="setMium(0)">기본형</div>
-								<div onclick="setMium(1)">ㅁ다리</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">1200</p>
-							<div class="menu_title">폭(W)</div>
-						</div>
-						<div class="menu_all_list" style="width: 602px;">
-							<div class="mal_buttons">
-								<div onclick="setWidth(1000)">1000</div>
-								<div onclick="setWidth(1200)">1200</div>
-								<div onclick="setWidth(1400)">1400</div>
-								<div onclick="setWidth(1600)">1600</div>
-								<div onclick="setWidth(1800)">1800</div>
-								<div onclick="setWidth(2000)">2000</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">700</p>
-							<div class="menu_title">깊이(D)</div>
-						</div>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setDepth(500)">500</div>
-								<div onclick="setDepth(600)">600</div>
-								<div onclick="setDepth(700)">700</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">수직부재</div>
-						</div>
-						<div class="menu_all_list" style="width: 402px;">
-							<div class="mal_buttons">
-								<div onclick="setVertical(1)">없음</div>
-								<div onclick="setVertical(2)">640</div>
-								<div onclick="setVertical(3)">920</div>
-								<div onclick="setVertical(4)">1860</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">1</p>
-							<div class="menu_title">선반갯수</div>
-						</div>
-						<div class="menu_all_list" style="width: 702px;">
-							<div class="mal_buttons">
-								<div onclick="setShelfNum(1)">1</div>
-								<div onclick="setShelfNum(2)">2</div>
-								<div onclick="setShelfNum(3)">3</div>
-								<div onclick="setShelfNum(4)">4</div>
-								<div onclick="setShelfNum(5)">5</div>
-								<div onclick="setShelfNum(6)">6</div>
-								<div onclick="setShelfNum(7)">7</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">화이트</p>
-							<div class="menu_title">상판색상</div>
-						</div>
-						<div class="menu_all_list" style="width: 702px;">
-							<div class="mal_buttons">
-								<div onclick="setBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-								<div onclick="setBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-								<div onclick="setBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-								<div onclick="setBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
-								<div onclick="setBoardColor(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
-								<div onclick="setBoardColor(7)"><img src="texture/redpine.jpg"><span>레드파인</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">화이트</p>
-							<div class="menu_title" >프레임색상</div>
-						</div>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-								<div onclick="setFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">화이트</p>
-							<div class="menu_title" style="margin-top: -8px; line-height: 1.2;">수직프레임<br>색상</div>
-						</div>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setVerticalColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setVerticalColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-								<div onclick="setVerticalColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">화이트</p>
-							<div class="menu_title">선반색상</div>
-						</div>
-						<div class="menu_all_list" style="width: 502px;">
-							<div class="mal_buttons">
-								<div onclick="setShelfBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setShelfBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-								<div onclick="setShelfBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-								<div onclick="setShelfBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-								<div onclick="setShelfBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">화이트</p>
-							<div class="menu_title" style="margin-top: -8px; line-height: 1.2;">선반프레임<br>색상</div>
-						</div>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setShelfFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setShelfFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-								<div onclick="setShelfFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">ㄱ자 모듈</div>
-						</div>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setGiyeok(0)">없음</div>
-								<div onclick="setGiyeok(1)">왼쪽</div>
-								<div onclick="setGiyeok(2)">오른쪽</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">데스크매트</div>
-						</div>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setDeskMat(0)">없음</div>
-								<div onclick="setDeskMat(1)"><img src="texture/gray.jpg"><span>그레이</span></div>
-								<div onclick="setDeskMat(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">미니서랍</div>
-						</div>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setDrawerColor(0)">없음</div>
-								<div onclick="setDrawerColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setDrawerColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">하부가림판</div>
-						</div>
-						<div class="menu_all_list" style="width: 702px;">
-							<div class="mal_buttons">
-								<div onclick="setFence(0)">없음</div>
-								<div onclick="setFence(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setFence(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-								<div onclick="setFence(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-								<div onclick="setFence(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-								<div onclick="setFence(5)"><img src="texture/pine.jpg"><span>파인</span></div>
-								<div onclick="setFence(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>2단</div>
-						</div>
-						<div class="menu_all_list" style="width: 502px;">
-							<div class="mal_buttons">
-								<div onclick="setMoving2(0)">없음</div>
-								<div onclick="setMoving2(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setMoving2(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-								<div onclick="setMoving2(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-								<div onclick="setMoving2(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>3단</div>
-						</div>
-						<div class="menu_all_list" style="width: 502px;">
-							<div class="mal_buttons">
-								<div onclick="setMoving3(0)">없음</div>
-								<div onclick="setMoving3(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-								<div onclick="setMoving3(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-								<div onclick="setMoving3(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-								<div onclick="setMoving3(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Add Arrows
-				<div class="swiper-button-next">Next</div>
-				<div class="swiper-button-prev">Prev</div>
-			</div>
-		</div>-->
-
-		<!--<div class="sidebar_m">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<div class="menu_box sel" style=" border-top: 0;">
-							<p class="menu_sel_text">기본형</p>
-							<div class="menu_title">스타일</div>
-						</div>
-					</div>
-					<li>				
-						<div class="menu_box">
-							<p class="menu_sel_text">1400</p>
-							<div class="menu_title">폭(W)</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">500</p>
-							<div class="menu_title">깊이(D)</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">수직부재</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">1</p>
-							<div class="menu_title">선반갯수</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">블랙</p>
-							<div class="menu_title">상판색상</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">블랙</p>
-							<div class="menu_title" >프레임색상</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">블랙</p>
-							<div class="menu_title" style="margin-top: -3.5px; line-height: 1.2;">수직부재<br>프레임색상</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">화이트</p>
-							<div class="menu_title">선반색상</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">블랙</p>
-							<div class="menu_title" style="margin-top: -3.5px; line-height: 1.2;">선반<br>프레임색상</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">ㄱ자 모듈</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">데스크매트</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">미니서랍</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title">하부가림판</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title" style="margin-top: -3.5px; line-height: 1.2;">이동서랍<br>2단</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_box">
-							<p class="menu_sel_text">없음</p>
-							<div class="menu_title" style="margin-top: -3.5px; line-height: 1.2;">이동서랍<br>3단</div>
-						</div>
-					</li>
-				</div>
-			</div>
-			
-			<div class="sidebar_popup">
-				<ul>
-					<li>
-						<div class="menu_all_list" style="width: 202px;">
-							<div class="mal_buttons">
-								<div onclick="setMium(0)">기본형</div>
-								<div onclick="setMium(1)">ㅁ다리</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 602px;">
-							<div class="mal_buttons">
-								<div onclick="setWidth(1000)">1000</div>
-								<div onclick="setWidth(1200)">1200</div>
-								<div onclick="setWidth(1400)">1400</div>
-								<div onclick="setWidth(1600)">1600</div>
-								<div onclick="setWidth(1800)">1800</div>
-								<div onclick="setWidth(2000)">2000</div>
-							</div>
-						</div>
-					</li>
-					<li>							
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setDepth(500)">500</div>
-								<div onclick="setDepth(600)">600</div>
-								<div onclick="setDepth(700)">700</div>
-							</div>
-						</div>
-					</li>
-					<li>							
-						<div class="menu_all_list" style="width: 402px;">
-							<div class="mal_buttons">
-								<div onclick="setVertical(1)">없음</div>
-								<div onclick="setVertical(2)">640</div>
-								<div onclick="setVertical(3)">920</div>
-								<div onclick="setVertical(4)">1860</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 702px;">
-							<div class="mal_buttons">
-								<div onclick="setShelfNum(1)">1</div>
-								<div onclick="setShelfNum(2)">2</div>
-								<div onclick="setShelfNum(3)">3</div>
-								<div onclick="setShelfNum(4)">4</div>
-								<div onclick="setShelfNum(5)">5</div>
-								<div onclick="setShelfNum(6)">6</div>
-								<div onclick="setShelfNum(7)">7</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 702px;">
-							<div class="mal_buttons">
-								<div onclick="setBoardColor(1)">화이트</div>
-								<div onclick="setBoardColor(2)">블랙</div>
-								<div onclick="setBoardColor(3)">그레이</div>
-								<div onclick="setBoardColor(4)">내추럴</div>
-								<div onclick="setBoardColor(5)">파인</div>
-								<div onclick="setBoardColor(6)">콘크리트</div>
-								<div onclick="setBoardColor(7)">레드파인</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setFrameColor(1)">화이트</div>
-								<div onclick="setFrameColor(2)">블랙</div>
-								<div onclick="setFrameColor(3)">그레이</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setVerticalColor(1)">화이트</div>
-								<div onclick="setVerticalColor(2)">블랙</div>
-								<div onclick="setVerticalColor(3)">그레이</div>
-							</div>
-						</div>
-					</li>
-					<li>									
-						<div class="menu_all_list" style="width: 502px;">
-							<div class="mal_buttons">
-								<div onclick="setShelfBoardColor(1)">화이트</div>
-								<div onclick="setShelfBoardColor(2)">블랙</div>
-								<div onclick="setShelfBoardColor(3)">그레이</div>
-								<div onclick="setShelfBoardColor(4)">내추럴</div>
-								<div onclick="setShelfBoardColor(5)">파인</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setShelfFrameColor(1)">화이트</div>
-								<div onclick="setShelfFrameColor(2)">블랙</div>
-								<div onclick="setShelfFrameColor(3)">그레이</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setGiyeok(0)">없음</div>
-								<div onclick="setGiyeok(1)">왼쪽</div>
-								<div onclick="setGiyeok(2)">오른쪽</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setDeskMat(0)">없음</div>
-								<div onclick="setDeskMat(1)">그레이</div>
-								<div onclick="setDeskMat(2)">블랙</div>
-							</div>
-						</div>						
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 302px;">
-							<div class="mal_buttons">
-								<div onclick="setDrawerColor(0)">없음</div>
-								<div onclick="setDrawerColor(1)">화이트</div>
-								<div onclick="setDrawerColor(2)">블랙</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 702px;">
-							<div class="mal_buttons">
-								<div onclick="setFence(0)">없음</div>
-								<div onclick="setFence(1)">화이트</div>
-								<div onclick="setFence(2)">블랙</div>
-								<div onclick="setFence(3)">그레이</div>
-								<div onclick="setFence(4)">내추럴</div>
-								<div onclick="setFence(5)">파인</div>
-								<div onclick="setFence(6)">콘크리트</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 502px;">
-							<div class="mal_buttons">
-								<div onclick="setMoving2(0)">없음</div>
-								<div onclick="setMoving2(1)">화이트</div>
-								<div onclick="setMoving2(2)">블랙</div>
-								<div onclick="setMoving2(3)">그레이</div>
-								<div onclick="setMoving2(4)">내추럴</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="menu_all_list" style="width: 502px;">
-							<div class="mal_buttons">
-								<div onclick="setMoving3(0)">없음</div>
-								<div onclick="setMoving3(1)">화이트</div>
-								<div onclick="setMoving3(2)">블랙</div>
-								<div onclick="setMoving3(3)">그레이</div>
-								<div onclick="setMoving3(4)">내추럴</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>-->
 		<div class="footer">
 			<div class="ft_inner">
 
