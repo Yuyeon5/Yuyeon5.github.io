@@ -14,24 +14,25 @@
 	<script>
 		$(document).ready(function(){
 			var UserAgent = navigator.userAgent;
+			var swiper = new Swiper('.swiper-container', {
+					direction: 'horizontal',
+					slidesPerView: 5,
+					spaceBetween: 0,
+					// grabCursor: true,
+					freeMode: true,
+				 //  pagination: {
+					//  el: '.swiper-pagination',
+					//  clickable: true,
+					// },
+					navigation: {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev',
+					},
+				});
 			if (UserAgent.match(/iPhone|iPod|iPad|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || UserAgent.match(/LG|SAMSUNG|Samsung/) != null) {
-				// 모바일
-				alert("모바일12");
-				var swiper = new Swiper('.swiper-container', {
-						direction: 'horizontal',
-						slidesPerView: 5,
-						spaceBetween: 0,
-						// grabCursor: true,
-					  freeMode: true,
-					 //  pagination: {
-						//  el: '.swiper-pagination',
-						//  clickable: true,
-						// },
-						navigation: {
-							nextEl: '.swiper-button-next',
-							prevEl: '.swiper-button-prev',
-						},
-					});
+				
+			alert("모바일12");// 모바일
+				
 
 				/*$(".sidebar_m .bxslider>li").click(function(){
 					var liInx = $(".sidebar_m .bxslider>li").index(this);
@@ -61,7 +62,7 @@
 
 			} else {
 					// PC
-					// alert("PC");
+					alert("PC");
 					var swiper = new Swiper('.swiper-container', {
 						direction: 'vertical',
 						slidesPerView: 5,
