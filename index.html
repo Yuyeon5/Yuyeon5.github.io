@@ -290,6 +290,8 @@
       var num_desk = 1;
       var is_desk_duplicated = false;
 
+      var desk;
+
       var board;
       var giyeok_board;
       var board_thickness = 20;
@@ -665,12 +667,16 @@
         plane.receiveShadow = true;
         scene.add(plane);
 
+        // desk (empty parent)
+        geometry = new THREE.BoxBufferGeometry(0, 0, 0);
+        desk = new THREE.Mesh(geometry, board_material);
+
         // board
         geometry = new THREE.BoxBufferGeometry(board_width, board_thickness, board_depth);
         board = new THREE.Mesh(geometry, board_material);
         board.position.y = frame_length + board_thickness;
         board.castShadow = true;
-        scene.add(board);
+        desk.add(board);
 
         // desk mat
         if (desk_mat_color) {
@@ -1057,7 +1063,7 @@
         for (var i = 1; i < num_desk; i++) {
           var board_dup = board.clone();
           board_dup.position.set((board_width + 10) * i, frame_length + board_thickness, 0);
-          scene.add(board_dup);    
+          desk.add(board_dup);    
         }
 
         // desk array in opposite side
@@ -1066,9 +1072,13 @@
             var board_dup = board.clone();
             board_dup.position.set((board_width + 10) * i, frame_length + board_thickness, - (board_depth + 10));
             board_dup.rotation.y = Math.PI;
-            scene.add(board_dup);    
+            desk.add(board_dup);    
           }
         }
+
+        // move desk array to center
+        desk.position.set(-(board_width + 10) * 0.5 * (num_desk - 1), 0, 0);
+        scene.add(desk);
         
         // light
         var lights = [];
