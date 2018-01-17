@@ -2,253 +2,497 @@
 <html lang="ko">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" name="format-detection" content="telephone=no">
+	<title>F1DESK CONFIGURATOR</title>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/swiper.js"></script>
+	<link rel="stylesheet" href="css/swiper.css" media="only screen and (max-width:1024px)">
+	<script>
+		$(document).ready(function(){
+
+			$(".menu_box").click(function(){
+				$(".menu_box").removeClass("sel");
+				$(this).addClass("sel");
+
+				$(".menu_all_list").fadeOut();
+				$(this).siblings(".menu_all_list").fadeIn();
+
+			});
+
+			$(".mal_buttons>div").click(function(){
+
+				$(".mal_buttons>div").removeClass("sel");
+				$(this).addClass("sel");
+				$(".menu_all_list").fadeOut();
+
+				var seltext = $(this).html();
+				$(this).parents("div.swiper-slide").find(".menu_sel_text").html(seltext);
+				console.log(seltext);
+			});
+
+			$(".swiper-button-prev, .swiper-button-next").click(function(){
+				$(".menu_all_list").fadeOut();
+			});
+
+			var windowWidth = $( window ).width();
+			console.log(windowWidth);
+			if(windowWidth < 1024) {
+			//창 가로 크기가 1024 미만일 경우 
+			 // alert("모바일:0433");
+			 var swiper = new Swiper('.swiper-container', {
+					slidesPerView: 3,
+					spaceBetween: 0,
+					freeMode: true,
+					navigation: {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev',
+					},
+				});
+
+				// 버튼 크기 가져오기
+				var btnWidth = parseInt($(".swiper-slide").css("width")) + 100;
+				console.log(btnWidth);
+				$(".sidebar, .swiper-slide").css({"height":btnWidth});
+
+				var sideWidth = windowWidth-80;
+				$(".swiper-button-next").css({"left":sideWidth});
+				console.log(sideWidth);
+
+				// $(".menu_box, .swiper-button-next, .swiper-button-prev").css({"height":btnWidth*0.5});
+
+				$(".line2").css({"margin-top":"2%"});
+
+			} else {
+
+			 //alert("pc");
+			 var swiper = new Swiper('.swiper-container', {
+					direction: 'vertical',
+					slidesPerView: 5,
+					spaceBetween: 0,
+					grabCursor: true,
+					navigation: {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev',
+					},
+				});
+
+				$(".menu_box").click(function(){
+					var aaWidth = parseInt($(this).siblings(".menu_all_list").css("width")) + 130;
+					//console.log(typeof aaWidth);
+
+					$(".sidebar").animate({"width":aaWidth});
+				});
+
+				$(".swiper-button-prev, .swiper-button-next").click(function(){
+					$(".sidebar").animate({"width":"130px"});
+				});
+
+			}
+			
+		});
+	</script>
   <style>
-    container {
-      width: 100%;
-    }
+		@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+		@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-    sidebar {
-      position: fixed;
-      width: 350px;
-      margin: 0;
-      padding: 1em;
-    }
+    container { width: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; }
+    #canvas { position: absolute; border: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; z-index: -1; display: block; }
+    * { list-style: none; border-style: none; border-width: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; font-family: Montserrat, 'Noto Sans KR', Helvetica, Arial, sans-serif; margin: 0; outline: none; overflow: visible; padding: 0; }
 
-    #canvas {
-      position: absolute;
-      border: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      z-index: -1;
-      display: block;
-    }
+		.header { position: fixed; z-index: 1; width: 100%; height: 99px; padding: 0 50px; background-color: #fff; /*box-shadow: 0 2px 5px rgba(0,0,0,0.1);*/ border-bottom: 1px solid #eaeaea; }
+		.h_title { float: left; padding-top: 21px; }
+		.h_logo { float: right; padding-top: 22px; }
 
-    * {
-      border-style: none;
-      border-width: 0;
-      -moz-box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      font-family: Helvetica, Arial, sans-serif;
-      margin: 0;
-      outline: 0;
-      overflow: visible;
-      padding: 0;
-    }
+		.sidebar { overflow: hidden; position: fixed; left: 50px;	top: 99px; width: 130px; height: 730px; padding-top: 40px; }
+		.sidebar .swiper-container { height:650px; }
+		.sidebar .swiper-slide { position: relative; }
+		.sidebar .swiper-button-next, .sidebar .swiper-button-prev { display: block; position: absolute; left: 0; height: 40px; width: 130px; line-height: 40px; background-color: #888; text-align: center; color: #fff; font-size: 20px; }
+		.sidebar .swiper-button-next:hover, .sidebar .swiper-button-prev:hover { background-color: #555; }
+		.sidebar .swiper-button-next { top: 690px; }
+		.sidebar .swiper-button-prev { top: 0; }
+		/*.sidebar_m { display: none; }*/
+		.menu_box { position: relative; width: 130px; height: 130px; padding: 15px; background: #fff url("img/btn_menubg.gif") no-repeat 18px 50%;  text-align: center; border-top: 1px dashed #b1b1b1; }
+		.menu_box.sel { background-image: url("img/btn_menubg_sel.png");}
+			.menu_title { height: 30px; padding-top: 2px; color: #fff; font-size: 17px; }
+			.menu_sel_text { position: relative; width: 77px; height: 64px; margin: 0 auto; line-height: 72px; font-size: 20px; }
+				.menu_sel_text>img { position: absolute; left: 0; top: 13px; width: 77px; height: 44px; }
+				.menu_sel_text>span { display: block; position: absolute; left: 0; top: 13px; width: 77px; height: 44px; line-height: 46px; }
+		
+		.menu_all_list { display: none; position: absolute; left: 122px; top: 18px;  height: 94px; background-color: #fff; border: 1px solid #eaeaea;  }
+			.mal_buttons>div { overflow: hidden; float:left; position: relative; width: 100px; height: 92px; background-color: #fff; text-align: center; line-height: 98px; font-size: 18px; cursor: pointer; color: #888; font-weight: 500;}
+				.mal_buttons>div>img { width: 100px; height: 92px; }
+				.mal_buttons>div>span { position: absolute; left: 0; top: 0; display: block; width: 100%; height: 100%; text-align: center; color: #888; }
+			.mal_buttons>div.sel,
+			.mal_buttons>div:hover { border: 4px solid #ed9c00; line-height: 90px; color: #333; }
+			.mal_buttons>div.sel>img,
+			.mal_buttons>div:hover>img { width: 92px; height: 84px; }
+			.mal_buttons>div:hover>span { color: #333; }
 
-    .flat-radio .flat-radio-btn {
-      -webkit-background-clip: content-box;
-      background-clip: content-box;
-      background-color: #fff;
-      border-bottom: 1px solid #c4c4c4;
-      border-right: 1px solid #c4c4c4;
-      border-top: 1px solid #c4c4c4;
-      color: #aaa;
-      cursor: pointer;
-      float: left;
-      font-size: 12px;
-      line-height: 23px;
-      padding-left: 1px;
-      padding-top: 1px;
-      text-align: center;
-    }
+		.footer { position: fixed; left: 0; bottom: 0; width: 100%; height: 130px; padding:20px 0; background-color: rgba(0, 0, 0, 0.7);}
+			.ft_inner {}
+				.ft_inner>div { float: left; height: 95px; padding: 20px 40px 0; border-left: 1px solid rgba(255, 255, 255, 0.1);}
 
-    .flat-radio .flat-radio-btn.first {
-      border-left: 1px solid #c4c4c4;
-    }
-  </style>
+					.ft_title { font-weight: normal; color: #9f9f9f; font-size: 16px; }
+					.ft_prd_code { color: #fff; font-size: 30px; letter-spacing: -0.5px; }
+
+					.delevery_box { float: left; }
+					.delevery_box:first-child { margin-right: 20px; }
+						.delevery_info { position: relative; width: 175px; height: 35px; line-height: 35px; background-color: #000; overflow: hidden; color: #fff; text-indent: 10px; font-size: 18px; margin-top: 5px; }
+						.delevery_info.price { text-align: right; padding-right: 10px; }
+							.delevery_area_list { height: 35px; }
+								.delevery_area_list>li { line-height: 35px; list-style: none; }
+							.delevery_list_more { position: absolute; right: 10px; top: 0; }
+
+							.delevery_info.price>span { font-size: 14px; }
+
+						.ft_total_title { display: block; float: left; line-height: 110px; font-size: 24px; color: #fff; font-weight: normal; }
+						.ft_total_price { display: block; float: right; line-height: 110px; font-size: 50px; color: #fff;  }
+							.ft_total_price>span { padding-left: 5px; font-size: 20px; }
+  
+		@media (max-width:1024px) {
+			/*.sidebar { display: none; }*/
+			.sidebar {display: block; overflow: hidden; position: fixed; left: 0; top: 100px; width: 100%; height: 130px; margin: 0 auto; padding: 0 80px; box-sizing: border-box; }
+			.sidebar .swiper-container { position: static; width: 100%; height: 100%; }
+			.sidebar .swiper-wrapper { position: static; height: 100%; }
+			.swiper-slide {  }
+			.swiper-slide:first-child { border-left: 0; }
+
+			.sidebar .swiper-button-next, .sidebar .swiper-button-prev { display: block; position: absolute; top: 0; width: 80px; height: 130px; line-height: 130px; background-color: #888; text-align: center; color: #fff; font-size: 0; margin-top: 0; }
+			.sidebar .swiper-button-next:hover, .sidebar .swiper-button-prev:hover { background-color: #555; }
+			/*.sidebar .swiper-button-next { left: 95% !important; }*/
+			.sidebar .swiper-button-prev { left: 0; }
+
+			.menu_box { width: 100%; height: 200px; border-top: 0; background-image: url("img/btn_menubg_m.gif"); background-size: 80% 130px; background-position: center; }
+			.menu_box.sel { background-image: url("img/btn_menubg_sel_m.png");}
+
+			.menu_all_list { position: absolute; z-index: 1; left: 50%; top: 130px; border: 1px solid red;}
+			.menu_sel_text { width: 78%; height: 35.5%; line-height: 3.2; text-align: center; margin-top: 5%; }
+			.menu_sel_text>img { width: 100%; height: 100%; position: static; }
+			.menu_sel_text>span { line-height: 3.2; width: 100%; height: 100%; top: 0;}
+			.menu_title { height: 55.5%; line-height: 2.8;}
+		
+			
+			.footer { height: 220px; }
+			.ft_inner>div { height: 175px; }
+			.delevery_box { margin-bottom: 10px; }
+			.ft_total_price { position: relative; top: -50px; }
+		}
+	</style>
 </head>
 
 <body>
   <div class="container">
-    <sidebar>
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">형식</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setMium(0)" style="width: 50%;">기본형</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setMium(1)" style="width: 50%;">ㅁ다리</div>
-        </div>
-      </div>
+    <div class="header">
+			<div class="h_title"><img src="img/configurator.jpg"></div>
+			<div class="h_logo"><img src="img/logo.png"></div>
+		</div>
+		<div class="sidebar">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="menu_box sel" style=" border-top: 0;">
+							<p class="menu_sel_text">기본형</p>
+							<div class="menu_title">스타일</div>
+						</div>
+						<div class="menu_all_list" style="width: 202px;">
+							<div class="mal_buttons">
+								<div onclick="setMium(0)">기본형</div>
+								<div onclick="setMium(1)">ㅁ다리</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">1200</p>
+							<div class="menu_title">폭(W)</div>
+						</div>
+						<div class="menu_all_list" style="width: 602px;">
+							<div class="mal_buttons">
+								<div onclick="setWidth(1000)">1000</div>
+								<div onclick="setWidth(1200)">1200</div>
+								<div onclick="setWidth(1400)">1400</div>
+								<div onclick="setWidth(1600)">1600</div>
+								<div onclick="setWidth(1800)">1800</div>
+								<div onclick="setWidth(2000)">2000</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">700</p>
+							<div class="menu_title">깊이(D)</div>
+						</div>
+						<div class="menu_all_list" style="width: 302px;">
+							<div class="mal_buttons">
+								<div onclick="setDepth(500)">500</div>
+								<div onclick="setDepth(600)">600</div>
+								<div onclick="setDepth(700)">700</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">없음</p>
+							<div class="menu_title">수직부재</div>
+						</div>
+						<div class="menu_all_list" style="width: 402px;">
+							<div class="mal_buttons">
+								<div onclick="setVertical(1)">없음</div>
+								<div onclick="setVertical(2)">640</div>
+								<div onclick="setVertical(3)">920</div>
+								<div onclick="setVertical(4)">1860</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">1</p>
+							<div class="menu_title">선반갯수</div>
+						</div>
+						<div class="menu_all_list" style="width: 702px;">
+							<div class="mal_buttons">
+								<div onclick="setShelfNum(1)">1</div>
+								<div onclick="setShelfNum(2)">2</div>
+								<div onclick="setShelfNum(3)">3</div>
+								<div onclick="setShelfNum(4)">4</div>
+								<div onclick="setShelfNum(5)">5</div>
+								<div onclick="setShelfNum(6)">6</div>
+								<div onclick="setShelfNum(7)">7</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">화이트</p>
+							<div class="menu_title">상판색상</div>
+						</div>
+						<div class="menu_all_list" style="width: 702px;">
+							<div class="mal_buttons">
+								<div onclick="setBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+								<div onclick="setBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+								<div onclick="setBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+								<div onclick="setBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
+								<div onclick="setBoardColor(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
+								<div onclick="setBoardColor(7)"><img src="texture/redpine.jpg"><span>레드파인</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">화이트</p>
+							<div class="menu_title" >프레임색상</div>
+						</div>
+						<div class="menu_all_list" style="width: 302px;">
+							<div class="mal_buttons">
+								<div onclick="setFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+								<div onclick="setFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">화이트</p>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">수직프레임<br>색상</div>
+						</div>
+						<div class="menu_all_list" style="width: 302px;">
+							<div class="mal_buttons">
+								<div onclick="setVerticalColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setVerticalColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+								<div onclick="setVerticalColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">화이트</p>
+							<div class="menu_title">선반색상</div>
+						</div>
+						<div class="menu_all_list" style="width: 502px;">
+							<div class="mal_buttons">
+								<div onclick="setShelfBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setShelfBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+								<div onclick="setShelfBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+								<div onclick="setShelfBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+								<div onclick="setShelfBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">화이트</p>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">선반프레임<br>색상</div>
+						</div>
+						<div class="menu_all_list" style="width: 302px;">
+							<div class="mal_buttons">
+								<div onclick="setShelfFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setShelfFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+								<div onclick="setShelfFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">없음</p>
+							<div class="menu_title">ㄱ자 모듈</div>
+						</div>
+						<div class="menu_all_list" style="width: 302px;">
+							<div class="mal_buttons">
+								<div onclick="setGiyeok(0)">없음</div>
+								<div onclick="setGiyeok(1)">왼쪽</div>
+								<div onclick="setGiyeok(2)">오른쪽</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">없음</p>
+							<div class="menu_title">데스크매트</div>
+						</div>
+						<div class="menu_all_list" style="width: 302px;">
+							<div class="mal_buttons">
+								<div onclick="setDeskMat(0)">없음</div>
+								<div onclick="setDeskMat(1)"><img src="texture/gray.jpg"><span>그레이</span></div>
+								<div onclick="setDeskMat(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">없음</p>
+							<div class="menu_title">미니서랍</div>
+						</div>
+						<div class="menu_all_list" style="width: 302px;">
+							<div class="mal_buttons">
+								<div onclick="setDrawerColor(0)">없음</div>
+								<div onclick="setDrawerColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setDrawerColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">없음</p>
+							<div class="menu_title">하부가림판</div>
+						</div>
+						<div class="menu_all_list" style="width: 702px;">
+							<div class="mal_buttons">
+								<div onclick="setFence(0)">없음</div>
+								<div onclick="setFence(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setFence(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+								<div onclick="setFence(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+								<div onclick="setFence(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+								<div onclick="setFence(5)"><img src="texture/pine.jpg"><span>파인</span></div>
+								<div onclick="setFence(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">없음</p>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>2단</div>
+						</div>
+						<div class="menu_all_list" style="width: 502px;">
+							<div class="mal_buttons">
+								<div onclick="setMoving2(0)">없음</div>
+								<div onclick="setMoving2(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setMoving2(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+								<div onclick="setMoving2(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+								<div onclick="setMoving2(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">없음</p>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>3단</div>
+						</div>
+						<div class="menu_all_list" style="width: 402px;">
+							<div class="mal_buttons">
+								<div onclick="setMoving3(0)">없음</div>
+								<div onclick="setMoving3(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+								<div onclick="setMoving3(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+								<div onclick="setMoving3(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+								<div onclick="setMoving3(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">1</p>
+							<div class="menu_title">책상 배열</div>
+						</div>
+						<div class="menu_all_list" style="width: 502px;">
+							<div class="mal_buttons">
+								<div onclick="setDeskArray(1)">1</div>
+								<div onclick="setDeskArray(2)">2</div>
+								<div onclick="setDeskArray(3)">3</div>
+								<div onclick="setDeskArray(4)">4</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="menu_box">
+							<p class="menu_sel_text">No</p>
+							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;"">책상<br>맞은편 배열</div>
+						</div>
+						<div class="menu_all_list" style="width: 202px;">
+							<div class="mal_buttons">
+								<div onclick="setDeskOpposite(false)">No</div>
+								<div onclick="setDeskOpposite(true)">Yes</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next">Next</div>
+				<div class="swiper-button-prev">Prev</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="ft_inner">
 
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">폭(W)</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope first" onclick="setWidth(1000)" style="width: 16%;">1000</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1200)" style="width: 16%;">1200</div>
-          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1400)" style="width: 17%;">1400</div>
-          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1600)" style="width: 17%;">1600</div>
-          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(1800)" style="width: 17%;">1800</div>
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope" onclick="setWidth(2000)" style="width: 17%;">2000</div>
-        </div>
-      </div>
+				<div style="width: 17.8%; border-left: 0;">
+					<strong class="ft_title">상품코드</strong>
+					<p class="ft_prd_code">14211-12345-00110</p>
+				</div>
 
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">깊이(D)</div>
-        <div class="flat-radio-buttons">
-          <div id="Depth_500" class="flat-radio-btn ng-binding ng-scope first" onclick="setDepth(500)" style="width: 33%;">500</div>
-          <div id="Depth_600" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(600)" style="width: 33%;">600</div>
-          <div id="Depth_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDepth(700)" style="width: 34%;">700</div>
-        </div>
-      </div>
+				<div style="width: 23.5%;">
+					<div class="delevery_box">
+						<strong class="ft_title">배송지역 설정</strong>
+						<div class="delevery_info">
+							<ul class="delevery_area_list">
+								<li>서울</li>
+								<li>경기</li>
+							</ul>
+							<span class="delevery_list_more">+</span>
+						</div>
+					</div>
+					<div class="delevery_box">
+						<strong class="ft_title">배송 가능 날짜</strong>
+						<div class="delevery_info">2017년 12월 31일</div>
+					</div>
+				</div>
 
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">상판색상</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setBoardColor(1)" style="width: 14%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(2)" style="width: 13%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(3)" style="width: 14%;">그레이</div>
-          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(4)" style="width: 14%;">내추럴</div>
-          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(5)" style="width: 13%;">파인</div>
-          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(6)" style="width: 16%;">콘크리트</div>
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope" onclick="setBoardColor(7)" style="width: 16%;">레드파인</div>
-        </div>
-      </div>
+				<div style="width: 23.5%;">
+					<div class="delevery_box">
+						<strong class="ft_title">배송조립비</strong>
+						<div class="delevery_info price">28,000 <span>원</span></div>
+					</div>
+					<div class="delevery_box">
+						<strong class="ft_title">상품금액</strong>
+						<div class="delevery_info price">283,000 <span>원</span></div>
+					</div>
+				</div>
 
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">프레임색상</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setFrameColor(1)" style="width: 33%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setFrameColor(2)" style="width: 33%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setFrameColor(3)" style="width: 34%;">그레이</div>
-        </div>
-      </div>
+				<div style="width: 35.2%; padding-top: 0;">
+					<strong class="ft_total_title">총 결제금액</strong>
+					<span class="ft_total_price">123,000<span>원</span></span>
+				</div>
 
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">수직부재</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setVertical(1)" style="width: 25%;">없음</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setVertical(2)" style="width: 25%;">640</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setVertical(3)" style="width: 25%;">920</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setVertical(4)" style="width: 25%;">1860</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">수직부재프레임색상</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setVerticalColor(1)" style="width: 33%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setVerticalColor(2)" style="width: 33%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setVerticalColor(3)" style="width: 34%;">그레이</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">선반 갯수</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setShelfNum(1)" style="width: 14%;">1</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(2)" style="width: 14%;">2</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(3)" style="width: 14%;">3</div>
-          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(4)" style="width: 14%;">4</div>
-          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(5)" style="width: 14%;">5</div>
-          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(6)" style="width: 14%;">6</div>
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfNum(7)" style="width: 14%;">7</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">선반색상</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setShelfBoardColor(1)" style="width: 20%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(2)" style="width: 20%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(3)" style="width: 20%;">그레이</div>
-          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(4)" style="width: 20%;">내추럴</div>
-          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfBoardColor(5)" style="width: 20%;">파인</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">선반프레임색상</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setShelfFrameColor(1)" style="width: 33%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfFrameColor(2)" style="width: 33%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setShelfFrameColor(3)" style="width: 33%;">그레이</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">ㄱ자 모듈</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setGiyeok(0)" style="width: 33%;">없음</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setGiyeok(1)" style="width: 33%;">왼쪽</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setGiyeok(2)" style="width: 33%;">오른쪽</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">데스크 매트</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDeskMat(0)" style="width: 33%;">없음</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskMat(1)" style="width: 33%;">그레이</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskMat(2)" style="width: 33%;">블랙</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="width" model="dimensions.width">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">미니서랍</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope first" onclick="setDrawerColor(0)" style="width: 33%;">없음</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerColor(1)" style="width: 33%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setDrawerColor(2)" style="width: 33%;">블랙</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">하부가림판</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setFence(0)" style="width: 16%;">없음</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(1)" style="width: 14%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(2)" style="width: 12%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(3)" style="width: 14%;">그레이</div>
-          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(4)" style="width: 14%;">내추럴</div>
-          <div id="Width_1600" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(5)" style="width: 12%;">파인</div>
-          <div id="Width_1800" class="flat-radio-btn ng-binding ng-scope" onclick="setFence(6)" style="width: 16%;">콘크리트</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">이동서랍 2단</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setMoving2(0)" style="width: 20%;">없음</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving2(1)" style="width: 20%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving2(2)" style="width: 20%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving2(3)" style="width: 20%;">그레이</div>
-          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving2(4)" style="width: 20%;">내추럴</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">이동서랍 3단</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setMoving3(0)" style="width: 20%;">없음</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving3(1)" style="width: 20%;">화이트</div>
-          <div id="Width_1000" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving3(2)" style="width: 20%;">블랙</div>
-          <div id="Width_1200" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving3(3)" style="width: 20%;">그레이</div>
-          <div id="Width_1400" class="flat-radio-btn ng-binding ng-scope" onclick="setMoving3(4)" style="width: 20%;">내추럴</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">책상 배열</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setDeskArray(1)" style="width: 25%;">1</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskArray(2)" style="width: 25%;">2</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskArray(3)" style="width: 25%;">3</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskArray(4)" style="width: 25%;">4</div>
-        </div>
-      </div>
-
-      <div class="no-top-padding flat-radio ng-isolate-scope" label="board_color">
-        <div class="flat-radio-label ng-binding ng-scope" ng-if="label">책상 맞은편 배열</div>
-        <div class="flat-radio-buttons">
-          <div id="Width_2000" class="flat-radio-btn ng-binding ng-scope first" onclick="setDeskOpposite(false)" style="width: 50%;">No</div>
-          <div id="Width_700" class="flat-radio-btn ng-binding ng-scope" onclick="setDeskOpposite(true)" style="width: 50%;">Yes</div>
-        </div>
-      </div>
-
-    </sidebar>
+			</div>
+		</div>
 
     <div id="canvas">
     </div>
