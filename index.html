@@ -138,12 +138,12 @@
 		.menu_all_list { display: none; position: absolute; left: 122px; top: 18px;  height: 94px; background-color: #fff; border: 1px solid #eaeaea;  }
 			.mal_buttons>div { overflow: hidden; float:left; position: relative; width: 100px; height: 92px; background-color: #fff; text-align: center; line-height: 98px; font-size: 18px; cursor: pointer; color: #888; font-weight: 500;}
 				.mal_buttons>div>img { width: 100px; height: 92px; }
-				.mal_buttons>div>span { position: absolute; left: 0; top: 0; display: block; width: 100%; height: 100%; text-align: center; color: #888; }
+				.mal_buttons>div>span { position: absolute; left: 0; top: 0; display: block; width: 100%; height: 100%; text-align: center; color: #aaa;}
 			.mal_buttons>div.sel,
-			.mal_buttons>div:hover { border: 4px solid #ed9c00; line-height: 90px; color: #333; }
+			.mal_buttons>div:hover { border: 4px solid #ed9c00; line-height: 90px; color: #aaa; }
 			.mal_buttons>div.sel>img,
 			.mal_buttons>div:hover>img { width: 92px; height: 84px; }
-			.mal_buttons>div:hover>span { color: #333; }
+			.mal_buttons>div:hover>span { color: #888; }
 
 		.footer { position: fixed; left: 0; bottom: 0; width: 100%; height: 130px; padding:20px 0; background-color: rgba(0, 0, 0, 0.7);}
 			.ft_inner {}
@@ -429,7 +429,7 @@
 							<p class="menu_sel_text">없음</p>
 							<div class="menu_title line2" style="margin-top: -8px; line-height: 1.2;">이동서랍<br>3단</div>
 						</div>
-						<div class="menu_all_list" style="width: 402px;">
+						<div class="menu_all_list" style="width: 502px;">
 							<div class="mal_buttons">
 								<div onclick="setMoving3(0)">없음</div>
 								<div onclick="setMoving3(1)"><img src="texture/white.jpg"><span>화이트</span></div>
@@ -444,7 +444,7 @@
 							<p class="menu_sel_text">1</p>
 							<div class="menu_title">책상 배열</div>
 						</div>
-						<div class="menu_all_list" style="width: 502px;">
+						<div class="menu_all_list" style="width: 402px;">
 							<div class="mal_buttons">
 								<div onclick="setDeskArray(1)">1</div>
 								<div onclick="setDeskArray(2)">2</div>
@@ -603,6 +603,20 @@
 					<div onclick="setMoving3(2)"><img src="texture/black.jpg"><span>블랙</span></div>
 					<div onclick="setMoving3(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
 					<div onclick="setMoving3(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 402px; margin-left: -201px;">
+				<div class="mal_buttons">
+					<div onclick="setDeskArray(1)">1</div>
+					<div onclick="setDeskArray(2)">2</div>
+					<div onclick="setDeskArray(3)">3</div>
+					<div onclick="setDeskArray(4)">4</div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 202px; margin-left: -101px;">
+				<div class="mal_buttons">
+					<div onclick="setDeskOpposite(false)">No</div>
+					<div onclick="setDeskOpposite(true)">Yes</div>
 				</div>
 			</div>
 		</div>
