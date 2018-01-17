@@ -64,10 +64,16 @@
 				$(".menu_box").click(function(){
 					// menu_box 인덱스값 구하기
 					var mboxIdx = $(".swiper-slide .menu_box").index(this);
-					
-					// $(".m_sidebar").show();
+
 					$(".m_sidebar>.menu_all_list").fadeOut();
 					$(".m_sidebar>.menu_all_list:eq(" + mboxIdx + ")").fadeIn();
+				});
+
+				$(".mal_buttons>div").click(function(){
+					var seltextIdx = $(this).parents(".menu_all_list").index();
+					var seltext = $(this).html();
+					$(".sidebar .swiper-slide:eq("+ seltextIdx +") .menu_sel_text").html(seltext);
+					console.log(seltext);
 				});
 
 			} else {
@@ -446,133 +452,133 @@
 					<div onclick="setMium(1)">ㅁ다리</div>
 				</div>
 			</div>
-				<div class="menu_all_list" style="width: 602px; margin-left: -301px; ">
-					<div class="mal_buttons">
-						<div onclick="setWidth(1000)">1000</div>
-						<div onclick="setWidth(1200)">1200</div>
-						<div onclick="setWidth(1400)">1400</div>
-						<div onclick="setWidth(1600)">1600</div>
-						<div onclick="setWidth(1800)">1800</div>
-						<div onclick="setWidth(2000)">2000</div>
-					</div>
+			<div class="menu_all_list" style="width: 602px; margin-left: -301px; ">
+				<div class="mal_buttons">
+					<div onclick="setWidth(1000)">1000</div>
+					<div onclick="setWidth(1200)">1200</div>
+					<div onclick="setWidth(1400)">1400</div>
+					<div onclick="setWidth(1600)">1600</div>
+					<div onclick="setWidth(1800)">1800</div>
+					<div onclick="setWidth(2000)">2000</div>
 				</div>
-				<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
-					<div class="mal_buttons">
-						<div onclick="setDepth(500)">500</div>
-						<div onclick="setDepth(600)">600</div>
-						<div onclick="setDepth(700)">700</div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setDepth(500)">500</div>
+					<div onclick="setDepth(600)">600</div>
+					<div onclick="setDepth(700)">700</div>
 				</div>
-				<div class="menu_all_list" style="width: 402px;  margin-left: -201px; ">
-					<div class="mal_buttons">
-						<div onclick="setVertical(1)">없음</div>
-						<div onclick="setVertical(2)">640</div>
-						<div onclick="setVertical(3)">920</div>
-						<div onclick="setVertical(4)">1860</div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 402px;  margin-left: -201px; ">
+				<div class="mal_buttons">
+					<div onclick="setVertical(1)">없음</div>
+					<div onclick="setVertical(2)">640</div>
+					<div onclick="setVertical(3)">920</div>
+					<div onclick="setVertical(4)">1860</div>
 				</div>
-				<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
-					<div class="mal_buttons">
-						<div onclick="setShelfNum(1)">1</div>
-						<div onclick="setShelfNum(2)">2</div>
-						<div onclick="setShelfNum(3)">3</div>
-						<div onclick="setShelfNum(4)">4</div>
-						<div onclick="setShelfNum(5)">5</div>
-						<div onclick="setShelfNum(6)">6</div>
-						<div onclick="setShelfNum(7)">7</div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
+				<div class="mal_buttons">
+					<div onclick="setShelfNum(1)">1</div>
+					<div onclick="setShelfNum(2)">2</div>
+					<div onclick="setShelfNum(3)">3</div>
+					<div onclick="setShelfNum(4)">4</div>
+					<div onclick="setShelfNum(5)">5</div>
+					<div onclick="setShelfNum(6)">6</div>
+					<div onclick="setShelfNum(7)">7</div>
 				</div>
-				<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
-					<div class="mal_buttons">
-						<div onclick="setBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-						<div onclick="setBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-						<div onclick="setBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-						<div onclick="setBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
-						<div onclick="setBoardColor(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
-						<div onclick="setBoardColor(7)"><img src="texture/redpine.jpg"><span>레드파인</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
+				<div class="mal_buttons">
+					<div onclick="setBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+					<div onclick="setBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
+					<div onclick="setBoardColor(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
+					<div onclick="setBoardColor(7)"><img src="texture/redpine.jpg"><span>레드파인</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
-					<div class="mal_buttons">
-						<div onclick="setFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-						<div onclick="setFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
-					<div class="mal_buttons">
-						<div onclick="setVerticalColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setVerticalColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-						<div onclick="setVerticalColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setVerticalColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setVerticalColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setVerticalColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
-					<div class="mal_buttons">
-						<div onclick="setShelfBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setShelfBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-						<div onclick="setShelfBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-						<div onclick="setShelfBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-						<div onclick="setShelfBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
+				<div class="mal_buttons">
+					<div onclick="setShelfBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setShelfBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setShelfBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setShelfBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+					<div onclick="setShelfBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
-					<div class="mal_buttons">
-						<div onclick="setShelfFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setShelfFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-						<div onclick="setShelfFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setShelfFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setShelfFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setShelfFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 302px; margin-left: -151px;">
-					<div class="mal_buttons">
-						<div onclick="setGiyeok(0)">없음</div>
-						<div onclick="setGiyeok(1)">왼쪽</div>
-						<div onclick="setGiyeok(2)">오른쪽</div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px;">
+				<div class="mal_buttons">
+					<div onclick="setGiyeok(0)">없음</div>
+					<div onclick="setGiyeok(1)">왼쪽</div>
+					<div onclick="setGiyeok(2)">오른쪽</div>
 				</div>
-				<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
-					<div class="mal_buttons">
-						<div onclick="setDeskMat(0)">없음</div>
-						<div onclick="setDeskMat(1)"><img src="texture/gray.jpg"><span>그레이</span></div>
-						<div onclick="setDeskMat(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setDeskMat(0)">없음</div>
+					<div onclick="setDeskMat(1)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setDeskMat(2)"><img src="texture/black.jpg"><span>블랙</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 302px; margin-left: -151px;">
-					<div class="mal_buttons">
-						<div onclick="setDrawerColor(0)">없음</div>
-						<div onclick="setDrawerColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setDrawerColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px;">
+				<div class="mal_buttons">
+					<div onclick="setDrawerColor(0)">없음</div>
+					<div onclick="setDrawerColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setDrawerColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
-					<div class="mal_buttons">
-						<div onclick="setFence(0)">없음</div>
-						<div onclick="setFence(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setFence(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-						<div onclick="setFence(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-						<div onclick="setFence(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-						<div onclick="setFence(5)"><img src="texture/pine.jpg"><span>파인</span></div>
-						<div onclick="setFence(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
+				<div class="mal_buttons">
+					<div onclick="setFence(0)">없음</div>
+					<div onclick="setFence(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setFence(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setFence(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setFence(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+					<div onclick="setFence(5)"><img src="texture/pine.jpg"><span>파인</span></div>
+					<div onclick="setFence(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
-					<div class="mal_buttons">
-						<div onclick="setMoving2(0)">없음</div>
-						<div onclick="setMoving2(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setMoving2(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-						<div onclick="setMoving2(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-						<div onclick="setMoving2(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
+				<div class="mal_buttons">
+					<div onclick="setMoving2(0)">없음</div>
+					<div onclick="setMoving2(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setMoving2(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setMoving2(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setMoving2(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
 				</div>
-				<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
-					<div class="mal_buttons">
-						<div onclick="setMoving3(0)">없음</div>
-						<div onclick="setMoving3(1)"><img src="texture/white.jpg"><span>화이트</span></div>
-						<div onclick="setMoving3(2)"><img src="texture/black.jpg"><span>블랙</span></div>
-						<div onclick="setMoving3(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
-						<div onclick="setMoving3(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
-					</div>
+			</div>
+			<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
+				<div class="mal_buttons">
+					<div onclick="setMoving3(0)">없음</div>
+					<div onclick="setMoving3(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setMoving3(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setMoving3(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setMoving3(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
 				</div>
+			</div>
 		</div>
 		<div class="footer">
 			<div class="ft_inner">
