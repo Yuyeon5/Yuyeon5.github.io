@@ -14,8 +14,7 @@
 				$(".menu_box").removeClass("sel");
 				$(this).addClass("sel");
 
-				$(".menu_all_list").fadeOut();
-				$(this).siblings(".menu_all_list").fadeIn();
+				
 
 			});
 
@@ -40,7 +39,7 @@
 			//창 가로 크기가 1024 미만일 경우 
 			 // alert("모바일:0433");
 			 var swiper = new Swiper('.swiper-container', {
-					slidesPerView: 3,
+					slidesPerView: 4,
 					spaceBetween: 0,
 					freeMode: true,
 					navigation: {
@@ -50,17 +49,32 @@
 				});
 
 				// 버튼 크기 가져오기
-				var btnWidth = parseInt($(".swiper-slide").css("width")) + 100;
+				var btnWidth = parseInt($(".swiper-slide").css("width"));
 				console.log(btnWidth);
 				$(".sidebar, .swiper-slide").css({"height":btnWidth});
 
 				var sideWidth = windowWidth-80;
-				$(".swiper-button-next").css({"left":sideWidth});
+				// $(".swiper-button-next").css({"left":sideWidth});
 				console.log(sideWidth);
 
 				// $(".menu_box, .swiper-button-next, .swiper-button-prev").css({"height":btnWidth*0.5});
 
 				$(".line2").css({"margin-top":"2%"});
+
+				$(".menu_box").click(function(){
+					// menu_box 인덱스값 구하기
+					var mboxIdx = $(".swiper-slide .menu_box").index(this);
+
+					$(".m_sidebar>.menu_all_list").fadeOut();
+					$(".m_sidebar>.menu_all_list:eq(" + mboxIdx + ")").fadeIn();
+				});
+
+				$(".mal_buttons>div").click(function(){
+					var seltextIdx = $(this).parents(".menu_all_list").index();
+					var seltext = $(this).html();
+					$(".sidebar .swiper-slide:eq("+ seltextIdx +") .menu_sel_text").html(seltext);
+					console.log(seltext);
+				});
 
 			} else {
 
@@ -80,6 +94,9 @@
 					var aaWidth = parseInt($(this).siblings(".menu_all_list").css("width")) + 130;
 					//console.log(typeof aaWidth);
 
+					$(".menu_all_list").fadeOut();
+					$(this).siblings(".menu_all_list").fadeIn();
+
 					$(".sidebar").animate({"width":aaWidth});
 				});
 
@@ -89,7 +106,7 @@
 
 			}
 			
-		});
+	});
 	</script>
   <style>
 		@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
@@ -110,7 +127,7 @@
 		.sidebar .swiper-button-next:hover, .sidebar .swiper-button-prev:hover { background-color: #555; }
 		.sidebar .swiper-button-next { top: 690px; }
 		.sidebar .swiper-button-prev { top: 0; }
-		/*.sidebar_m { display: none; }*/
+		.m_sidebar { display: none; }
 		.menu_box { position: relative; width: 130px; height: 130px; padding: 15px; background: #fff url("img/btn_menubg.gif") no-repeat 18px 50%;  text-align: center; border-top: 1px dashed #b1b1b1; }
 		.menu_box.sel { background-image: url("img/btn_menubg_sel.png");}
 			.menu_title { height: 30px; padding-top: 2px; color: #fff; font-size: 17px; }
@@ -151,25 +168,29 @@
   
 		@media (max-width:1024px) {
 			/*.sidebar { display: none; }*/
-			.sidebar {display: block; overflow: hidden; position: fixed; left: 0; top: 100px; width: 100%; height: 130px; margin: 0 auto; padding: 0 80px; box-sizing: border-box; }
-			.sidebar .swiper-container { position: static; width: 100%; height: 100%; }
+			.sidebar,
+			.m_sidebar {display: block; overflow: hidden; position: fixed; left: 50%; top: 100px; width: 840px; height: 130px; padding: 0; margin-left: -420px; box-sizing: border-box; background-color: #fff; }
+			.sidebar .swiper-container { position: static; width: 720px;; height: 100%; }
 			.sidebar .swiper-wrapper { position: static; height: 100%; }
-			.swiper-slide {  }
+			.swiper-slide { position: static !important; }
 			.swiper-slide:first-child { border-left: 0; }
 
-			.sidebar .swiper-button-next, .sidebar .swiper-button-prev { display: block; position: absolute; top: 0; width: 80px; height: 130px; line-height: 130px; background-color: #888; text-align: center; color: #fff; font-size: 0; margin-top: 0; }
+			.sidebar .swiper-button-next, .sidebar .swiper-button-prev { display: block; position: absolute; top: 0; width: 60px; height: 180px; line-height: 180px; background-color: #888; text-align: center; color: #fff; background-image: none; margin-top: 0; }
 			.sidebar .swiper-button-next:hover, .sidebar .swiper-button-prev:hover { background-color: #555; }
-			/*.sidebar .swiper-button-next { left: 95% !important; }*/
+			.sidebar .swiper-button-next { left: 780px !important; }
 			.sidebar .swiper-button-prev { left: 0; }
 
-			.menu_box { width: 100%; height: 200px; border-top: 0; background-image: url("img/btn_menubg_m.gif"); background-size: 80% 130px; background-position: center; }
+			.menu_box { width: 180px; height: 180px; border-top: 0; background-image: url("img/btn_menubg_m.gif"); background-size: 144px auto; background-position: center;  padding: 12px 17px;}
 			.menu_box.sel { background-image: url("img/btn_menubg_sel_m.png");}
 
-			.menu_all_list { position: absolute; z-index: 1; left: 50%; top: 130px; border: 1px solid red;}
-			.menu_sel_text { width: 78%; height: 35.5%; line-height: 3.2; text-align: center; margin-top: 5%; }
+			.menu_all_list { display: none; position: absolute; z-index: 100; left: 50%; top: 130px; width: 100%;}
+			.menu_sel_text { width: 116px; height: 68px; line-height: 68px; font-size: 24px; text-align: center; margin: 16px 0 0 16px; }
 			.menu_sel_text>img { width: 100%; height: 100%; position: static; }
 			.menu_sel_text>span { line-height: 3.2; width: 100%; height: 100%; top: 0;}
-			.menu_title { height: 55.5%; line-height: 2.8;}
+			.menu_title { height: 62px; line-height: 54px; font-size: 22px;}
+
+			.m_sidebar { top: 270px; height: 130px; z-index: 10; background: none; }
+			.m_sidebar .menu_all_list { display: none; top: 0; }
 		
 			
 			.footer { height: 220px; }
@@ -448,6 +469,141 @@
 				<!-- Add Arrows -->
 				<div class="swiper-button-next">Next</div>
 				<div class="swiper-button-prev">Prev</div>
+			</div>
+		</div>
+		<div class="m_sidebar">
+			<div class="menu_all_list" style="width: 202px; margin-left: -101px; ">
+				<div class="mal_buttons">
+					<div onclick="setMium(0)">기본형</div>
+					<div onclick="setMium(1)">ㅁ다리</div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 602px; margin-left: -301px; ">
+				<div class="mal_buttons">
+					<div onclick="setWidth(1000)">1000</div>
+					<div onclick="setWidth(1200)">1200</div>
+					<div onclick="setWidth(1400)">1400</div>
+					<div onclick="setWidth(1600)">1600</div>
+					<div onclick="setWidth(1800)">1800</div>
+					<div onclick="setWidth(2000)">2000</div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setDepth(500)">500</div>
+					<div onclick="setDepth(600)">600</div>
+					<div onclick="setDepth(700)">700</div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 402px;  margin-left: -201px; ">
+				<div class="mal_buttons">
+					<div onclick="setVertical(1)">없음</div>
+					<div onclick="setVertical(2)">640</div>
+					<div onclick="setVertical(3)">920</div>
+					<div onclick="setVertical(4)">1860</div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
+				<div class="mal_buttons">
+					<div onclick="setShelfNum(1)">1</div>
+					<div onclick="setShelfNum(2)">2</div>
+					<div onclick="setShelfNum(3)">3</div>
+					<div onclick="setShelfNum(4)">4</div>
+					<div onclick="setShelfNum(5)">5</div>
+					<div onclick="setShelfNum(6)">6</div>
+					<div onclick="setShelfNum(7)">7</div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
+				<div class="mal_buttons">
+					<div onclick="setBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+					<div onclick="setBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
+					<div onclick="setBoardColor(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
+					<div onclick="setBoardColor(7)"><img src="texture/redpine.jpg"><span>레드파인</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setVerticalColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setVerticalColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setVerticalColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
+				<div class="mal_buttons">
+					<div onclick="setShelfBoardColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setShelfBoardColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setShelfBoardColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setShelfBoardColor(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+					<div onclick="setShelfBoardColor(5)"><img src="texture/pine.jpg"><span>파인</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setShelfFrameColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setShelfFrameColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setShelfFrameColor(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px;">
+				<div class="mal_buttons">
+					<div onclick="setGiyeok(0)">없음</div>
+					<div onclick="setGiyeok(1)">왼쪽</div>
+					<div onclick="setGiyeok(2)">오른쪽</div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
+				<div class="mal_buttons">
+					<div onclick="setDeskMat(0)">없음</div>
+					<div onclick="setDeskMat(1)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setDeskMat(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 302px; margin-left: -151px;">
+				<div class="mal_buttons">
+					<div onclick="setDrawerColor(0)">없음</div>
+					<div onclick="setDrawerColor(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setDrawerColor(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
+				<div class="mal_buttons">
+					<div onclick="setFence(0)">없음</div>
+					<div onclick="setFence(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setFence(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setFence(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setFence(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+					<div onclick="setFence(5)"><img src="texture/pine.jpg"><span>파인</span></div>
+					<div onclick="setFence(6)"><img src="texture/concrete.jpg"><span>콘크리트</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
+				<div class="mal_buttons">
+					<div onclick="setMoving2(0)">없음</div>
+					<div onclick="setMoving2(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setMoving2(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setMoving2(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setMoving2(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+				</div>
+			</div>
+			<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
+				<div class="mal_buttons">
+					<div onclick="setMoving3(0)">없음</div>
+					<div onclick="setMoving3(1)"><img src="texture/white.jpg"><span>화이트</span></div>
+					<div onclick="setMoving3(2)"><img src="texture/black.jpg"><span>블랙</span></div>
+					<div onclick="setMoving3(3)"><img src="texture/gray.jpg"><span>그레이</span></div>
+					<div onclick="setMoving3(4)"><img src="texture/natural.jpg"><span>내추럴</span></div>
+				</div>
 			</div>
 		</div>
 		<div class="footer">
