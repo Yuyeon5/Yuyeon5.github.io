@@ -731,6 +731,7 @@
       var shelf;
       var shelf_depth = 200;
       var shelf_num = 1;
+      var shelf_direction = 0; // out - 0, in - 1
       var shelf_board_material = new THREE.MeshPhongMaterial({ color: white_color });
       var shelf_frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
@@ -928,6 +929,14 @@
 
       function setShelfNum(n) {
         shelf_num = n;
+        adjustShlefNum();
+
+        updateScene();
+        render();
+      }
+
+      function setShelfDirection(d) {
+        shelf_direction = d;
         adjustShlefNum();
 
         updateScene();
@@ -1396,21 +1405,25 @@
           // shelves
           var i;
           for (i = 0; i < shelf_num; i++) {
-            geometry = new THREE.BoxBufferGeometry(board_width - 2, board_thickness, shelf_depth);
-            shelf = new THREE.Mesh(geometry, shelf_board_material);
-            if (i == 0)
-              shelf.position.y = vertical_y + vertical_length / 2 + board_thickness / 2;
-            else
-              shelf.position.y = vertical_y + vertical_length * (0.5 - i / (shelf_num - 1)) + board_thickness / 2;
-            shelf.position.z = - (board_depth + shelf_depth + 7) / 2;
-            shelf.castShadow = true;
-            board.add(shelf);
-
             geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness);
             frame = new THREE.Mesh(geometry, shelf_frame_material);
-            frame.position.y = - (board_thickness + frame_thickness) / 2;
-            frame.position.z = (shelf_depth - frame_thickness) / 2;
-            shelf.add(frame);
+            frame.position.x = - (board_width - frame_thickness) / 2;
+            if (i == 0)
+              frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
+            else
+              frame.position.y = vertical_length * (0.5 - i / (shelf_num - 1)) - board_thickness;
+            frame.castShadow = true;
+            vertical.add(frame);
+
+            geometry = new THREE.BoxBufferGeometry(board_width - 2, board_thickness, shelf_depth);
+            shelf = new THREE.Mesh(geometry, shelf_board_material);
+            shelf.position.y = (frame_thickness + board_thickness) / 2;
+            if (shelf_direction)
+              shelf.position.z = (shelf_depth - frame_thickness) / 2;
+            else 
+              shelf.position.z = -(shelf_depth - frame_thickness) / 2;
+            shelf.castShadow = true;
+            frame.add(shelf);            
           }
 
           // safety leg
