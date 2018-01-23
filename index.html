@@ -731,7 +731,6 @@
       var shelf;
       var shelf_depth = 200;
       var shelf_num = 1;
-      var shelf_max_num = 1;
       var shelf_board_material = new THREE.MeshPhongMaterial({ color: white_color });
       var shelf_frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
@@ -907,22 +906,21 @@
           case 2:
             vertical_length = 640;
             vertical_y = -15;
-            shelf_max_num = 3;
             break;
           case 3:
             vertical_length = 920;
             vertical_y = -7;
-            shelf_max_num = 5;
             break;
           case 4:
             vertical_length = 1860;
             vertical_y = 360;
-            shelf_max_num = 7;
             break;
           default:
             vertical_length = 0;
             break;
         }
+
+        adjustShlefNum();
 
         updateScene();
         render();
@@ -930,6 +928,8 @@
 
       function setShelfNum(n) {
         shelf_num = n;
+        adjustShlefNum();
+
         updateScene();
         render();
       }
@@ -1071,6 +1071,31 @@
         }
 
         return false;
+      }
+
+      function adjustShlefNum() {
+        var max_shelf_num = 0;
+
+        switch (vertical_length) {
+          case 0:
+            max_shelf_num = 0;
+            break;
+          case 640:
+            max_shelf_num = 3;
+            break;
+          case 920:
+            max_shelf_num = 5;
+            break;
+          case 1860:
+            max_shelf_num = 7;
+            break;
+          default:
+            max_shelf_num = 0;
+            break;
+        }
+
+        if (max_shelf_num < shelf_num)
+          shelf_num = max_shelf_num;
       }
 
       function updateScene() {
@@ -1352,10 +1377,6 @@
 
         // vertical
         if (vertical_length > 0) {
-          if (shelf_num > shelf_max_num) {
-            shelf_num = shelf_max_num;
-          }
-
           geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
           vertical = new THREE.Mesh(geometry, vertical_material);
           vertical.position.x = - (board_width - frame_thickness) / 2;
