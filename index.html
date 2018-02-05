@@ -1405,13 +1405,21 @@
           // shelves
           var i;
           for (i = 0; i < shelf_num; i++) {
-            geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness);
+            geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness + 2);
             frame = new THREE.Mesh(geometry, shelf_frame_material);
             frame.position.x = - (board_width - frame_thickness) / 2;
-            if (i == 0)
-              frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
-            else
-              frame.position.y = vertical_length * (0.5 - i / (shelf_num - 1)) - board_thickness;
+            if (shelf_direction) {
+              if (i == 0)
+                frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
+              else
+                frame.position.y = - (vertical_length / 2 + vertical_y - 50) * (i / (shelf_num - 1)) + vertical_length / 2;
+            }
+            else {
+              if (i == 0)
+                frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
+              else
+                frame.position.y = vertical_length * (0.5 - i / (shelf_num - 1));
+            }
             frame.castShadow = true;
             vertical.add(frame);
 
@@ -1419,9 +1427,9 @@
             shelf = new THREE.Mesh(geometry, shelf_board_material);
             shelf.position.y = (frame_thickness + board_thickness) / 2;
             if (shelf_direction)
-              shelf.position.z = (shelf_depth - frame_thickness) / 2;
+              shelf.position.z = (shelf_depth - frame_thickness + 2) / 2;
             else 
-              shelf.position.z = -(shelf_depth - frame_thickness) / 2;
+              shelf.position.z = -(shelf_depth - frame_thickness + 2) / 2;
             shelf.castShadow = true;
             frame.add(shelf);            
           }
