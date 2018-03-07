@@ -1366,7 +1366,6 @@
           vertical.castShadow = true;
           board.add(vertical);
 
-          geometry = new THREE.BoxBufferGeometry(frame_thickness, vertical_length, frame_thickness);
           vertical = new THREE.Mesh(geometry, vertical_material);
           vertical.position.x = + (board_width - frame_thickness) / 2;
           vertical.position.y = vertical_y;
@@ -1375,37 +1374,43 @@
           board.add(vertical);
 
           // shelves
-          var i;
-          for (i = 0; i < shelf_num; i++) {
-            // shelf frame
-            geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness + 2);
-            frame = new THREE.Mesh(geometry, shelf_frame_material);
-            frame.position.x = - (board_width - frame_thickness) / 2;
-            if (shelf_direction) {
-              if (i == 0)
-                frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
-              else
-                frame.position.y = - (vertical_length / 2 + vertical_y - 50) * (i / (shelf_num - 1)) + vertical_length / 2;
-            }
-            else {
-              if (i == 0)
-                frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
-              else
-                frame.position.y = vertical_length * (0.5 - i / (shelf_num - 1));
-            }
-            frame.castShadow = true;
-            vertical.add(frame);
+          // shelf frame
+          geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness + 2);
+          frame = new THREE.Mesh(geometry, shelf_frame_material);
+          frame.position.x = - (board_width - frame_thickness) / 2;
+          if (shelf_direction)
+            frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
+          else
+            frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
+          frame.castShadow = true;
+          vertical.add(frame);
 
-            // shelf board
-            geometry = new THREE.BoxBufferGeometry(board_width - 2, board_thickness, shelf_depth);
-            shelf = new THREE.Mesh(geometry, shelf_board_material);
-            shelf.position.y = (frame_thickness + board_thickness) / 2;
+          // shelf board
+          geometry = new THREE.BoxBufferGeometry(board_width - 2, board_thickness, shelf_depth);
+          shelf = new THREE.Mesh(geometry, shelf_board_material);
+          shelf.position.y = (frame_thickness + board_thickness) / 2;
+          if (shelf_direction)
+            shelf.position.z = (shelf_depth - frame_thickness + 2) / 2;
+          else 
+            shelf.position.z = -(shelf_depth - frame_thickness + 2) / 2;
+          shelf.castShadow = true;
+          frame.add(shelf);   
+
+          var board_dup = board.clone();
+          board_dup.position.set((board_width + 10) * i, frame_length + board_thickness, 0);
+          desk.add(board_dup);    
+
+          // shelf duplicate
+          var i;
+          for (i = 1; i < shelf_num; i++) {
+            var frame_dup = frame.clone();
+            frame_dup.position.x = - (board_width - frame_thickness) / 2;
             if (shelf_direction)
-              shelf.position.z = (shelf_depth - frame_thickness + 2) / 2;
-            else 
-              shelf.position.z = -(shelf_depth - frame_thickness + 2) / 2;
-            shelf.castShadow = true;
-            frame.add(shelf);            
+              frame_dup.position.y = - (vertical_length / 2 + vertical_y - 50) * (i / (shelf_num - 1)) + vertical_length / 2;
+            else
+              frame_dup.position.y = vertical_length * (0.5 - i / (shelf_num - 1));
+            frame_dup.castShadow = true;
+            vertical.add(frame_dup);
           }
 
           // safety leg
