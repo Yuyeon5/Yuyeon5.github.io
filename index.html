@@ -1418,21 +1418,30 @@
           frame = new THREE.Mesh(geometry, frame_material);
           frame.position.x = - (board_width - frame_thickness) / 2;
           frame.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
-          frame.position.z = - (board_depth + shelf_depth) / 2;
+          if (shelf_direction)
+            frame.position.z = - (board_depth - shelf_depth) / 2;
+          else
+            frame.position.z = - (board_depth + shelf_depth) / 2;
           frame.castShadow = true;
           board.add(frame);
 
           // safety leg pad
           leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
           leg_pad.position.y = - frame_thickness / 2 - 8;
-          leg_pad.position.z = - (shelf_depth - frame_thickness) / 2;
+          if (shelf_direction)
+            leg_pad.position.z = (shelf_depth - frame_thickness) / 2;
+          else
+            leg_pad.position.z = - (shelf_depth - frame_thickness) / 2;
           frame.add(leg_pad);
 
           // safety leg duplicate
           frame_dup = frame.clone();
           frame_dup.position.x = + (board_width - frame_thickness) / 2;
           frame_dup.position.y = - frame_length + (frame_thickness - board_thickness) / 2;
-          frame_dup.position.z = - (board_depth + shelf_depth) / 2;
+          if (shelf_direction)
+            frame_dup.position.z = - (board_depth - shelf_depth) / 2;
+          else
+            frame_dup.position.z = - (board_depth + shelf_depth) / 2;
           frame_dup.castShadow = true;
           board.add(frame_dup);
         }
