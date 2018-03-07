@@ -1445,7 +1445,6 @@
             giyeok_board.position.x = - (board_width - 600) / 2;
           else
             giyeok_board.position.x = (board_width - 600) / 2;
-            
           giyeok_board.position.z = (board_depth + 800) / 2;
           giyeok_board.castShadow = true;
           board.add(giyeok_board);
@@ -1464,18 +1463,12 @@
           leg_pad.position.y = - frame_length / 2 - 8;
           frame.add(leg_pad);
 
-          // frame (leg)
-          frame = new THREE.Mesh(geometry, frame_material);
-          frame.position.x = (600 - frame_thickness) / 2;
-          frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
-          frame.position.z = (800 - frame_thickness) / 2;
-          frame.castShadow = true;
-          giyeok_board.add(frame);
-
-          // leg pad
-          leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-          leg_pad.position.y = - frame_length / 2 - 8;
-          frame.add(leg_pad);
+          frame_dup = frame.clone();
+          frame_dup.position.x = (600 - frame_thickness) / 2;
+          frame_dup.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+          frame_dup.position.z = (800 - frame_thickness) / 2;
+          frame_dup.castShadow = true;
+          giyeok_board.add(frame_dup);
 
           // frame under board
           geometry = new THREE.BoxBufferGeometry(600, frame_thickness, frame_thickness);
