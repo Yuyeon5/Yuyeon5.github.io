@@ -731,7 +731,7 @@
       var shelf;
       var shelf_depth = 200;
       var shelf_num = 1;
-      var shelf_direction = 0; // out - 0, in - 1
+      var shelf_direction = 1; // out - 0, in - 1
       var shelf_board_material = new THREE.MeshPhongMaterial({ color: white_color });
       var shelf_frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
@@ -1185,33 +1185,25 @@
           // wheel
           geometry = new THREE.CylinderBufferGeometry(25, 25, 30);
           wheel = new THREE.Mesh(geometry, leg_pad_meterial);
-          wheel.position.x = -130;
-          wheel.position.y = -320;
-          wheel.position.z = 180;
+          wheel.position.set( -130, -320, 180 );
           wheel.rotation.x = Math.PI / 2;          
           moving2.add(wheel);
 
           // wheel
           wheel = new THREE.Mesh(geometry, leg_pad_meterial);
-          wheel.position.x = 130;
-          wheel.position.y = -320;
-          wheel.position.z = 180;
+          wheel.position.set( 130, -320, 180 );
           wheel.rotation.x = Math.PI / 2;          
           moving2.add(wheel);
 
           // wheel
           wheel = new THREE.Mesh(geometry, leg_pad_meterial);
-          wheel.position.x = -130;
-          wheel.position.y = -320;
-          wheel.position.z = -180;
+          wheel.position.set( -130, -320, -180 );
           wheel.rotation.x = Math.PI / 2;          
           moving2.add(wheel);
 
           // wheel
           wheel = new THREE.Mesh(geometry, leg_pad_meterial);
-          wheel.position.x = 130;
-          wheel.position.y = -320;
-          wheel.position.z = -180;
+          wheel.position.set( 130, -320, -180 );
           wheel.rotation.x = Math.PI / 2;          
           moving2.add(wheel);
         }
@@ -1249,33 +1241,25 @@
           // wheel
           geometry = new THREE.CylinderBufferGeometry(25, 25, 30);
           wheel = new THREE.Mesh(geometry, leg_pad_meterial);
-          wheel.position.x = -180;
-          wheel.position.y = -320;
-          wheel.position.z = 280;
+          wheel.position.set( -180, -320, 280 );
           wheel.rotation.x = Math.PI / 2;          
           moving3.add(wheel);
 
           // wheel
           wheel = new THREE.Mesh(geometry, leg_pad_meterial);
-          wheel.position.x = 180;
-          wheel.position.y = -320;
-          wheel.position.z = 280;
+          wheel.position.set( 180, -320, 280 );
           wheel.rotation.x = Math.PI / 2;          
           moving3.add(wheel);
 
           // wheel
           wheel = new THREE.Mesh(geometry, leg_pad_meterial);
-          wheel.position.x = -180;
-          wheel.position.y = -320;
-          wheel.position.z = -280;
+          wheel.position.set( -180, -320, -280 );
           wheel.rotation.x = Math.PI / 2;          
           moving3.add(wheel);
 
           // wheel
           wheel = new THREE.Mesh(geometry, leg_pad_meterial);
-          wheel.position.x = 180;
-          wheel.position.y = -320;
-          wheel.position.z = -280;
+          wheel.position.set( 180, -320, -280 );
           wheel.rotation.x = Math.PI / 2;          
           moving3.add(wheel);
         }
@@ -1405,6 +1389,7 @@
           // shelves
           var i;
           for (i = 0; i < shelf_num; i++) {
+            // shelf frame
             geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness + 2);
             frame = new THREE.Mesh(geometry, shelf_frame_material);
             frame.position.x = - (board_width - frame_thickness) / 2;
@@ -1423,6 +1408,7 @@
             frame.castShadow = true;
             vertical.add(frame);
 
+            // shelf board
             geometry = new THREE.BoxBufferGeometry(board_width - 2, board_thickness, shelf_depth);
             shelf = new THREE.Mesh(geometry, shelf_board_material);
             shelf.position.y = (frame_thickness + board_thickness) / 2;
