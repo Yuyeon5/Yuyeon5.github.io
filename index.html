@@ -1279,38 +1279,26 @@
         leg_pad.position.y = - frame_length / 2 - 8;
         frame.add(leg_pad);
 
-        frame = new THREE.Mesh(geometry, frame_material);
-        frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
-        frame.position.z = - (board_depth - frame_thickness) / 2;
-        frame.castShadow = true;
-        board.add(frame);
+        var frame_dup = frame.clone();
+        frame_dup.position.x = (board_width - frame_thickness) / 2;
+        frame_dup.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+        frame_dup.position.z = - (board_depth - frame_thickness) / 2;
+        frame_dup.castShadow = true;
+        board.add(frame_dup);
 
-        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y = - frame_length / 2 - 8;
-        frame.add(leg_pad);
+        frame_dup = frame.clone();
+        frame_dup.position.x = - (board_width - frame_thickness) / 2;
+        frame_dup.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+        frame_dup.position.z = (board_depth - frame_thickness) / 2;
+        frame_dup.castShadow = true;
+        board.add(frame_dup);
 
-        frame = new THREE.Mesh(geometry, frame_material);
-        frame.position.x = - (board_width - frame_thickness) / 2;
-        frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
-        frame.position.z = (board_depth - frame_thickness) / 2;
-        frame.castShadow = true;
-        board.add(frame);
-
-        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y = - frame_length / 2 - 8;
-        frame.add(leg_pad);
-
-        frame = new THREE.Mesh(geometry, frame_material);
-        frame.position.x = (board_width - frame_thickness) / 2;
-        frame.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
-        frame.position.z = (board_depth - frame_thickness) / 2;
-        frame.castShadow = true;
-        board.add(frame);
-
-        leg_pad = new THREE.Mesh(geometry1, leg_pad_meterial);
-        leg_pad.position.y = - frame_length / 2 - 8;
-        frame.add(leg_pad);
+        frame_dup = frame.clone();
+        frame_dup.position.x = (board_width - frame_thickness) / 2;
+        frame_dup.position.y = - (frame_length + board_thickness) / 2 - frame_margin;
+        frame_dup.position.z = (board_depth - frame_thickness) / 2;
+        frame_dup.castShadow = true;
+        board.add(frame_dup);
 
         // frame under board
         geometry = new THREE.BoxBufferGeometry(frame_thickness, frame_thickness, board_depth);
