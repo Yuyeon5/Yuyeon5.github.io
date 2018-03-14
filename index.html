@@ -671,7 +671,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.js"></script>
-    <script src="./TrackballControls.js"></script>
+    <script src="./OrbitControls.js"></script>
 
     <script>
       var container;
@@ -790,8 +790,9 @@
 
         container.appendChild(renderer.domElement);
 
-        controls = new THREE.TrackballControls(camera, renderer.domElement);
-        controls.rotateSpeed = 10.0;
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.autoRotate = true;
+        controls.rotateSpeed = 5.0;
         controls.zoomSpeed = 1.2;
         controls.panSpeed = 1.8;
         controls.noZoom = false;
