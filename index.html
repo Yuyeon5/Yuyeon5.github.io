@@ -1391,15 +1391,15 @@
           board.add(vertical);
 
           // shelves
-          // shelf frame
+          // shelf frame (top)
           geometry = new THREE.BoxBufferGeometry(board_width + 8, frame_thickness, frame_thickness + 2);
           frame = new THREE.Mesh(geometry, shelf_frame_material);
           frame.position.x = - (board_width - frame_thickness) / 2;
-          frame.position.y = (vertical_length - frame_thickness) / 2 - board_thickness + 1;
+          frame.position.y = (vertical_length + frame_thickness) / 2 - board_thickness;
           frame.castShadow = true;
           vertical.add(frame);
 
-          // shelf board
+          // shelf board (top)
           geometry = new THREE.BoxBufferGeometry(board_width - 2, board_thickness, shelf_depth);
           shelf = new THREE.Mesh(geometry, shelf_board_material);
           shelf.position.y = (frame_thickness + board_thickness) / 2;
