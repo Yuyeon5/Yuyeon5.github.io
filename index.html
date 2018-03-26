@@ -871,6 +871,18 @@
         render();
       }
 
+      function setFrameColor(c) {
+        frame_material = getMaterial(c);
+
+        if (c == 1)
+          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: white_color });
+        else
+          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
+
+        updateScene();
+        render();
+      }
+
       function setVerticalColor(c) {
         vertical_material = getMaterial(c);
         updateScene();
@@ -885,18 +897,6 @@
 
       function setShelfFrameColor(c) {
         shelf_frame_material = getMaterial(c);
-        updateScene();
-        render();
-      }
-
-      function setFrameColor(c) {
-        frame_material = getMaterial(c);
-
-        if (c == 1)
-          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: white_color });
-        else
-          leg_pad_meterial = new THREE.MeshPhongMaterial({ color: black_color });
-
         updateScene();
         render();
       }
