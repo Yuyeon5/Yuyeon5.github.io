@@ -1107,11 +1107,6 @@
           return true;
         }
 
-        if (shelf_direction == 0 && is_desk_duplicated) {
-          alert("맞은편 책상과 선반이 겹칩니다.");
-          return true;
-        }
-
         return false;
       }
 
@@ -1534,7 +1529,16 @@
         if (is_desk_duplicated) {
           for (var i = 0; i < num_desk; i++) {
             var board_dup = board.clone();
-            board_dup.position.set((board_width + 10) * i, frame_length + board_thickness, - (board_depth + 10));
+            var length_z = board_depth + 10;
+
+            if (vertical_length > 0) {
+              if (shelf_direction) // in
+                length_z += frame_thickness * 2;
+              else  // out
+                length_z += shelf_depth * 2;
+            }
+
+            board_dup.position.set((board_width + 10) * i, frame_length + board_thickness, - length_z);
             board_dup.rotation.y = Math.PI;
             desk.add(board_dup);    
           }
