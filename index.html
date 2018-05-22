@@ -740,13 +740,13 @@
       var frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var vertical;
-      var vertical_length;
+      var vertical_length = 0;
       var vertical_y;
       var vertical_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var shelf;
       var shelf_depth = 200;
-      var shelf_num = 1;
+      var shelf_num = 0;
       var shelf_direction = 0; // out - 0, in - 1
       var shelf_board_material = new THREE.MeshPhongMaterial({ color: white_color });
       var shelf_frame_material = new THREE.MeshPhongMaterial({ color: white_color });
@@ -1129,6 +1129,78 @@
 
         if (max_shelf_num < shelf_num)
           shelf_num = max_shelf_num;
+      }
+
+      function generateProductCode() {
+        var ret;
+
+        if (is_mium)
+          ret = "2";
+        else
+          ret = "1";
+        
+        switch (board_width) {
+        case 1000:
+          ret += "1";
+          break;
+        case 1200:
+          ret += "2";
+          break;
+        case 1400:
+          ret += "3";
+          break;
+        case 1600:
+          ret += "4";
+          break;
+        case 1800:
+          ret += "5";
+          break;
+        case 2000:
+          ret += "6";
+          break;
+        default:
+          ret += "X"
+        }
+
+        switch (board_depth) {
+        case 500:
+          ret += "1";
+          break;
+        case 600:
+          ret += "2";
+          break;
+        case 700:
+          ret += "3";
+          break;
+        default:
+          ret += "X"
+        }
+
+        switch (vertical_length) {
+        case 0:
+          ret += "0";
+          break;
+        case 640:
+          ret += "1";
+          break;
+        case 920:
+          ret += "2";
+          break;
+        case 1860:
+          ret += "3";
+          break;
+        default:
+          ret += "X"
+        }
+
+        if (vertical_length) {
+          var sub_str = shelf_num.toString();
+          ret += sub_str;
+        }
+        else
+          ret += "0";        
+
+        return ret;
       }
 
       function updateScene() {
@@ -1570,6 +1642,10 @@
         scene.add(lights[2]);
         scene.add(lights[3]);
         scene.add(lights[4]);
+
+        // Generate product code
+        var pCode = document.getElementsByClassName("ft_prd_code");
+        pCode[0].innerHTML = generateProductCode();        
       }
 
       function onWindowResize() {
