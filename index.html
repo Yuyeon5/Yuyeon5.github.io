@@ -1110,8 +1110,8 @@
 
         switch (vertical_length) {
           case 0:
-            max_shelf_num = 0;
-            break;
+            shelf_num = 0;
+            return;
           case 640:
             max_shelf_num = 3;
             break;
@@ -1128,6 +1128,9 @@
 
         if (max_shelf_num < shelf_num)
           shelf_num = max_shelf_num;
+
+        if (vertical_length > 0 && shelf_num == 0)
+          shelf_num = 1;
       }
 
       function generateProductCode() {
