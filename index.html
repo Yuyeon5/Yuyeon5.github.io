@@ -729,6 +729,7 @@
       var board_thickness = 20;
       var board_width = 1200;
       var board_depth = 700;
+      var board_color = 1;
       var board_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var frame;
@@ -736,17 +737,21 @@
       var frame_thickness_under_board = 20;
       var frame_length = 700;
       var frame_margin = 2;       // between frame and board
+      var frame_color = 1;
       var frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var vertical;
       var vertical_length = 0;
       var vertical_y;
+      var vertical_color = 1;
       var vertical_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var shelf;
       var shelf_depth = 200;
       var shelf_num = 0;
       var shelf_direction = 0; // out - 0, in - 1
+      var shelf_board_color = 1;
+      var shelf_frame_color = 1;
       var shelf_board_material = new THREE.MeshPhongMaterial({ color: white_color });
       var shelf_frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
@@ -765,7 +770,7 @@
       var drawer_down;
       var drawer_material = getMaterial(drawer_color);
 
-      var fence_color;
+      var fence_color = 0;
       var fence;
       var fence_material = new THREE.MeshPhongMaterial({ color: white_color });
 
@@ -877,12 +882,14 @@
       }
 
       function setBoardColor(c) {
+        board_color = c;
         board_material = getMaterial(c);
         updateScene();
         render();
       }
 
       function setFrameColor(c) {
+        frame_color = c;
         frame_material = getMaterial(c);
 
         if (c == 1)
@@ -895,18 +902,21 @@
       }
 
       function setVerticalColor(c) {
+        vertical_color = c;
         vertical_material = getMaterial(c);
         updateScene();
         render();
       }
 
       function setShelfBoardColor(c) {
+        shelf_board_color = c;
         shelf_board_material = getMaterial(c);
         updateScene();
         render();
       }
 
       function setShelfFrameColor(c) {
+        shelf_frame_color = c;
         shelf_frame_material = getMaterial(c);
         updateScene();
         render();
@@ -1135,6 +1145,7 @@
 
       function generateProductCode() {
         var ret;
+        var sub_str;
 
         if (is_mium)
           ret = "2";
@@ -1196,11 +1207,66 @@
         }
 
         if (vertical_length) {
-          var sub_str = shelf_num.toString();
+          sub_str = shelf_num.toString();
           ret += sub_str;
         }
         else
-          ret += "0";        
+          ret += "0";
+
+        // delimiter
+        ret += "-";
+
+        if (shelf_direction)
+          ret += "2";
+        else
+          ret += "1";
+          
+        sub_str = board_color.toString();
+        ret += sub_str;
+
+        sub_str = frame_color.toString();
+        ret += sub_str;
+
+        sub_str = vertical_color.toString();
+        ret += sub_str;
+
+        sub_str = shelf_board_color.toString();
+        ret += sub_str;
+
+        // delimiter
+        ret += "-";
+
+        sub_str = shelf_frame_color.toString();
+        ret += sub_str;
+
+        sub_str = giyeok_position.toString();
+        ret += sub_str;
+
+        sub_str = desk_mat_color.toString();
+        ret += sub_str;
+
+        sub_str = drawer_color.toString();
+        ret += sub_str;
+
+        sub_str = fence_color.toString();
+        ret += sub_str;
+
+        // delimiter
+        ret += "-";
+
+        sub_str = moving2_color.toString();
+        ret += sub_str;
+
+        sub_str = moving3_color.toString();
+        ret += sub_str;
+
+        sub_str = num_desk.toString();
+        ret += sub_str;
+
+        if (is_desk_duplicated)
+          ret += "2";
+        else
+        ret += "1";
 
         return ret;
       }
