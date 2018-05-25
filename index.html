@@ -728,7 +728,9 @@
       var giyeok_board;
       var board_thickness = 20;
       var board_width = 1200;
+      var board_width_idx = 2;
       var board_depth = 700;
+      var board_depth_idx = 3;
       var board_color = 1;
       var board_material = new THREE.MeshPhongMaterial({ color: white_color });
 
@@ -840,12 +842,50 @@
           return;
         }
 
+        switch (board_width) {
+        case 1000:
+          board_width_idx = 1;
+          break;
+        case 1200:
+          board_width_idx = 2;
+          break;
+        case 1400:
+          board_width_idx = 3;
+          break;
+        case 1600:
+          board_width_idx = 4;
+          break;
+        case 1800:
+          board_width_idx = 5;
+          break;
+        case 2000:
+          board_width_idx = 6;
+          break;
+        default:
+          board_width_idx = 9;
+        }
+
         updateScene();
         render();
       }
 
       function setDepth(d) {
         board_depth = d;
+
+        switch (board_depth) {
+        case 500:
+          board_depth_idx = 1;
+          break;
+        case 600:
+          board_depth_idx = 2;
+          break;
+        case 700:
+          board_depth_idx = 3;
+          break;
+        default:
+          board_depth_idx = 9;
+        }
+
         updateScene();
         render();
       }
@@ -1152,42 +1192,11 @@
         else
           ret = "1";
         
-        switch (board_width) {
-        case 1000:
-          ret += "1";
-          break;
-        case 1200:
-          ret += "2";
-          break;
-        case 1400:
-          ret += "3";
-          break;
-        case 1600:
-          ret += "4";
-          break;
-        case 1800:
-          ret += "5";
-          break;
-        case 2000:
-          ret += "6";
-          break;
-        default:
-          ret += "X"
-        }
+        sub_str = board_width_idx.toString();
+        ret += sub_str;
 
-        switch (board_depth) {
-        case 500:
-          ret += "1";
-          break;
-        case 600:
-          ret += "2";
-          break;
-        case 700:
-          ret += "3";
-          break;
-        default:
-          ret += "X"
-        }
+        sub_str = board_depth_idx.toString();
+        ret += sub_str;
 
         switch (vertical_length) {
         case 0:
