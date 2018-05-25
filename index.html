@@ -154,15 +154,15 @@
 					.ft_title { font-weight: normal; color: #9f9f9f; font-size: 16px; }
 					.ft_prd_code { color: #fff; font-size: 30px; letter-spacing: -0.5px; }
 
-					.delevery_box { float: left; }
-					.delevery_box:first-child { margin-right: 20px; }
-						.delevery_info { position: relative; width: 175px; height: 35px; line-height: 35px; background-color: #000; overflow: hidden; color: #fff; text-indent: 10px; font-size: 18px; margin-top: 5px; }
-						.delevery_info.price { text-align: right; padding-right: 10px; }
-							.delevery_area_list { height: 35px; }
-								.delevery_area_list>li { line-height: 35px; list-style: none; }
-							.delevery_list_more { position: absolute; right: 10px; top: 0; }
+					.delivery_box { float: left; }
+					.delivery_box:first-child { margin-right: 20px; }
+						.delivery_info { position: relative; width: 175px; height: 35px; line-height: 35px; background-color: #000; overflow: hidden; color: #fff; text-indent: 10px; font-size: 18px; margin-top: 5px; }
+						.delivery_info.price { text-align: right; padding-right: 10px; }
+							.delivery_area_list { height: 35px; }
+								.delivery_area_list>li { line-height: 35px; list-style: none; }
+							.delivery_list_more { position: absolute; right: 10px; top: 0; }
 
-							.delevery_info.price>span { font-size: 14px; }
+							.delivery_info.price>span { font-size: 14px; }
 
 						.ft_total_title { display: block; float: left; line-height: 110px; font-size: 24px; color: #fff; font-weight: normal; }
 						.ft_total_price { display: block; float: right; line-height: 110px; font-size: 50px; color: #fff;  }
@@ -197,7 +197,7 @@
 			
 			.footer { height: 220px; }
 			.ft_inner>div { height: 175px; }
-			.delevery_box { margin-bottom: 10px; }
+			.delivery_box { margin-bottom: 10px; }
 			.ft_total_price { position: relative; top: -50px; }
 		}
 	</style>
@@ -647,30 +647,30 @@
 				</div>
 
 				<div style="width: 23.5%;">
-					<div class="delevery_box">
+					<div class="delivery_box">
 						<strong class="ft_title">배송지역 설정</strong>
-						<div class="delevery_info">
-							<ul class="delevery_area_list">
+						<div class="delivery_info">
+							<ul class="delivery_area_list">
 								<li>서울</li>
 								<li>경기</li>
 							</ul>
-							<span class="delevery_list_more">+</span>
+							<span class="delivery_list_more">+</span>
 						</div>
 					</div>
-					<div class="delevery_box">
+					<div class="delivery_box">
 						<strong class="ft_title">배송 가능 날짜</strong>
-						<div class="delevery_info">2017년 12월 31일</div>
+						<div class="delivery_info">2017년 12월 31일</div>
 					</div>
 				</div>
 
 				<div style="width: 23.5%;">
-					<div class="delevery_box">
+					<div class="delivery_box">
 						<strong class="ft_title">배송조립비</strong>
-						<div class="delevery_info price">28,000 <span>원</span></div>
+						<div class="delivery_info price">28,000 <span>원</span></div>
 					</div>
-					<div class="delevery_box">
+					<div class="delivery_box">
 						<strong class="ft_title">상품금액</strong>
-						<div class="delevery_info price">283,000 <span>원</span></div>
+						<div class="delivery_info price">283,000 <span>원</span></div>
 					</div>
 				</div>
 
@@ -1712,8 +1712,11 @@
         scene.add(lights[4]);
 
         // Generate product code
-        var pCode = document.getElementsByClassName("ft_prd_code");
-        pCode[0].innerHTML = generateProductCode();        
+        var productCode = document.getElementsByClassName("ft_prd_code");
+        productCode[0].innerHTML = generateProductCode();        
+
+        var price = document.getElementsByClassName("delivery_info price");
+        
       }
 
       function onWindowResize() {
