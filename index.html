@@ -829,6 +829,12 @@
 
       function setMium(m) {
         is_mium = m;
+
+        if (checkCollision()) {
+          is_mium = 0;
+          return;
+        }
+
         updateScene();
         render();
       }
@@ -870,7 +876,13 @@
       }
 
       function setDepth(d) {
+        var prev = board_depth;
+
         board_depth = d;
+        if (checkCollision()) {
+          board_depth = prev;
+          return;
+        }
 
         switch (board_depth) {
         case 500:
@@ -999,12 +1011,7 @@
       }
 
       function setShelfDirection(d) {
-        var prev = shelf_direction;
         shelf_direction = d;
-        if (checkCollision()) {
-          shelf_direction = prev;
-          return;
-        }
         adjustShlefNum();
 
         updateScene();
@@ -1120,12 +1127,7 @@
       }
 
       function setDeskOpposite(b) {
-        var prev = is_desk_duplicated;
         is_desk_duplicated = b;
-        if (checkCollision()) {
-          is_desk_duplicated = prev;
-          return;
-        }
 
         updateScene();
         render();
@@ -1149,6 +1151,11 @@
 
         if (fence_color && moving3_color) {
           alert("하부가림막과 3단 서랍이 겹칩니다.");
+          return true;
+        }
+
+        if (board_depth != 600 && is_mium) {
+          alert("ㅁ다리는 상판깊이가 600일 때만 가능합니다.");
           return true;
         }
 
@@ -1278,6 +1285,19 @@
         ret += "1";
 
         return ret;
+      }
+
+      function calculatePrice() {
+        var delivery_price = 0;
+        var product_price = 0;
+
+        var board_price_table = [ 117300,	134200,	142600,	155800,	193100,
+                                  128300,	146800,	164800,	186900,	214500,
+                                  162800,	189500,	199700,	217300,	241400];
+
+        var board_price = 0;
+        var board_delivery_price = 0;
+
       }
 
       function updateScene() {
