@@ -260,10 +260,10 @@
 						</div>
 						<div class="menu_all_list" style="width: 402px;">
 							<div class="mal_buttons">
-								<div onclick="setVertical(1)">없음</div>
-								<div onclick="setVertical(2)">640</div>
-								<div onclick="setVertical(3)">920</div>
-								<div onclick="setVertical(4)">1860</div>
+								<div onclick="setVertical(0)">없음</div>
+								<div onclick="setVertical(1)">640</div>
+								<div onclick="setVertical(2)">920</div>
+								<div onclick="setVertical(3)">1860</div>
 							</div>
 						</div>
 					</div>
@@ -513,10 +513,10 @@
 			</div>
 			<div class="menu_all_list" style="width: 402px;  margin-left: -201px; ">
 				<div class="mal_buttons">
-					<div onclick="setVertical(1)">없음</div>
-					<div onclick="setVertical(2)">640</div>
-					<div onclick="setVertical(3)">920</div>
-					<div onclick="setVertical(4)">1860</div>
+					<div onclick="setVertical(0)">없음</div>
+					<div onclick="setVertical(1)">640</div>
+					<div onclick="setVertical(2)">920</div>
+					<div onclick="setVertical(3)">1860</div>
 				</div>
 			</div>
 			<div class="menu_all_list" style="width: 702px; margin-left: -351px; ">
@@ -743,6 +743,7 @@
       var frame_material = new THREE.MeshPhongMaterial({ color: white_color });
 
       var vertical;
+      var vertical_length_idx = 0;
       var vertical_length = 0;
       var vertical_y;
       var vertical_color = 1;
@@ -975,24 +976,28 @@
       }
 
       function setVertical(c) {
+        vertical_length_idx = c;
+
         switch (c) {
-          case 1:
+          case 0:
             vertical_length = 0;
+            shelf_num = 0;
             break;
-          case 2:
+          case 1:
             vertical_length = 640;
             vertical_y = -15;
             break;
-          case 3:
+          case 2:
             vertical_length = 920;
             vertical_y = -7;
             break;
-          case 4:
+          case 3:
             vertical_length = 1860;
             vertical_y = 360;
             break;
           default:
             vertical_length = 0;
+            shelf_num = 0;
             break;
         }
 
@@ -1186,7 +1191,7 @@
         if (max_shelf_num < shelf_num)
           shelf_num = max_shelf_num;
 
-        if (vertical_length > 0 && shelf_num == 0)
+        if ((vertical_length > 0) && (shelf_num == 0))
           shelf_num = 1;
       }
 
@@ -1205,22 +1210,8 @@
         sub_str = board_depth_idx.toString();
         ret += sub_str;
 
-        switch (vertical_length) {
-        case 0:
-          ret += "0";
-          break;
-        case 640:
-          ret += "1";
-          break;
-        case 920:
-          ret += "2";
-          break;
-        case 1860:
-          ret += "3";
-          break;
-        default:
-          ret += "X"
-        }
+        sub_str = vertical_length_idx.toString();
+        ret += sub_str;
 
         if (vertical_length) {
           sub_str = shelf_num.toString();
@@ -1295,9 +1286,16 @@
                                   128300,	146800,	164800,	186900,	214500,
                                   162800,	189500,	199700,	217300,	241400];
 
-        var board_price = 0;
-        var board_delivery_price = 0;
+        // TODO: board price
+        product_price += 0;
+        delivery_price += 29800;
 
+        if (is_mium)
+          product_price += 69900;
+
+        if (vertical_length_idx) {
+
+        }
       }
 
       function updateScene() {
