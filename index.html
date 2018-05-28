@@ -1281,18 +1281,59 @@
         var board_price_table = [ 117300,	134200,	142600,	155800,	193100,
                                   128300,	146800,	164800,	186900,	214500,
                                   162800,	189500,	199700,	217300,	241400];
+        var shelf_product_price_table = [34000,	43000,	45000,	51000,	57000];
+        var shelf_delivery_price_table = [29800, 29800, 32800, 35800, 35800, 35800, 35800];
+        var fence_price_table = [81700, 101700, 103400, 105000, 113900];
 
-        // TODO: board price
         var table_index = (board_width_idx - 1) + (board_depth_idx - 1) * 5; 
         product_price += board_price_table[table_index];
         delivery_price += 29800;
 
-        if (is_mium)
+        if (is_mium) {
           product_price += 69900;
+          delivery_price += 29800;
+        }
 
         if (vertical_length_idx) {
+          delivery_price += shelf_delivery_price_table[shelf_num - 1];
+
+          if (vertical_length_idx == 1)
+            product_price += shelf_product_price_table[board_width_idx - 1] * shelf_num;
+          else if (vertical_length_idx == 2)
+            product_price += (shelf_product_price_table[board_width_idx - 1] + 11400) * shelf_num;
+          else if (vertical_length_idx == 3)
+            product_price += (shelf_product_price_table[board_width_idx - 1] + 21900) * shelf_num;
+        }
+
+        if (giyeok_position)
+          product_price += 94500;
+
+        if (desk_mat_color) {
+          product_price += 65000;
+          delivery_price += 5000;
+        }
+
+        if (drawer_color) {
+          product_price += 34400;
+          delivery_price += 3000;
+        }
+
+        if (fence_color) {
+          product_price += fence_price_table[board_width_idx - 1];
+          delivery_price += 19800;
+        }
+
+        if (moving2_color) {
+          product_price += 88000;
+          delivery_price += 19800;
+        }
+
+        if (moving3_color) {
+          product_price += 121000;
+          delivery_price += 19800;
         }
         
+        // return
         ret_price[0] = delivery_price;
         ret_price[1] = product_price;
 
