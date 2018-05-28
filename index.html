@@ -726,7 +726,7 @@
       var giyeok_board;
       var board_thickness = 20;
       var board_width = 1200;
-      var board_width_idx = 2;
+      var board_width_idx = 1;
       var board_depth = 700;
       var board_depth_idx = 3;
       var board_color = 1;
@@ -1276,21 +1276,27 @@
       function calculatePrice() {
         var delivery_price = 0;
         var product_price = 0;
+        var ret_price = new Array(2);
 
         var board_price_table = [ 117300,	134200,	142600,	155800,	193100,
                                   128300,	146800,	164800,	186900,	214500,
                                   162800,	189500,	199700,	217300,	241400];
 
         // TODO: board price
-        product_price += 0;
+        var table_index = (board_width_idx - 1) + (board_depth_idx - 1) * 5; 
+        product_price += board_price_table[table_index];
         delivery_price += 29800;
 
         if (is_mium)
           product_price += 69900;
 
         if (vertical_length_idx) {
-
         }
+        
+        ret_price[0] = delivery_price;
+        ret_price[1] = product_price;
+
+        return ret_price;
       }
 
       function updateScene() {
@@ -1737,8 +1743,10 @@
         var productCode = document.getElementsByClassName("ft_prd_code");
         productCode[0].innerHTML = generateProductCode();        
 
+        var price_arr = calculatePrice();
         var price = document.getElementsByClassName("delivery_info price");
-        
+        price[0].innerHTML = price_arr[0].toLocaleString();
+        price[1].innerHTML = price_arr[1].toLocaleString();        
       }
 
       function onWindowResize() {
