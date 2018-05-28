@@ -229,14 +229,13 @@
 							<p class="menu_sel_text">1200</p>
 							<div class="menu_title">폭(W)</div>
 						</div>
-						<div class="menu_all_list" style="width: 602px;">
+						<div class="menu_all_list" style="width: 502px;">
 							<div class="mal_buttons">
-								<div onclick="setWidth(1000)">1000</div>
 								<div onclick="setWidth(1200)">1200</div>
 								<div onclick="setWidth(1400)">1400</div>
 								<div onclick="setWidth(1600)">1600</div>
 								<div onclick="setWidth(1800)">1800</div>
-								<div onclick="setWidth(2000)">2000</div>
+								<div onclick="setWidth(2060)">2060</div>
 							</div>
 						</div>
 					</div>
@@ -494,14 +493,13 @@
 					<div onclick="setMium(1)">ㅁ다리</div>
 				</div>
 			</div>
-			<div class="menu_all_list" style="width: 602px; margin-left: -301px; ">
+			<div class="menu_all_list" style="width: 502px; margin-left: -251px; ">
 				<div class="mal_buttons">
-					<div onclick="setWidth(1000)">1000</div>
 					<div onclick="setWidth(1200)">1200</div>
 					<div onclick="setWidth(1400)">1400</div>
 					<div onclick="setWidth(1600)">1600</div>
 					<div onclick="setWidth(1800)">1800</div>
-					<div onclick="setWidth(2000)">2000</div>
+					<div onclick="setWidth(2060)">2060</div>
 				</div>
 			</div>
 			<div class="menu_all_list" style="width: 302px; margin-left: -151px; ">
@@ -850,26 +848,23 @@
         }
 
         switch (board_width) {
-        case 1000:
+        case 1200:
           board_width_idx = 1;
           break;
-        case 1200:
+        case 1400:
           board_width_idx = 2;
           break;
-        case 1400:
+        case 1600:
           board_width_idx = 3;
           break;
-        case 1600:
+        case 1800:
           board_width_idx = 4;
           break;
-        case 1800:
+        case 2060:
           board_width_idx = 5;
           break;
-        case 2000:
-          board_width_idx = 6;
-          break;
         default:
-          board_width_idx = 9;
+          board_width_idx = 0;
         }
 
         updateScene();
