@@ -1282,7 +1282,7 @@
                                   128300,	146800,	164800,	186900,	214500,
                                   162800,	189500,	199700,	217300,	241400];
         var shelf_product_price_table = [34000,	43000,	45000,	51000,	57000];
-        var shelf_delivery_price_table = [29800, 29800, 32800, 35800, 35800, 35800, 35800];
+        var shelf_delivery_price_table = [29800, 29800, 32800, 35800, 38800, 41800, 44800];
         var fence_price_table = [81700, 101700, 103400, 105000, 113900];
 
         var table_index = (board_width_idx - 1) + (board_depth_idx - 1) * 5; 
@@ -1295,14 +1295,13 @@
         }
 
         if (vertical_length_idx) {
+          product_price += shelf_product_price_table[board_width_idx - 1] * shelf_num;
           delivery_price += shelf_delivery_price_table[shelf_num - 1];
 
-          if (vertical_length_idx == 1)
-            product_price += shelf_product_price_table[board_width_idx - 1] * shelf_num;
-          else if (vertical_length_idx == 2)
-            product_price += (shelf_product_price_table[board_width_idx - 1] + 11400) * shelf_num;
+          if (vertical_length_idx == 2)
+            product_price += 11400;
           else if (vertical_length_idx == 3)
-            product_price += (shelf_product_price_table[board_width_idx - 1] + 21900) * shelf_num;
+            product_price += 21900;
         }
 
         if (giyeok_position)
@@ -1786,8 +1785,12 @@
 
         var price_arr = calculatePrice();
         var price = document.getElementsByClassName("delivery_info price");
+        var total_price = price_arr[0] + price_arr[1];
         price[0].innerHTML = price_arr[0].toLocaleString();
-        price[1].innerHTML = price_arr[1].toLocaleString();        
+        price[1].innerHTML = price_arr[1].toLocaleString();
+
+        price = document.getElementsByClassName("ft_total_price");
+        price[0].innerHTML = total_price.toLocaleString();
       }
 
       function onWindowResize() {
