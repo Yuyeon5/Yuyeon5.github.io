@@ -1331,6 +1331,16 @@
           product_price += 121000;
           delivery_price += 19800;
         }
+
+        if (num_desk > 1) {
+          product_price *= num_desk;
+          delivery_price *= num_desk;
+        }
+
+        if (is_desk_duplicated) {
+          product_price *= 2;
+          delivery_price *= 2;
+        }
         
         // return
         ret_price[0] = delivery_price;
