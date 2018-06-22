@@ -479,6 +479,18 @@
 								<div onclick="setDeskOpposite(true)">Yes</div>
 							</div>
 						</div>
+          </div>
+          <div class="swiper-slide">
+						<div class="menu_box">
+                <p class="menu_sel_text">Export</p>
+							<div class="menu_title">3D 파일</div>
+						</div>
+						<div class="menu_all_list" style="width: 202px;">
+							<div class="mal_buttons">
+								<div onclick="exportOBJ()">OBJ</div>
+								<div onclick="exportSTL()">STL</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- Add Arrows -->
@@ -685,6 +697,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.js"></script>
     <script src="./OrbitControls.js"></script>
+    <script src="./OBJExporter.js"></script>
 
     <script>
       var container;
@@ -786,6 +799,10 @@
       var moving3_position = 1;
       var moving3;
       var moving3_material = new THREE.MeshPhongMaterial({ color: white_color });
+
+      var link = document.createElement( 'a' );
+			link.style.display = 'none';
+			document.body.appendChild( link );
 
       init();
       animate();
@@ -1825,6 +1842,27 @@
       function render() {
         renderer.render(scene, camera);
       }
+      
+      function save( blob, filename ) {
+				link.href = URL.createObjectURL( blob );
+				link.download = filename;
+				link.click();
+      }
+      
+			function saveString( text, filename ) {
+				save( new Blob( [ text ], { type: 'text/plain' } ), filename );
+      }
+      
+			function saveArrayBuffer( buffer, filename ) {
+				save( new Blob( [ buffer ], { type: 'application/octet-stream' } ), filename );
+      }
+      
+      function exportOBJ() {
+        var exporter = new THREE.OBJExporter();
+        var result = exporter.parse(scene);
+        saveString(result, "f1desk.obj");
+      }
+
     </script>
 </body>
 
