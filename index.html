@@ -698,6 +698,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.js"></script>
     <script src="./OrbitControls.js"></script>
     <script src="./OBJExporter.js"></script>
+    <script src="./STLExporter.js"></script>
 
     <script>
       var container;
@@ -1861,6 +1862,12 @@
         var exporter = new THREE.OBJExporter();
         var result = exporter.parse(desk);
         saveString(result, "f1desk.obj");
+      }
+
+      function exportSTL() {
+        var exporter = new THREE.STLExporter();
+        var result = exporter.parse(desk);
+        saveString(result, "f1desk.stl");
       }
 
     </script>
