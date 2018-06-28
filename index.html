@@ -1874,13 +1874,13 @@
       function exportOBJ() {
         var exporter = new THREE.OBJExporter();
         var result = exporter.parse(desk);
-        saveString(result, "f1desk " + product_code_string + ".obj");
+        saveString(result, "f1desk_" + product_code_string + ".obj");
       }
 
       function exportSTL() {
         var exporter = new THREE.STLExporter();
         var result = exporter.parse(desk);
-        saveString(result, "f1desk " + product_code_string + ".stl");
+        saveString(result, "f1desk_" + product_code_string + ".stl");
       }
 
     </script>
