@@ -1821,18 +1821,30 @@
         // Calculate price and generate product code
         var price_arr = calculatePrice();
         var total_price = price_arr[0] + price_arr[1];
-        product_code_string = generateProductCode();        
+
+        product_code_string = generateProductCode();
+
+        var my_date = new Date();
+        var day_of_month = my_date.getDate();
+        my_date.setDate(day_of_month + 7);
+        
+        var dd = my_date.getDate();
+        var mm = my_date.getMonth() + 1;  //January is 0!
+        var yyyy = my_date.getFullYear();
 
         // write price and code into HTML
-        var productCode = document.getElementsByClassName("ft_prd_code");
-        productCode[0].innerHTML = generateProductCode();        
+        var product_code_html = document.getElementsByClassName("ft_prd_code");
+        product_code_html[0].innerHTML = generateProductCode();        
         
-        var price = document.getElementsByClassName("delivery_info price");
-        price[0].innerHTML = price_arr[0].toLocaleString();
-        price[1].innerHTML = price_arr[1].toLocaleString();
+        var price_html = document.getElementsByClassName("delivery_info price");
+        price_html[0].innerHTML = price_arr[0].toLocaleString();
+        price_html[1].innerHTML = price_arr[1].toLocaleString();
 
-        price = document.getElementsByClassName("ft_total_price");
-        price[0].innerHTML = total_price.toLocaleString();
+        price_html = document.getElementsByClassName("ft_total_price");
+        price_html[0].innerHTML = total_price.toLocaleString();
+
+        var delivery_date_html = document.getElementsByClassName("delivery_info");
+        delivery_date_html[1].innerHTML = yyyy + "년 " + mm + "월 " + dd + "일";
       }
 
       function onWindowResize() {
