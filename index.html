@@ -717,7 +717,7 @@
       var camera, controls, scene, renderer;
       var geometry, geometry1, material;
 
-      var width, height = 700;
+      var width, height = 700;  // board width and height
 
       var white_color = 0xf8f9fb;
       var black_color = 0x21201e;
@@ -816,6 +816,8 @@
       var link = document.createElement( 'a' );
 			link.style.display = 'none';
 			document.body.appendChild( link );
+
+      var product_code_string;
 
       init();
       animate();
@@ -1815,13 +1817,16 @@
         scene.add(lights[3]);
         scene.add(lights[4]);
 
-        // Generate product code
+        // Calculate price and generate product code
+        var price_arr = calculatePrice();
+        var total_price = price_arr[0] + price_arr[1];
+        product_code_string = generateProductCode();        
+
+        // write price and code into HTML
         var productCode = document.getElementsByClassName("ft_prd_code");
         productCode[0].innerHTML = generateProductCode();        
-
-        var price_arr = calculatePrice();
+        
         var price = document.getElementsByClassName("delivery_info price");
-        var total_price = price_arr[0] + price_arr[1];
         price[0].innerHTML = price_arr[0].toLocaleString();
         price[1].innerHTML = price_arr[1].toLocaleString();
 
@@ -1869,13 +1874,13 @@
       function exportOBJ() {
         var exporter = new THREE.OBJExporter();
         var result = exporter.parse(desk);
-        saveString(result, "f1desk.obj");
+        saveString(result, "f1desk " + product_code_string + ".obj");
       }
 
       function exportSTL() {
         var exporter = new THREE.STLExporter();
         var result = exporter.parse(desk);
-        saveString(result, "f1desk.stl");
+        saveString(result, "f1desk " + product_code_string + ".stl");
       }
 
     </script>
